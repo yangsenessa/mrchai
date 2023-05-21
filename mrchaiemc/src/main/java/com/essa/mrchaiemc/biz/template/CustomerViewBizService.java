@@ -1,4 +1,4 @@
-package rpc.controller.view.biz.template;
+package com.essa.mrchaiemc.biz.template;
 
 public interface CustomerViewBizService {
 

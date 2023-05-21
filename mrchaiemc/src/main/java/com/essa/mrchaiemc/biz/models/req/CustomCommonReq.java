@@ -1,4 +1,4 @@
-package rpc.controller.view.models.req;
+package com.essa.mrchaiemc.biz.models.req;
 
 public class CustomCommonReq extends BaseReq {
 

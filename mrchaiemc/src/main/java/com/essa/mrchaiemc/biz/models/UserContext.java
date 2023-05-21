@@ -1,4 +1,4 @@
-package rpc.controller.view.models;
+package com.essa.mrchaiemc.biz.models;
 
 public class UserContext {
     private String userId;

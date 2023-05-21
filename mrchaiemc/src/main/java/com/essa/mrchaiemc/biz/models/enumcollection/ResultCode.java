@@ -1,4 +1,4 @@
-package rpc.controller.view.models.enumcollection;
+package com.essa.mrchaiemc.biz.models.enumcollection;
 
 public enum ResultCode {
 

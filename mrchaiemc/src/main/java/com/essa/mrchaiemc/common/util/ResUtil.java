@@ -1,9 +1,10 @@
-package common.util;
+package com.essa.mrchaiemc.common.util;
 
-import rpc.controller.view.models.BussContext;
-import rpc.controller.view.models.UserContext;
-import rpc.controller.view.models.enumcollection.ResultCode;
-import rpc.controller.view.models.rsp.CustomerLoginResponse;
+
+import com.essa.mrchaiemc.biz.models.BussContext;
+import com.essa.mrchaiemc.biz.models.UserContext;
+import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
+import com.essa.mrchaiemc.biz.models.rsp.CustomerLoginResponse;
 
 public class ResUtil {
     /**
@@ -22,7 +23,8 @@ public class ResUtil {
 
 
     public static CustomerLoginResponse commonErrResponse(){
-        CustomerLoginResponse rep = new CustomerLoginResponse();
-        return
+        CustomerLoginResponse rsp = new CustomerLoginResponse();
+        rsp.setResultCode(ResultCode.SYSFAIL);
+        return rsp;
     }
 }

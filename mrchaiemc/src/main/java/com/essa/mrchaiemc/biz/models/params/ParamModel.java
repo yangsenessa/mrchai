@@ -1,4 +1,4 @@
-package rpc.controller.view.models.params;
+package com.essa.mrchaiemc.biz.models.params;
 
 import java.util.List;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package rpc.controller.view.models;
+package com.essa.mrchaiemc.biz.models;
 
 /**
  * 基础业务上下文，通过中心化节点分发到ems分布式算力

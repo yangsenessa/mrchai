@@ -1,6 +1,7 @@
-package rpc.controller.view.models;
+package com.essa.mrchaiemc.biz.models;
 
-import rpc.controller.view.models.params.ParamModel;
+
+import com.essa.mrchaiemc.biz.models.params.ParamModel;
 
 public class EmcContext {
     /**

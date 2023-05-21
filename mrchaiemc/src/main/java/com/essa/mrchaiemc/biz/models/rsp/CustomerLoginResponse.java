@@ -1,9 +1,11 @@
-package rpc.controller.view.models.rsp;
+package com.essa.mrchaiemc.biz.models.rsp;
 
-import rpc.controller.view.models.BussContext;
-import rpc.controller.view.models.EmcContext;
-import rpc.controller.view.models.UserContext;
-import rpc.controller.view.models.enumcollection.ResultCode;
+
+import com.essa.mrchaiemc.biz.models.BussContext;
+import com.essa.mrchaiemc.biz.models.EmcContext;
+import com.essa.mrchaiemc.biz.models.UserContext;
+import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
+
 
 public class CustomerLoginResponse {
     private ResultCode resultCode;
