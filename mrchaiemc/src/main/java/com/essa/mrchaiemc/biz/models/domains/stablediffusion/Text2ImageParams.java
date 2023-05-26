@@ -7,100 +7,100 @@ public class Text2ImageParams implements Serializable {
     /**
      * Text prompt with description of the things you want in the image to be generated.
      */
-    protected String key;
+    private String key;
 
     /**
      * Text prompt with description of the things you want in the image to be generated.
      */
-    protected String prompt;
+    private String prompt;
 
     /**
      * Items you don't want in the image.
      */
-    protected String negativePrompt;
+    private String negativePrompt;
 
     /**
      * Max Height: Width: 1024x1024.
      */
-    protected String width;
+    private String width;
 
 
     /**
      * Max Height: Width: 1024x1024.
      */
-    protected String height;
+    private String height;
 
     /**
      * Number of images to be returned in response. The maximum value is 4.
      */
-    protected String samples;
+    private String samples;
 
     /**
      * num_inference_steps
      */
-    protected String numInferenceSteps;
+    private String numInferenceSteps;
 
     /**
      * A checker for NSFW images. If such an image is detected, it will be replaced by a blank image.
      */
-    protected String safety_checker = "no";
+    private String safety_checker = "no";
 
     /**
      * enhance_prompt
      * Enhance prompts for better results; default: yes, options: yes/no.
      */
-    protected String enhancePrompt;
+    private String enhancePrompt;
 
     /**
      * Seed is used to reproduce results, same seed will give you same image in return again. Pass null for a random number.
      */
-    protected String seed;
+    private int seed;
 
     /**
      * guidance_scale
      * Scale for classifier-free guidance (minimum: 1; maximum: 20).
      */
-    protected float guidanceScale;
+    private float guidanceScale;
 
     /**
      * multi_lingual
      * Allow multi lingual prompt to generate images. Use "no" for the default English.
      */
-    protected String multiLingual;
+    private String multiLingual;
 
     /**
      * Set this parameter to "yes" to generate a panorama image.
      */
-    protected String panorama;
+    private String panorama;
 
     /**
      * self_attention
      * If you want a high quality image, set this parameter to "yes". In this case the image generation will take more time.
      */
-    protected String selfAttention;
+    private String selfAttention;
 
     /**
      * upscale
      * Set this parameter to "yes" if you want to upscale the given image resolution two times (2x).
      * If the requested resolution is 512 x 512 px, the generated image will be 1024 x 1024 px.
      */
-    protected String upScale;
+    private String upScale;
 
     /**
      * embeddings_model
      * This is used to pass an embeddings model (embeddings_model_id).
      */
-    protected String embeddingsModel;
+    private String embeddingsModel;
 
     /**
      * Set an URL to get a POST API call once the image generation is complete.
      */
-    protected String webhook;
+    private String webhook;
 
     /**
      * This ID is returned in the response to the webhook API call. This will be used to identify the webhook request.
      */
-    protected String trackId;
+    private String trackId;
 
     public String getKey() {
         return key;
@@ -174,11 +174,11 @@ public class Text2ImageParams implements Serializable {
         this.enhancePrompt = enhancePrompt;
     }
 
-    public String getSeed() {
+    public int getSeed() {
         return seed;
     }
 
-    public void setSeed(String seed) {
+    public void setSeed(int seed) {
         this.seed = seed;
     }
 
