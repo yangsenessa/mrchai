@@ -1,22 +1,36 @@
 package com.essa.mrchaiemc.biz.models;
 
-import com.essa.mrchaiemc.biz.models.enumcollection.ActionTypeEnum;
-import com.essa.mrchaiemc.biz.models.enumcollection.ProcessEnum;
-
 /**
  * 基础业务上下文，通过中心化节点分发到ems分布式算力
  * 运用redis+ob的方式进行存储和更新
  */
 public class BussContext {
-   private String actionCode;
+    /**
+     * 标识业务流
+     */
+    private String actionCode;
 
-   private ActionTypeEnum actionType;
+    /**
+     * 当前业务节点
+     */
+    private String currNode;
 
-   private ProcessEnum process;
 
-   private UserContext userContext;
+    /**
+     * 业务推进决策code
+     */
+    private String processCode;
 
-   private EmcContext emcContext;
+    /**
+     * 用户上下文
+     */
+    private UserContext userContext;
+
+    /**
+     * emc算力调度上下文
+     */
+    private EmcContext emcContext;
+
 
     public UserContext getUserContext() {
         return userContext;
@@ -42,19 +56,20 @@ public class BussContext {
         this.actionCode = actionCode;
     }
 
-    public ActionTypeEnum getActionType() {
-        return actionType;
+
+    public String getCurrNode() {
+        return currNode;
     }
 
-    public void setActionType(ActionTypeEnum actionType) {
-        this.actionType = actionType;
+    public void setCurrNode(String currNode) {
+        this.currNode = currNode;
     }
 
-    public ProcessEnum getProcess() {
-        return process;
+    public String getProcessCode() {
+        return processCode;
     }
 
-    public void setProcess(ProcessEnum process) {
-        this.process = process;
+    public void setProcessCode(String processCode) {
+        this.processCode = processCode;
     }
 }

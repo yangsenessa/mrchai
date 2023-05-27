@@ -1,4 +1,4 @@
-package com.essa.mrchaiemc.common.integration;
+package com.essa.mrchaiemc.common.integration.sys;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
@@ -6,12 +6,8 @@ import com.essa.mrchaiemc.biz.models.exceptions.SysInitException;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.ClassRelativeResourceLoader;
-import org.springframework.util.CollectionUtils;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
