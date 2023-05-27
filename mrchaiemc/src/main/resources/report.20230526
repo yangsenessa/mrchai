@@ -1,0 +1,13 @@
+##本周进度
+交付项目：metafun业务后端
+github：git@github.com:yangsenessa/mrchai.git
+branch: ys_20230521
+JSON RPC:20%
+stablediffusion param template:50%
+ObjectStore:80%
+Emc invorker:60%
+Bussiness Stratege PipeLine : 80%-baseLine 20%-bussLine
+DAO layer:100%
+
+项目卡点：前端对接
+下周重点：AI emc节点对接 @shadow
