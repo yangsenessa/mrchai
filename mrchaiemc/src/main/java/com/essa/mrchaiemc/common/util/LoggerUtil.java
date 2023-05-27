@@ -10,21 +10,30 @@ public class LoggerUtil {
 
     static String COMMA = ",";
 
-    public static void info(Logger logger, Object... obj ){
+    //todo
+    static String ERRLOG = "";
 
+    public static void info(Logger logger, Object... obj) {
         logger.info(getLogString(obj));
+    }
 
+    public static void errlog(Exception e, String errInfo) {
+        Logger errLog = Logger.getLogger(ERRLOG);
+        StringBuilder log = new StringBuilder();
+        log.append(THREAD_LEFT_TAG).append(Thread.currentThread().getId())
+                .append(THREAD_RIGHT_TAG).append(errLog);
+        errLog.error(errInfo, e);
     }
 
 
-    public static String getLogString(Object... obj){
-       StringBuilder log = new StringBuilder();
-       log.append(THREAD_LEFT_TAG).append(Thread.currentThread().getId()).append(THREAD_RIGHT_TAG);
-       for (Object o:obj){
-           log.append(o);
-           log.append(COMMA);
-       }
-       return log.toString();
+    public static String getLogString(Object... obj) {
+        StringBuilder log = new StringBuilder();
+        log.append(THREAD_LEFT_TAG).append(Thread.currentThread().getId()).append(THREAD_RIGHT_TAG);
+        for (Object o : obj) {
+            log.append(o);
+            log.append(COMMA);
+        }
+        return log.toString();
 
     }
 }
