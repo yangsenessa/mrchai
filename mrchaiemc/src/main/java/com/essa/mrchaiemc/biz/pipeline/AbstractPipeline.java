@@ -13,4 +13,12 @@ public abstract class  AbstractPipeline {
 
     protected abstract void afterProcess(BussContext context);
 
+    public void intBussContext(BussContext context){
+        if(context == null){
+            context = new BussContext();
+        }
+        context.initContext();
+
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.essa.mrchaiemc;
 
-import com.essa.mrchaiemc.common.integration.Sysinit;
+import com.essa.mrchaiemc.common.integration.sys.Sysinit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

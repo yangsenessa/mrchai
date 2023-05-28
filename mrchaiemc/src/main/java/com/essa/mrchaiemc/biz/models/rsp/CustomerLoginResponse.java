@@ -1,50 +1,16 @@
 package com.essa.mrchaiemc.biz.models.rsp;
 
 
-import com.essa.mrchaiemc.biz.models.BussContext;
-import com.essa.mrchaiemc.biz.models.EmcContext;
-import com.essa.mrchaiemc.biz.models.UserContext;
-import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
+public class CustomerLoginResponse extends BaseRsp {
 
 
-public class CustomerLoginResponse {
-    private ResultCode resultCode;
+    private String loginStatus;
 
-    private BussContext bussContext;
-
-    private UserContext userContext;
-
-    private EmcContext emcContext;
-
-    public ResultCode getResultCode() {
-        return resultCode;
+    public String getLoginStatus() {
+        return loginStatus;
     }
 
-    public void setResultCode(ResultCode resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public BussContext getBussContext() {
-        return bussContext;
-    }
-
-    public void setBussContext(BussContext bussContext) {
-        this.bussContext = bussContext;
-    }
-
-    public UserContext getUserContext() {
-        return userContext;
-    }
-
-    public void setUserContext(UserContext userContext) {
-        this.userContext = userContext;
-    }
-
-    public EmcContext getEmcContext() {
-        return emcContext;
-    }
-
-    public void setEmcContext(EmcContext emcContext) {
-        this.emcContext = emcContext;
+    public void setLoginStatus(String loginStatus) {
+        this.loginStatus = loginStatus;
     }
 }

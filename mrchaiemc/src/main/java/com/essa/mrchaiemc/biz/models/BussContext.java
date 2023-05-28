@@ -1,5 +1,7 @@
 package com.essa.mrchaiemc.biz.models;
 
+import org.apache.catalina.manager.util.SessionUtils;
+
 /**
  * 基础业务上下文，通过中心化节点分发到ems分布式算力
  * 运用redis+ob的方式进行存储和更新
@@ -30,6 +32,12 @@ public class BussContext {
      * emc算力调度上下文
      */
     private EmcContext emcContext;
+
+
+    public void initContext(){
+        userContext = new UserContext();
+        emcContext = new EmcContext();
+    }
 
 
     public UserContext getUserContext() {
@@ -72,4 +80,5 @@ public class BussContext {
     public void setProcessCode(String processCode) {
         this.processCode = processCode;
     }
+
 }

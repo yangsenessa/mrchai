@@ -3,21 +3,21 @@ package com.essa.mrchaiemc.common.util;
 
 import com.essa.mrchaiemc.biz.models.BussContext;
 import com.essa.mrchaiemc.biz.models.UserContext;
+import com.essa.mrchaiemc.biz.models.enumcollection.LoginStatusEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.biz.models.rsp.CustomerLoginResponse;
 
 public class ResUtil {
     /**
      * The Success response when this case not related EMC caculation
-     * @param bussContext
-     * @param userContext
+     * @param loginStatusEnum
      * @return
      */
-    public static CustomerLoginResponse instanceOfSucWithOutEmc(BussContext bussContext, UserContext userContext){
+    public static CustomerLoginResponse instanceOfSucWithOutEmc(LoginStatusEnum loginStatusEnum){
         CustomerLoginResponse rsp = new CustomerLoginResponse();
         rsp.setResultCode(ResultCode.SUCCESS);
-        rsp.setBussContext(bussContext);
-        rsp.setUserContext(userContext);
+        rsp.setLoginStatus(loginStatusEnum.getCode());
+
         return rsp;
     }
 
