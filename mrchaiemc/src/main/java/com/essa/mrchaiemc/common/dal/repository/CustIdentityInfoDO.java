@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "cfg_custindentity_info")
-public class CustIdentityInfo implements Serializable {
+public class CustIdentityInfoDO implements Serializable {
     @Id
     @Column(name = "custid", nullable = false, length = 15)
     private String custId;

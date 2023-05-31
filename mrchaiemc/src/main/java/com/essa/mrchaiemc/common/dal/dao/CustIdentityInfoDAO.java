@@ -4,12 +4,13 @@
  */
 package com.essa.mrchaiemc.common.dal.dao;
 
-import com.essa.mrchaiemc.common.dal.repository.CustIdentityInfo;
+import com.essa.mrchaiemc.common.dal.repository.CustIdentityInfoDO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author senyang
  * @version : CustIdentityInfoDAO.java, v 0.1 2023年05月25日 9:07 PM senyang Exp $
  */
-public interface CustIdentityInfoDAO extends JpaRepository<CustIdentityInfo, String> {
+public interface CustIdentityInfoDAO extends JpaRepository<CustIdentityInfoDO, String> {
+    CustIdentityInfoDO  findByCustIdAndIdentiType(String custId, String identiType);
 }

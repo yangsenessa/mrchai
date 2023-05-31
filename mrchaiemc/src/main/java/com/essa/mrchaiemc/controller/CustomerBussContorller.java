@@ -1,9 +1,11 @@
 package com.essa.mrchaiemc.controller;
 
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
+import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.LoginStatusEnum;
 import com.essa.mrchaiemc.biz.models.req.CustomCommonReq;
 import com.essa.mrchaiemc.biz.models.rsp.CustomerLoginResponse;
+import com.essa.mrchaiemc.biz.services.BussPipeline;
 import com.essa.mrchaiemc.common.util.BussContextUtil;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
 import com.essa.mrchaiemc.common.util.ResUtil;
@@ -29,6 +31,9 @@ public class CustomerBussContorller {
     @Autowired
     HttpServletRequest request;
 
+    @Autowired
+    BussPipeline bussPipeline;
+
     @ResponseBody
     @RequestMapping(value = "/mainframeinit.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
     public CustomerLoginResponse mainFrameInit(@RequestBody CustomCommonReq req){
@@ -43,7 +48,9 @@ public class CustomerBussContorller {
     @RequestMapping(value = "userLogin.do", produces = { MediaType.APPLICATION_JSON_VALUE })
     public CustomerLoginResponse userLogin(@RequestBody CustomCommonReq req) {
         BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"LOGIN");
+        BussResponse bussResponse = new BussResponse();
         bussRequest.setBussExtInfo(req.getBussData());
+        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
 
         return null;
     }

@@ -21,8 +21,16 @@ public class LoggerUtil {
         Logger errLog = Logger.getLogger(ERRLOG);
         StringBuilder log = new StringBuilder();
         log.append(THREAD_LEFT_TAG).append(Thread.currentThread().getId())
-                .append(THREAD_RIGHT_TAG).append(errLog);
+                .append(THREAD_RIGHT_TAG).append(errInfo);
         errLog.error(errInfo, e);
+    }
+
+    public static void errlog(String errInfo){
+        Logger errLog = Logger.getLogger(ERRLOG);
+        StringBuilder log = new StringBuilder();
+        log.append(THREAD_LEFT_TAG).append(Thread.currentThread().getId())
+                .append(THREAD_RIGHT_TAG).append(errInfo);
+        errLog.error(errInfo);
     }
 
 

@@ -9,6 +9,13 @@ public interface BussComponent {
      * @param request
      * @param response
      */
-    public void doProcess(BussRequest request, BussResponse response);
+     void doProcess(BussRequest request, BussResponse response);
+
+    /**
+     * 返回组件ActionCode
+     * @return
+     */
+    String getActionCode();
+
 
 }

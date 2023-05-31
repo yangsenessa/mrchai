@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "cfg_custinfo")
-public class CustInfo implements Serializable {
+public class CustInfoDO implements Serializable {
 
     private static final long serialVersionUID = -8793347041807273011L;
 

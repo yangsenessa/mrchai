@@ -24,12 +24,10 @@ public class BussPipeline {
 
 
     public void execWithPipeLine(BussRequest request, BussResponse response){
-        if(CollectionUtils.isEmpty(request.getStrategyConmpCodeList()) ){
-            for(BussComponent component: componentMap.values()) {
-                component.doProcess(request,response);
-            }
+        if(CollectionUtils.isEmpty(request.getStrategyCommonCodeList()) ){
+            return;
         } else {
-            for (String key: request.getStrategyConmpCodeList()){
+            for (String key: request.getStrategyCommonCodeList()){
                 BussComponent bussComponent = componentMap.get(key);
                 if(bussComponent != null){
                     bussComponent.doProcess(request,response);
