@@ -1,6 +1,6 @@
 package com.essa.mrchaiemc;
 
-import com.essa.mrchaiemc.common.integration.sys.Sysinit;
+import com.essa.mrchaiemc.common.integration.sys.SysConfigInit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,7 +9,7 @@ public class MrchaiemcApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MrchaiemcApplication.class, args);
-		Sysinit.intiConfig();
+		SysConfigInit.intiConfig();
 	}
 
 }

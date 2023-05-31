@@ -36,6 +36,9 @@ public class CustIdentityInfo implements Serializable {
     @Column(name ="gmtlogout",nullable = true, length = 200)
     private long gmtLogOut;
 
+    @Column(name ="identiType",nullable = true, length = 512)
+    private long identiType;
+
     /**
      * Getter method for property <tt>custId</tt>.
      *
@@ -142,5 +145,23 @@ public class CustIdentityInfo implements Serializable {
      */
     public void setGmtLogOut(long gmtLogOut) {
         this.gmtLogOut = gmtLogOut;
+    }
+
+    /**
+     * Getter method for property <tt>identiType</tt>.
+     *
+     * @return property value of identiType
+     */
+    public long getIdentiType() {
+        return identiType;
+    }
+
+    /**
+     * Setter method for property <tt>identiType</tt>.
+     *
+     * @param identiType value to be assigned to property identiType
+     */
+    public void setIdentiType(long identiType) {
+        this.identiType = identiType;
     }
 }

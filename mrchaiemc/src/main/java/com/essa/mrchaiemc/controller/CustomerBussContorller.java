@@ -1,8 +1,10 @@
 package com.essa.mrchaiemc.controller;
 
+import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.enumcollection.LoginStatusEnum;
 import com.essa.mrchaiemc.biz.models.req.CustomCommonReq;
 import com.essa.mrchaiemc.biz.models.rsp.CustomerLoginResponse;
+import com.essa.mrchaiemc.common.util.BussContextUtil;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
 import com.essa.mrchaiemc.common.util.ResUtil;
 
@@ -35,6 +37,15 @@ public class CustomerBussContorller {
         SessionUtil.setSessionVal(request, "userId", req.getCustId());
 
         return ResUtil.instanceOfSucWithOutEmc(LoginStatusEnum.NOTLOGIN);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "userLogin.do", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public CustomerLoginResponse userLogin(@RequestBody CustomCommonReq req) {
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"LOGIN");
+        bussRequest.setBussExtInfo(req.getBussData());
+
+        return null;
     }
 
 }

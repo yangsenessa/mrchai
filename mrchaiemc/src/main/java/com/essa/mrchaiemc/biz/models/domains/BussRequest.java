@@ -15,7 +15,7 @@ import java.util.Map;
 public class BussRequest {
 
 
-    private List<String> strategyConmpCodeList = new ArrayList<>();
+    private List<String> strategyCommonCodeList = new ArrayList<>();
 
     private BussContext bussContext;
 
@@ -23,7 +23,7 @@ public class BussRequest {
 
     private UserContext userContext;
 
-    private Map<String, Object> bussExtInfo = new HashMap<>();
+    private Map<String, String> bussExtInfo = new HashMap<>();
 
     public BussContext getBussContext() {
         return bussContext;
@@ -49,19 +49,29 @@ public class BussRequest {
         this.userContext = userContext;
     }
 
-    public Map<String, Object> getBussExtInfo() {
+    public Map<String, String> getBussExtInfo() {
         return bussExtInfo;
     }
 
-    public void setBussExtInfo(Map<String, Object> bussExtInfo) {
+    public void setBussExtInfo(Map<String, String> bussExtInfo) {
         this.bussExtInfo = bussExtInfo;
     }
 
-    public List<String> getStrategyConmpCodeList() {
-        return strategyConmpCodeList;
+    /**
+     * Getter method for property <tt>strategyCommonCodeList</tt>.
+     *
+     * @return property value of strategyCommonCodeList
+     */
+    public List<String> getStrategyCommonCodeList() {
+        return strategyCommonCodeList;
     }
 
-    public void setStrategyConmpCodeList(List<String> strategyConmpCodeList) {
-        this.strategyConmpCodeList = strategyConmpCodeList;
+    /**
+     * Setter method for property <tt>strategyCommonCodeList</tt>.
+     *
+     * @param strategyCommonCodeList value to be assigned to property strategyCommonCodeList
+     */
+    public void setStrategyCommonCodeList(List<String> strategyCommonCodeList) {
+        this.strategyCommonCodeList = strategyCommonCodeList;
     }
 }
