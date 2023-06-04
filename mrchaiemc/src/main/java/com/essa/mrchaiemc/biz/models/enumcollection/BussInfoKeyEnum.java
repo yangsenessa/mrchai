@@ -3,7 +3,8 @@ package com.essa.mrchaiemc.biz.models.enumcollection;
 public enum BussInfoKeyEnum {
     /** user login*/
     LOGINTYPE("identityType","identityType"),
-    AUTHTOKEN("authToken","authToken")
+    AUTHTOKEN("authToken","authToken"),
+    APPLREGINFO("applRegInfo","applRegInfo")
     ;
 
 

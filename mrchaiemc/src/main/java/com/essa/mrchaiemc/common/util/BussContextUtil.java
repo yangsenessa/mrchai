@@ -4,9 +4,11 @@
  */
 package com.essa.mrchaiemc.common.util;
 
+import cn.minsin.core.tools.StringUtil;
 import com.essa.mrchaiemc.biz.models.BussContext;
 import com.essa.mrchaiemc.biz.models.UserContext;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
+import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.req.CustomCommonReq;
 import com.essa.mrchaiemc.common.integration.sys.SysConfigInit;
 
@@ -39,6 +41,38 @@ public class BussContextUtil {
             bussRequest.getStrategyCommonCodeList().add(actionItem);
         }
         return bussRequest;
-
     }
+
+    /**
+     * 判断用户是否为登录态
+     * @param request
+     * @return
+     */
+    private static boolean isContainUserId(CustomCommonReq request) {
+        if(request != null && StringUtil.isNotEmpty(request.getCustId())){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断用户是否为登录/注册申请
+      * @param request
+     * @return
+     */
+    private static boolean isUserApplyLogin(CustomCommonReq request){
+
+        if(request != null) {
+            if(StringUtil.isNotEmpty(request.getIdentiType())){
+                return true;
+            }
+            if(request.getBussData() != null &&  StringUtil.isNotEmpty(request.getBussData().get(BussInfoKeyEnum.APPLREGINFO.getCode())) ){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 }

@@ -8,6 +8,13 @@ public interface BussComponent {
     /**
      * @param request
      * @param response
+     * @return
+     */
+    boolean preProcess(BussRequest request, BussResponse response);
+
+    /**
+     * @param request
+     * @param response
      */
      void doProcess(BussRequest request, BussResponse response);
 
@@ -16,6 +23,5 @@ public interface BussComponent {
      * @return
      */
     String getActionCode();
-
 
 }

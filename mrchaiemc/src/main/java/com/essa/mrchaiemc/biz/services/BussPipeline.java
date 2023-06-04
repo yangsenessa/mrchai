@@ -29,7 +29,7 @@ public class BussPipeline {
         } else {
             for (String key: request.getStrategyCommonCodeList()){
                 BussComponent bussComponent = componentMap.get(key);
-                if(bussComponent != null){
+                if(bussComponent != null && bussComponent.preProcess(request, response)){
                     bussComponent.doProcess(request,response);
                 }
             }

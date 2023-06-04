@@ -28,7 +28,8 @@ public class CheckIdentityComponent implements BussComponent {
      * @param response
      * @return
      */
-    private boolean preProcess(BussRequest request, BussResponse response){
+    @Override
+    public boolean preProcess(BussRequest request, BussResponse response){
         if(request == null || request.getUserContext() == null){
             LoggerUtil.errlog("request or request.getUserContext() is null");
             return false;
