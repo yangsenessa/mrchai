@@ -37,7 +37,7 @@ public class CustIdentityInfoDO implements Serializable {
     private long gmtLogOut;
 
     @Column(name ="identiType",nullable = true, length = 512)
-    private long identiType;
+    private int identiType;
 
     /**
      * Getter method for property <tt>custId</tt>.
@@ -152,7 +152,7 @@ public class CustIdentityInfoDO implements Serializable {
      *
      * @return property value of identiType
      */
-    public long getIdentiType() {
+    public int getIdentiType() {
         return identiType;
     }
 
@@ -161,7 +161,7 @@ public class CustIdentityInfoDO implements Serializable {
      *
      * @param identiType value to be assigned to property identiType
      */
-    public void setIdentiType(long identiType) {
+    public void setIdentiType(int identiType) {
         this.identiType = identiType;
     }
 }

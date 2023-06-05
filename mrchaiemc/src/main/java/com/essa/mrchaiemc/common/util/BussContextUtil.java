@@ -34,6 +34,10 @@ public class BussContextUtil {
         bussRequest.getUserContext().setUserId(request.getCustId());
         bussRequest.getUserContext().setHasLogin(false);
 
+        bussRequest.setBussExtInfo(request.getBussData());
+
+
+
         //业务组件编排
         String actionArray = SysConfigInit.bussFlowMap.get(actionCode);
         bussRequest.setStrategyCommonCodeList(new ArrayList<>());
@@ -63,7 +67,7 @@ public class BussContextUtil {
     private static boolean isUserApplyLogin(CustomCommonReq request){
 
         if(request != null) {
-            if(StringUtil.isNotEmpty(request.getIdentiType())){
+            if(StringUtil.isNotEmpty(request.getBussData().get(BussInfoKeyEnum.LOGINTYPE.getCode()))){
                 return true;
             }
             if(request.getBussData() != null &&  StringUtil.isNotEmpty(request.getBussData().get(BussInfoKeyEnum.APPLREGINFO.getCode())) ){

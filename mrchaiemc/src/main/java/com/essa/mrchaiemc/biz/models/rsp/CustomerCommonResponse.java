@@ -1,7 +1,7 @@
 package com.essa.mrchaiemc.biz.models.rsp;
 
 
-public class CustomerLoginResponse extends BaseRsp {
+public class CustomerCommonResponse extends BaseRsp {
 
 
     private String loginStatus;

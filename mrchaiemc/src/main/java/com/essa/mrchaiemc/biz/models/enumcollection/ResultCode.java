@@ -5,7 +5,8 @@ public enum ResultCode {
     SUCCESS(0, "SUCCESS"),
     SYSFAIL(-1,"SYSFAIL"),
     NEEDLOGIN(1, "NEEDLOGIN"),
-    AUTHERR(2,"AUTHERR");
+    AUTHERR(2,"AUTHERR"),
+    NEEDREGISTER(3,"NEEDREGISTER");
 
 
     private int code;

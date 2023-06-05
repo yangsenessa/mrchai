@@ -1,27 +1,22 @@
 package com.essa.mrchaiemc.common.dal.repository;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "cfg_custinfo")
+@Table(name = "cfg_custinfo",indexes = {@Index(name = "cust_id_idx",columnList = "custid", unique = true)})
 public class CustInfoDO implements Serializable {
 
     private static final long serialVersionUID = -8793347041807273011L;
 
     @Id
-    @Column(name = "custid", nullable = false, length = 15)
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @GeneratedValue(generator = "system-uuid")
+    @Column(name = "custid", nullable = false, length = 128)
     private String custId;
-
-    /**
-     * @see com.essa.mrchaiemc.biz.models.enumcollection.CustIdentiTypeEnum
-     */
-    @Column(name = "identitype", nullable = true, length = 10)
-    private int identiType;
 
     @Column(name = "nickname", nullable = true, length = 255)
     private String nickName;
@@ -38,20 +33,15 @@ public class CustInfoDO implements Serializable {
     @Column(name = "mobilephoneno", nullable = true, length =128)
     private String mobilePhoneNo;
 
+    @Column(name = "loginid", nullable = false, length =128)
+    private String loginId;
+
     public String getCustId() {
         return custId;
     }
 
     public void setCustId(String custId) {
         this.custId = custId;
-    }
-
-    public int getIdentiType() {
-        return identiType;
-    }
-
-    public void setIdentiType(int identiType) {
-        this.identiType = identiType;
     }
 
     public String getNickName() {
@@ -112,5 +102,23 @@ public class CustInfoDO implements Serializable {
      */
     public void setMobilePhoneNo(String mobilePhoneNo) {
         this.mobilePhoneNo = mobilePhoneNo;
+    }
+
+    /**
+     * Getter method for property <tt>loginId</tt>.
+     *
+     * @return property value of loginId
+     */
+    public String getLoginId() {
+        return loginId;
+    }
+
+    /**
+     * Setter method for property <tt>loginId</tt>.
+     *
+     * @param loginId value to be assigned to property loginId
+     */
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 }

@@ -26,6 +26,6 @@ public interface UserService {
      * @param request
      * @param response
      */
-    void doUserRegister(BussRequest request, BussResponse response);
+    String doUserRegister(BussRequest request, BussResponse response);
 
 }

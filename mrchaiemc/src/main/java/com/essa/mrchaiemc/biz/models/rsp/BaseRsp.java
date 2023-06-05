@@ -4,18 +4,18 @@ import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 
 public class BaseRsp {
 
-    private ResultCode resultCode;
+    private String resultCode;
 
     /**
      * 服务端时间戳
      */
     private long gmtDate;
 
-    public ResultCode getResultCode() {
+    public String getResultCode() {
         return resultCode;
     }
 
-    public void setResultCode(ResultCode resultCode) {
+    public void setResultCode(String resultCode) {
         this.resultCode = resultCode;
     }
 

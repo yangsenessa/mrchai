@@ -23,6 +23,13 @@ public class SysConfigInit {
                 System.out.println(key + ":" + configMap.get(key));
             }
         }
+
+        bussFlowMap = getBussFlowConfig();
+        if (bussFlowMap != null) {
+            for (String key : bussFlowMap.keySet()) {
+                System.out.println(key + ":" + bussFlowMap.get(key));
+            }
+        }
     }
 
     public static Map<String, String> getSysConfig() {

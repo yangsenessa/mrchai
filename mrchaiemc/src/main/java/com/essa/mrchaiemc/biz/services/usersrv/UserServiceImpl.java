@@ -4,10 +4,14 @@ import cn.minsin.core.tools.StringUtil;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.CustIdentiTypeEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.biz.models.exceptions.UserNeedRegistException;
 import com.essa.mrchaiemc.common.dal.dao.CustIdentityInfoDAO;
+import com.essa.mrchaiemc.common.dal.dao.CustInfoDAO;
 import com.essa.mrchaiemc.common.dal.repository.CustIdentityInfoDO;
+import com.essa.mrchaiemc.common.dal.repository.CustInfoDO;
+import com.essa.mrchaiemc.common.util.LoggerUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +26,26 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private CustIdentityInfoDAO custIdentityInfoDAO;
 
+    @Autowired
+    private CustInfoDAO  custInfoDAO;
+
     @Override
     public void checkUserValid(BussRequest request, BussResponse response) {
         String userId = request.getUserContext().getUserId();
         String loginType = request.getBussExtInfo().get(BussInfoKeyEnum.LOGINTYPE.getCode());
         String token = request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode());
-        CustIdentityInfoDO custIdentityInfo =  custIdentityInfoDAO.findByCustIdAndIdentiType(userId,loginType);
-        if(StringUtil.equals(custIdentityInfo.getAuthCode(),token)){
+        if(StringUtil.isEmpty(loginType)){
+            LoggerUtil.errlog("loginType is null");
+            response.setResCode(ResultCode.NEEDREGISTER.name());
+            return;
+        }
+        int loginTypeCode = CustIdentiTypeEnum.getCustIdentiTypeCodeByMsg(loginType);
+
+        CustIdentityInfoDO custIdentityInfo =  custIdentityInfoDAO.findByCustIdAndIdentiType(userId,loginTypeCode);
+        if(custIdentityInfo != null && StringUtil.equals(custIdentityInfo.getAuthCode(),token)){
             response.setResCode(ResultCode.SUCCESS.name());
+        } else if(custIdentityInfo == null) {
+            response.setResCode(ResultCode.NEEDREGISTER.name());
         } else{
             response.setResCode(ResultCode.AUTHERR.name());
         }
@@ -39,10 +55,16 @@ public class UserServiceImpl implements UserService{
     public void doUserLogIn(BussRequest request, BussResponse response) {
 
 
+
     }
 
     @Override
-    public void doUserRegister(BussRequest request, BussResponse response) {
+    public String doUserRegister(BussRequest request, BussResponse response) {
+        CustInfoDO custInfoDO = new CustInfoDO();
+        custInfoDO.setLoginId(request.getUserContext().getLoginId());
+        custInfoDO.setNickName(request.getUserContext().getNickName());
+
+
 
     }
 }

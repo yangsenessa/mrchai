@@ -12,5 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version : CustIdentityInfoDAO.java, v 0.1 2023年05月25日 9:07 PM senyang Exp $
  */
 public interface CustIdentityInfoDAO extends JpaRepository<CustIdentityInfoDO, String> {
-    CustIdentityInfoDO  findByCustIdAndIdentiType(String custId, String identiType);
+    CustIdentityInfoDO  findByCustIdAndIdentiType(String custId, int identiType);
 }
