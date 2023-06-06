@@ -1,5 +1,6 @@
 package com.essa.mrchaiemc.biz.strategy.userBuss;
 
+import cn.minsin.core.tools.StringUtil;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
@@ -36,6 +37,10 @@ public class CheckIdentityComponent implements BussComponent {
         }
         if(request.getBussExtInfo().containsKey(BussInfoKeyEnum.LOGINTYPE.getCode())
             && request.getBussExtInfo().containsKey(BussInfoKeyEnum.AUTHTOKEN.getCode())){
+            return true;
+        }
+        //用户注册，需要检查用户现有的注册信息
+        if(StringUtil.equals("register",request.getBussContext().getActionCode())){
             return true;
         }
         return false;

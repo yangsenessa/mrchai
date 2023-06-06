@@ -13,11 +13,9 @@ import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.biz.models.enumcollection.UserProfileEnum;
-import com.essa.mrchaiemc.biz.models.exceptions.DbOprException;
 import com.essa.mrchaiemc.biz.services.usersrv.UserService;
 import com.essa.mrchaiemc.biz.strategy.BussComponent;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
-import com.essa.mrchaiemc.controller.CustomerBussContorller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -72,6 +70,7 @@ public class GenerUserInfoComponent implements BussComponent {
             response.setResCode(ResultCode.SYSFAIL.name());
         }
         request.getUserContext().setUserId(userId);
+        response.setResCode(ResultCode.SUCCESS.name());
     }
 
     @Override

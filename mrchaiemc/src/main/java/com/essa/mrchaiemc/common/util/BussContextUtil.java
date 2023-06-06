@@ -35,8 +35,7 @@ public class BussContextUtil {
         bussRequest.getUserContext().setHasLogin(false);
 
         bussRequest.setBussExtInfo(request.getBussData());
-
-
+        bussRequest.getBussContext().setActionCode(request.getActionCode());
 
         //业务组件编排
         String actionArray = SysConfigInit.bussFlowMap.get(actionCode);

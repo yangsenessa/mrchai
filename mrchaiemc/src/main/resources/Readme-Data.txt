@@ -4,6 +4,7 @@
     version：前端版本号,
     language:"en" ,-- en zh_CN  zh_TW
     userprofile:"simple" --  simple/adavance
+    actionCode:"login"/"register"/"opr"
 }
 #userLogin
 {

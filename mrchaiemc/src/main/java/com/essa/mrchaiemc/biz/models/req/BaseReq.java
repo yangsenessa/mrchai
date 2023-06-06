@@ -14,6 +14,8 @@ public class BaseReq {
 
     private Map<String, String > bussData;
 
+    private String actionCode;
+
     /**
      * Getter method for property <tt>bussData</tt>.
      *
@@ -54,5 +56,23 @@ public class BaseReq {
 
     public void setUserProfile(String userProfile) {
         this.userProfile = userProfile;
+    }
+
+    /**
+     * Getter method for property <tt>actionCode</tt>.
+     *
+     * @return property value of actionCode
+     */
+    public String getActionCode() {
+        return actionCode;
+    }
+
+    /**
+     * Setter method for property <tt>actionCode</tt>.
+     *
+     * @param actionCode value to be assigned to property actionCode
+     */
+    public void setActionCode(String actionCode) {
+        this.actionCode = actionCode;
     }
 }

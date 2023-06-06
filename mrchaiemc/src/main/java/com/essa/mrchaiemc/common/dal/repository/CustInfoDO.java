@@ -7,14 +7,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "cfg_custinfo",indexes = {@Index(name = "cust_id_idx",columnList = "custid", unique = true)})
+@Table(name = "cfg_custinfo",indexes = {@Index(name = "cust_id_idx",columnList = "custid", unique = true),
+        @Index(name = "login_id_idx",columnList = "loginid", unique = true)})
 public class CustInfoDO implements Serializable {
 
     private static final long serialVersionUID = -8793347041807273011L;
 
     @Id
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @GeneratedValue(generator = "system-uuid")
     @Column(name = "custid", nullable = false, length = 128)
     private String custId;
 
