@@ -6,6 +6,7 @@ import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.CustIdentiTypeEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
+import com.essa.mrchaiemc.biz.models.exceptions.DbOprException;
 import com.essa.mrchaiemc.biz.models.exceptions.UserNeedRegistException;
 import com.essa.mrchaiemc.common.dal.dao.CustIdentityInfoDAO;
 import com.essa.mrchaiemc.common.dal.dao.CustInfoDAO;
@@ -61,10 +62,26 @@ public class UserServiceImpl implements UserService{
     @Override
     public String doUserRegister(BussRequest request, BussResponse response) {
         CustInfoDO custInfoDO = new CustInfoDO();
+        this.constractCustInfoDO(request, custInfoDO);
+        custInfoDAO.save(custInfoDO);
+        //获取custId并写入上下文
+        CustInfoDO custInfoDB = custInfoDAO.findByLoginId(custInfoDO.getLoginId());
+        if(custInfoDB == null){
+            LoggerUtil.errlog("DB operator err");
+            throw new DbOprException();
+        }
+        return custInfoDB.getCustId();
+    }
+
+
+    private void constractCustInfoDO(BussRequest request, CustInfoDO custInfoDO){
+        if(custInfoDO == null){
+            custInfoDO = new CustInfoDO();
+        }
         custInfoDO.setLoginId(request.getUserContext().getLoginId());
         custInfoDO.setNickName(request.getUserContext().getNickName());
-
-
-
+        custInfoDO.setEmail(request.getUserContext().getEmail());
+        custInfoDO.setProfile(request.getUserContext().getProfile());
+        custInfoDO.setMobilePhoneNo(request.getUserContext().getMobilePhoneNo());
     }
 }

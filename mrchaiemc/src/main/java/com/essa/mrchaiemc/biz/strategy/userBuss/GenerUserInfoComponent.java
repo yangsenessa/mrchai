@@ -13,6 +13,7 @@ import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.biz.models.enumcollection.UserProfileEnum;
+import com.essa.mrchaiemc.biz.models.exceptions.DbOprException;
 import com.essa.mrchaiemc.biz.services.usersrv.UserService;
 import com.essa.mrchaiemc.biz.strategy.BussComponent;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
@@ -64,8 +65,13 @@ public class GenerUserInfoComponent implements BussComponent {
 
     @Override
     public void doProcess(BussRequest request, BussResponse response) {
-
-
+        String userId = null;
+        try{
+            userId = userService.doUserRegister(request,response);
+        }  catch (Exception e) {
+            response.setResCode(ResultCode.SYSFAIL.name());
+        }
+        request.getUserContext().setUserId(userId);
     }
 
     @Override
