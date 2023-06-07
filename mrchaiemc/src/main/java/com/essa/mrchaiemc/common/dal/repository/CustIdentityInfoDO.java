@@ -4,10 +4,7 @@
  */
 package com.essa.mrchaiemc.common.dal.repository;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -15,13 +12,13 @@ import java.io.Serializable;
  * @version : CustIdentityInfo.java, v 0.1 2023年05月25日 8:57 PM senyang Exp $
  */
 @Entity
-@Table(name = "cfg_custindentity_info")
+@Table(name = "cfg_custindentity_info",indexes = {@Index(name = "custid_identitype_idx",columnList = "custid,identitype", unique = true)})
 public class CustIdentityInfoDO implements Serializable {
     @Id
     @Column(name = "custid", nullable = false, length = 15)
     private String custId;
 
-    @Column(name = "authCode", nullable = true, length = 512)
+    @Column(name = "authcode", nullable = true, length = 512)
     private String authCode;
 
     @Column(name ="oauthcode",nullable = true, length = 512)
@@ -36,7 +33,10 @@ public class CustIdentityInfoDO implements Serializable {
     @Column(name ="gmtlogout",nullable = true, length = 200)
     private long gmtLogOut;
 
-    @Column(name ="identiType",nullable = true, length = 512)
+    @Column(name ="gmttokenset",nullable = true, length = 200)
+    private long gmtTokenSet;
+
+    @Column(name ="identitype",nullable = true, length = 512)
     private int identiType;
 
     /**
@@ -163,5 +163,23 @@ public class CustIdentityInfoDO implements Serializable {
      */
     public void setIdentiType(int identiType) {
         this.identiType = identiType;
+    }
+
+    /**
+     * Getter method for property <tt>gmtTokenSet</tt>.
+     *
+     * @return property value of gmtTokenSet
+     */
+    public long getGmtTokenSet() {
+        return gmtTokenSet;
+    }
+
+    /**
+     * Setter method for property <tt>gmtTokenSet</tt>.
+     *
+     * @param gmtTokenSet value to be assigned to property gmtTokenSet
+     */
+    public void setGmtTokenSet(long gmtTokenSet) {
+        this.gmtTokenSet = gmtTokenSet;
     }
 }

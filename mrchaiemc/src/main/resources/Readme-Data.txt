@@ -7,6 +7,7 @@
     actionCode:"login"/"register"/"opr"
 }
 #userLogin
+userLogin.do
 {
 	"custId": "1111",
 	"bussData": {
@@ -15,3 +16,20 @@
 	}
 }
 #userRegAppl
+applyRegister.do
+{
+	"actionCode": "register",
+	"bussData": {
+		"applRegInfo": "{\"loginId\":\"yangsenessa1\",\"email\":\"yangsenessa@gmail.com\",\"mobilePhone\": \"138888888888\",\"nickName\": \"barry\"}"
+	}
+}
+#setOrUpdateAuthToken
+setAutoration.do
+{
+    "actionCode":"setToken",
+    "custId":"1685969357974",
+    "bussData":{
+    "identityType":"PASSWD",
+    "authToken":"123456"
+    }
+}

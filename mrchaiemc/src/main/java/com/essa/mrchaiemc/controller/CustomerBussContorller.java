@@ -64,5 +64,18 @@ public class CustomerBussContorller {
 
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
+    @ResponseBody
+    @RequestMapping(value = "setAutoration.do", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public CustomerCommonResponse setAutoration(@RequestBody CustomCommonReq req){
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"SETAUTHOR");
+        BussResponse bussResponse = new BussResponse();
+        bussRequest.setBussExtInfo(req.getBussData());
+        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
+
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+    }
+
+
+
 
 }

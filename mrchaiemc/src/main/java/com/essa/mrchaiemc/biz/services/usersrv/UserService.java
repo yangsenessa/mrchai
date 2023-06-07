@@ -28,4 +28,18 @@ public interface UserService {
      */
     String doUserRegister(BussRequest request, BussResponse response);
 
+    /**
+     * 获取用户信息
+     * @param request
+     * @param response
+     */
+    void fetchUserInfo(BussRequest request, BussResponse response);
+
+    /**
+     * 设置或修改用户认证方式
+     * @param request
+     * @param response
+     */
+    void setOrChangeAuthToken(BussRequest request, BussResponse response);
+
 }

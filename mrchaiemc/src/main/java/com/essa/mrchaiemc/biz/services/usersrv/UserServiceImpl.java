@@ -6,6 +6,7 @@ import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.CustIdentiTypeEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
+import com.essa.mrchaiemc.biz.models.enumcollection.UserProfileEnum;
 import com.essa.mrchaiemc.biz.models.exceptions.DbOprException;
 import com.essa.mrchaiemc.biz.models.exceptions.UserNeedRegistException;
 import com.essa.mrchaiemc.common.dal.dao.CustIdentityInfoDAO;
@@ -79,6 +80,59 @@ public class UserServiceImpl implements UserService{
         return custInfoDB.getCustId();
     }
 
+    @Override
+    public void fetchUserInfo(BussRequest request, BussResponse response) {
+        try{
+            Optional<CustInfoDO>  custInfoDOOpt = custInfoDAO.findById(request.getUserContext().getUserId());
+            if(custInfoDOOpt == null || custInfoDOOpt.isEmpty()){
+                LoggerUtil.errlog("cfg_custinfo query fail");
+                throw new DbOprException();
+            }
+
+            CustInfoDO custInfoDO = custInfoDOOpt.get();
+            if( StringUtil.equals( custInfoDO.getProfile(), UserProfileEnum.FREEZE.getCode()) ){
+                response.setResCode(ResultCode.INVALIDUSER.name());
+            }
+            buildUserContext(request,custInfoDO);
+            response.setResCode(ResultCode.SUCCESS.name());
+        } catch (Exception e) {
+            LoggerUtil.errlog(e,"System exception");
+            response.setResCode(ResultCode.SYSFAIL.name());
+        }
+
+    }
+
+    @Override
+    public void setOrChangeAuthToken(BussRequest request, BussResponse response) {
+        CustIdentityInfoDO custIdentityInfoDO = new CustIdentityInfoDO();
+        custIdentityInfoDO.setCustId(request.getUserContext().getUserId());
+        custIdentityInfoDO.setAuthCode(request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode()));
+        custIdentityInfoDO.setIdentiChannel("MAINAPP");
+        custIdentityInfoDO.setIdentiType
+                (CustIdentiTypeEnum.getCustIdentiTypeCodeByMsg(
+                        request.getBussExtInfo().get(BussInfoKeyEnum.LOGINTYPE.getCode())));
+        custIdentityInfoDO.setGmtTokenSet(DateUtil.getGmtDateTime());
+
+        try{
+            custIdentityInfoDAO.save(custIdentityInfoDO);
+            response.setResCode(ResultCode.SUCCESS.name());
+        } catch (Exception e) {
+            response.setResCode(ResultCode.SYSFAIL.name());
+        }
+
+    }
+
+    private void buildUserContext(BussRequest request, CustInfoDO custInfoDO){
+        request.getUserContext().setUserId(custInfoDO.getCustId());
+        request.getUserContext().setProfile(custInfoDO.getProfile());
+        request.getUserContext().setEmail(custInfoDO.getEmail());
+        request.getUserContext().setNickName(custInfoDO.getNickName());
+        request.getUserContext().setProfile(custInfoDO.getProfile());
+        request.getUserContext().setLoginId(custInfoDO.getLoginId());
+        request.getUserContext().setGrandLevel(custInfoDO.getGrandLevel());
+        request.getUserContext().setMobilePhoneNo(custInfoDO.getMobilePhoneNo());
+
+    }
 
     private void constractCustInfoDO(BussRequest request, CustInfoDO custInfoDO){
         if(custInfoDO == null){
