@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -29,14 +30,11 @@ public class CustomerBussContorller {
     private static Logger logger = Logger.getLogger(CustomerBussContorller.class);
 
     @Autowired
-    HttpServletRequest request;
-
-    @Autowired
     BussPipeline bussPipeline;
 
     @ResponseBody
     @RequestMapping(value = "/mainframeinit.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
-    public CustomerCommonResponse mainFrameInit(@RequestBody CustomCommonReq req){
+    public CustomerCommonResponse mainFrameInit(@RequestBody CustomCommonReq req,HttpServletRequest request){
         LoggerUtil.info(logger, req);
 
         SessionUtil.setSessionVal(request, "userId", req.getCustId());
@@ -46,12 +44,13 @@ public class CustomerBussContorller {
 
     @ResponseBody
     @RequestMapping(value = "userLogin.do", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public CustomerCommonResponse userLogin(@RequestBody CustomCommonReq req) {
+    public CustomerCommonResponse userLogin(@RequestBody CustomCommonReq req, HttpSession session) {
         BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"LOGIN");
         BussResponse bussResponse = new BussResponse();
         bussRequest.setBussExtInfo(req.getBussData());
         bussPipeline.execWithPipeLine(bussRequest,bussResponse);
-
+        //登录成功，加入session
+        session.setAttribute("USER_INFO", bussRequest.getUserContext());
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
     @ResponseBody

@@ -4,6 +4,7 @@ import com.essa.mrchaiemc.biz.models.BussContext;
 import com.essa.mrchaiemc.biz.models.EmcContext;
 import com.essa.mrchaiemc.biz.models.UserContext;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,8 @@ public class BussRequest {
     private EmcContext emcContext;
 
     private UserContext userContext;
+
+    private HttpServletRequest httpServletRequest;
 
     private Map<String, String> bussExtInfo = new HashMap<>();
 
@@ -73,5 +76,23 @@ public class BussRequest {
      */
     public void setStrategyCommonCodeList(List<String> strategyCommonCodeList) {
         this.strategyCommonCodeList = strategyCommonCodeList;
+    }
+
+    /**
+     * Getter method for property <tt>httpServletRequest</tt>.
+     *
+     * @return property value of httpServletRequest
+     */
+    public HttpServletRequest getHttpServletRequest() {
+        return httpServletRequest;
+    }
+
+    /**
+     * Setter method for property <tt>httpServletRequest</tt>.
+     *
+     * @param httpServletRequest value to be assigned to property httpServletRequest
+     */
+    public void setHttpServletRequest(HttpServletRequest httpServletRequest) {
+        this.httpServletRequest = httpServletRequest;
     }
 }

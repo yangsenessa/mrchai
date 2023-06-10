@@ -39,4 +39,22 @@ public class SessionUtil {
         }
         session.setAttribute(key, val);
     }
+
+
+    /**
+     * session 中获取userId
+     * @param request
+     * @return
+     */
+    public static String getUserIdFromSession(HttpSession session){
+
+        if(session == null) {
+            throw new RuntimeException("None session hole");
+        }
+        if(session.getAttribute("userId") != null){
+           return session.getAttribute("userId").toString();
+        }
+        return null;
+
+    }
 }

@@ -43,6 +43,9 @@ public class CheckIdentityComponent implements BussComponent {
         if(StringUtil.equals("register",request.getBussContext().getActionCode())){
             return true;
         }
+        if( StringUtil.isNotEmpty(request.getUserContext().getUserId()) ){
+            return true;
+        }
         return false;
 
     }

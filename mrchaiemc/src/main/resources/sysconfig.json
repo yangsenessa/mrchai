@@ -1,4 +1,4 @@
 {
-  "imgPath": "~/assetsImg",
-  "videoPath": "~/assetsVideo"
+  "imgPath": "/assetsImg/",
+  "videoPath": "/assetsVideo/"
 }

@@ -12,6 +12,8 @@ import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.req.CustomCommonReq;
 import com.essa.mrchaiemc.common.integration.sys.SysConfigInit;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
@@ -44,6 +46,20 @@ public class BussContextUtil {
             bussRequest.getStrategyCommonCodeList().add(actionItem);
         }
         return bussRequest;
+    }
+
+    /**
+     * 构建资源操作类通用业务请求
+     * @param request
+     * @param customCommonReq
+     * @param actionCode
+     * @return
+     */
+    public static BussRequest buildBussRequestForAssetOpr(HttpServletRequest request,CustomCommonReq customCommonReq,String actionCode){
+        BussRequest bussRequest = buildBussRequestByCustCommonReq(customCommonReq,actionCode);
+        bussRequest.setHttpServletRequest(request);
+        return bussRequest;
+
     }
 
     /**
