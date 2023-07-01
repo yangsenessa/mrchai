@@ -1,6 +1,5 @@
-package com.essa.mrchaiemc.biz.models;
+package com.essa.mrchaiemc.biz.models.domains.bussiness;
 
-import org.apache.catalina.manager.util.SessionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -8,6 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
  * 运用redis+ob的方式进行存储和更新
  */
 public class BussContext {
+
+    /**
+     * 应用trace
+     */
+    private String traceId;
+
     /**
      * 标识业务流
      */
@@ -93,5 +98,13 @@ public class BussContext {
      */
     public void setFile(MultipartFile[] file) {
         this.file = file;
+    }
+
+    public String getTraceId() {
+        return traceId;
+    }
+
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
     }
 }

@@ -7,7 +7,7 @@ package com.essa.mrchaiemc.biz.strategy.userBuss;
 import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.essa.mrchaiemc.biz.models.UserContext;
+import com.essa.mrchaiemc.biz.models.domains.usermanner.UserContext;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;

@@ -1,8 +1,8 @@
 package com.essa.mrchaiemc.biz.models.domains;
 
-import com.essa.mrchaiemc.biz.models.BussContext;
-import com.essa.mrchaiemc.biz.models.EmcContext;
-import com.essa.mrchaiemc.biz.models.UserContext;
+import com.essa.mrchaiemc.biz.models.domains.bussiness.BussContext;
+import com.essa.mrchaiemc.biz.models.domains.bussiness.EmcContext;
+import com.essa.mrchaiemc.biz.models.domains.usermanner.UserContext;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;

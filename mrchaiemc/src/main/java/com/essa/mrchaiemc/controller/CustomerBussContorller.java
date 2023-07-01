@@ -5,7 +5,7 @@ import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.LoginStatusEnum;
 import com.essa.mrchaiemc.biz.models.req.CustomCommonReq;
 import com.essa.mrchaiemc.biz.models.rsp.CustomerCommonResponse;
-import com.essa.mrchaiemc.biz.services.BussPipeline;
+import com.essa.mrchaiemc.biz.pipeline.BussPipeline;
 import com.essa.mrchaiemc.common.util.BussContextUtil;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
 import com.essa.mrchaiemc.common.util.ResUtil;

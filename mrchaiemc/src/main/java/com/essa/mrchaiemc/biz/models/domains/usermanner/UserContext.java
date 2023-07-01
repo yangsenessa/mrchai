@@ -1,24 +1,34 @@
-package com.essa.mrchaiemc.biz.models;
+package com.essa.mrchaiemc.biz.models.domains.usermanner;
 
 public class UserContext {
+
+    /** userId - custId*/
     private String userId;
 
+    /** loginId */
     private String loginId;
 
+    /** loginName */
+    private String loginName;
+
+    /** nickName*/
     private String nickName;
 
-    private String profile;
+    /** userProfile */
+    private UserProfile profile;
 
+    /** grandLevel*/
     private int grandLevel;
 
+    /** email */
     private String email;
 
+    /** mobilePhoneNo*/
     private String mobilePhoneNo;
 
-
+    /** hasLogin*/
     private boolean hasLogin;
 
-    private String currEmcChainSeq;
 
     public String getUserId() {
         return userId;
@@ -36,13 +46,6 @@ public class UserContext {
         this.hasLogin = hasLogin;
     }
 
-    public String getCurrEmcChainSeq() {
-        return currEmcChainSeq;
-    }
-
-    public void setCurrEmcChainSeq(String currEmcChainSeq) {
-        this.currEmcChainSeq = currEmcChainSeq;
-    }
 
     /**
      * Getter method for property <tt>loginId</tt>.
@@ -80,23 +83,6 @@ public class UserContext {
         this.nickName = nickName;
     }
 
-    /**
-     * Getter method for property <tt>profile</tt>.
-     *
-     * @return property value of profile
-     */
-    public String getProfile() {
-        return profile;
-    }
-
-    /**
-     * Setter method for property <tt>profile</tt>.
-     *
-     * @param profile value to be assigned to property profile
-     */
-    public void setProfile(String profile) {
-        this.profile = profile;
-    }
 
     /**
      * Getter method for property <tt>grandLevel</tt>.
@@ -151,4 +137,13 @@ public class UserContext {
     public void setMobilePhoneNo(String mobilePhoneNo) {
         this.mobilePhoneNo = mobilePhoneNo;
     }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
 }

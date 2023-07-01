@@ -5,15 +5,14 @@
 package com.essa.mrchaiemc.common.util;
 
 import cn.minsin.core.tools.StringUtil;
-import com.essa.mrchaiemc.biz.models.BussContext;
-import com.essa.mrchaiemc.biz.models.UserContext;
+import com.essa.mrchaiemc.biz.models.domains.bussiness.BussContext;
+import com.essa.mrchaiemc.biz.models.domains.usermanner.UserContext;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.req.CustomCommonReq;
 import com.essa.mrchaiemc.common.integration.sys.SysConfigInit;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**

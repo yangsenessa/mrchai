@@ -1,4 +1,4 @@
-package com.essa.mrchaiemc.biz.models;
+package com.essa.mrchaiemc.biz.models.domains.bussiness;
 
 
 import com.essa.mrchaiemc.biz.models.params.ParamModel;
