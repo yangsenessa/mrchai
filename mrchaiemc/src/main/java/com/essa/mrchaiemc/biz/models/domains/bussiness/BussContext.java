@@ -35,6 +35,11 @@ public class BussContext {
      */
     private EmcContext emcContext;
 
+    /**
+     * Model Context
+     */
+    private ModelContext modelContext;
+
 
     /**
      * 资源上传
