@@ -13,19 +13,19 @@ public class ModelDetailInfoDO {
     private String modelId;
 
     /** paramModel*/
-    @Column(name = "params", nullable = true, length = 10240)
+    @Column(name = "params", nullable = true, length = 5120)
     private String params;
 
     /** invoke guide*/
-    @Column(name = "invoke_guide", nullable = true, length = 10240)
+    @Column(name = "invoke_guide", nullable = true, length = 5120)
     private String invokeGuide;
 
     /** EmcInvokeParam */
-    @Column(name = "emc_invoke_param", nullable = true, length = 10240)
-    private EmcInvokeParam emcInvokeParam;
+    @Column(name = "emc_invoke_param", nullable = true, length = 5120)
+    private String emcInvokeParam;
 
     /** downLoadLink*/
-    @Column(name = "download_link", nullable = true, length = 2048)
+    @Column(name = "download_link", nullable = true, length = 5120)
     private String downLoadLink;
 
     public String getModelId() {
@@ -52,11 +52,11 @@ public class ModelDetailInfoDO {
         this.invokeGuide = invokeGuide;
     }
 
-    public EmcInvokeParam getEmcInvokeParam() {
+    public String getEmcInvokeParam() {
         return emcInvokeParam;
     }
 
-    public void setEmcInvokeParam(EmcInvokeParam emcInvokeParam) {
+    public void setEmcInvokeParam(String emcInvokeParam) {
         this.emcInvokeParam = emcInvokeParam;
     }
 
