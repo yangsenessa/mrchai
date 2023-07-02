@@ -14,6 +14,7 @@ import com.essa.mrchaiemc.common.integration.sys.SysConfigInit;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author senyang
@@ -36,7 +37,7 @@ public class BussContextUtil {
         bussRequest.getUserContext().setHasLogin(false);
 
         bussRequest.setBussExtInfo(request.getBussData());
-        bussRequest.getBussContext().setActionCode(request.getActionCode());
+        bussRequest.getBussContext().setActionCode(actionCode);
 
         //业务组件编排
         String actionArray = SysConfigInit.bussFlowMap.get(actionCode);
@@ -91,6 +92,14 @@ public class BussContextUtil {
         return false;
     }
 
-
+    /**
+     * 获取trace号
+     * @return
+     */
+    public static String generBizTraceId(){
+        long threadL = Thread.currentThread().getId();
+        threadL+= DateUtil.getGmtDateTime();
+        return Long.toHexString(threadL);
+    }
 
 }

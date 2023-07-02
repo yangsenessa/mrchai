@@ -12,7 +12,7 @@ import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
-import com.essa.mrchaiemc.biz.models.enumcollection.UserProfileEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.UserStatusEnum;
 import com.essa.mrchaiemc.biz.services.usersrv.UserService;
 import com.essa.mrchaiemc.biz.strategy.BussComponent;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
@@ -49,7 +49,7 @@ public class GenerUserInfoComponent implements BussComponent {
                     }
                     request.getUserContext().setLoginId(applyRegMap.get(BussInfoKeyEnum.APPLREGINFO_LOGINID.getCode()));
                     request.getUserContext().setEmail(applyRegMap.get(BussInfoKeyEnum.APPLREGINFO_EMAIL.getCode()));
-                    request.getUserContext().setProfile(UserProfileEnum.UN_AUTHTOKEN.getCode());
+                    request.getUserContext().setUserStatus(UserStatusEnum.UN_AUTHTOKEN);
                     request.getUserContext().setNickName(applyRegMap.get(BussInfoKeyEnum.APPLREGINFO_NICKNAME.getCode()));
                 } catch (Exception e) {
                     LoggerUtil.errlog("parse applyRegInfo err");

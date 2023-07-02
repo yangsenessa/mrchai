@@ -14,13 +14,12 @@ import com.essa.mrchaiemc.common.util.ResUtil;
 import com.essa.mrchaiemc.common.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 /**
  * @author senyang
@@ -33,13 +32,19 @@ public class AssetMannerBussContorller {
     @Autowired
     BussPipeline bussPipeline;
 
+
+    @GetMapping("/upload.do")
+    public String uploadPage() {
+        return "upload";
+    }
+
     @PostMapping("/assetcommonupload.do")
+    @ResponseBody
     public CustomerCommonResponse assetCommonUpload(@RequestParam("file") MultipartFile[] files, HttpServletRequest request, HttpSession session){
         CustomCommonReq req = new CustomCommonReq();
-        req.setCustId(SessionUtil.getUserIdFromSession(session));
-        req.setActionCode("ASSET_UPLOAD");
+        req.setCustId(request.getParameter("userId"));
 
-        BussRequest bussRequest = BussContextUtil.buildBussRequestForAssetOpr(request,req,"LOGIN");
+        BussRequest bussRequest = BussContextUtil.buildBussRequestForAssetOpr(request,req,"ASSETUPLOAD");
         bussRequest.getBussContext().setFile(files);
         BussResponse bussResponse = new BussResponse();
 

@@ -5,6 +5,13 @@ public class ModelInfo {
     /** modelId*/
     private String modelId;
 
+    /** modelName*/
+    private String modelName;
+
+    /** modelSubName*/
+    private String modelSubName;
+
+
     /** modelkey*/
     private String modelKey;
 
@@ -66,5 +73,21 @@ public class ModelInfo {
 
     public void setModelCover(ModelCover modelCover) {
         this.modelCover = modelCover;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public String getModelSubName() {
+        return modelSubName;
+    }
+
+    public void setModelSubName(String modelSubName) {
+        this.modelSubName = modelSubName;
     }
 }

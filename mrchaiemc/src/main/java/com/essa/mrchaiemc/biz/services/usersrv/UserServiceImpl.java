@@ -1,14 +1,16 @@
 package com.essa.mrchaiemc.biz.services.usersrv;
 
 import cn.minsin.core.tools.StringUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
+import com.essa.mrchaiemc.biz.models.domains.usermanner.UserProfile;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.CustIdentiTypeEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
-import com.essa.mrchaiemc.biz.models.enumcollection.UserProfileEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.UserStatusEnum;
 import com.essa.mrchaiemc.biz.models.exceptions.DbOprException;
-import com.essa.mrchaiemc.biz.models.exceptions.UserNeedRegistException;
 import com.essa.mrchaiemc.common.dal.dao.CustIdentityInfoDAO;
 import com.essa.mrchaiemc.common.dal.dao.CustInfoDAO;
 import com.essa.mrchaiemc.common.dal.repository.CustIdentityInfoDO;
@@ -90,7 +92,7 @@ public class UserServiceImpl implements UserService{
             }
 
             CustInfoDO custInfoDO = custInfoDOOpt.get();
-            if( StringUtil.equals( custInfoDO.getProfile(), UserProfileEnum.FREEZE.getCode()) ){
+            if( StringUtil.equals( custInfoDO.getUserStatus(), UserStatusEnum.FREEZE.getCode()) ){
                 response.setResCode(ResultCode.INVALIDUSER.name());
             }
             buildUserContext(request,custInfoDO);
@@ -124,10 +126,10 @@ public class UserServiceImpl implements UserService{
 
     private void buildUserContext(BussRequest request, CustInfoDO custInfoDO){
         request.getUserContext().setUserId(custInfoDO.getCustId());
-        request.getUserContext().setProfile(custInfoDO.getProfile());
+        request.getUserContext().setProfile(JSONObject.parseObject( custInfoDO.getProfile(),new TypeReference<UserProfile>(){}));
         request.getUserContext().setEmail(custInfoDO.getEmail());
         request.getUserContext().setNickName(custInfoDO.getNickName());
-        request.getUserContext().setProfile(custInfoDO.getProfile());
+        request.getUserContext().setProfile(JSONObject.parseObject(custInfoDO.getProfile(),new TypeReference<UserProfile>(){}) );
         request.getUserContext().setLoginId(custInfoDO.getLoginId());
         request.getUserContext().setGrandLevel(custInfoDO.getGrandLevel());
         request.getUserContext().setMobilePhoneNo(custInfoDO.getMobilePhoneNo());
@@ -141,7 +143,7 @@ public class UserServiceImpl implements UserService{
         custInfoDO.setLoginId(request.getUserContext().getLoginId());
         custInfoDO.setNickName(request.getUserContext().getNickName());
         custInfoDO.setEmail(request.getUserContext().getEmail());
-        custInfoDO.setProfile(request.getUserContext().getProfile());
+        custInfoDO.setProfile(JSONObject.toJSONString(request.getUserContext().getProfile()));
         custInfoDO.setMobilePhoneNo(request.getUserContext().getMobilePhoneNo());
         this.generCustId(custInfoDO);
     }

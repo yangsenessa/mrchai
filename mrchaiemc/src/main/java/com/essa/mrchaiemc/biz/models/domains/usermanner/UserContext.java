@@ -1,5 +1,7 @@
 package com.essa.mrchaiemc.biz.models.domains.usermanner;
 
+import com.essa.mrchaiemc.biz.models.enumcollection.UserStatusEnum;
+
 public class UserContext {
 
     /** userId - custId*/
@@ -28,6 +30,9 @@ public class UserContext {
 
     /** hasLogin*/
     private boolean hasLogin;
+
+    /** userStatusEnum*/
+    private UserStatusEnum userStatus;
 
 
     public String getUserId() {
@@ -146,4 +151,19 @@ public class UserContext {
         this.loginName = loginName;
     }
 
+    public UserProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(UserProfile profile) {
+        this.profile = profile;
+    }
+
+    public UserStatusEnum getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(UserStatusEnum userStatus) {
+        this.userStatus = userStatus;
+    }
 }

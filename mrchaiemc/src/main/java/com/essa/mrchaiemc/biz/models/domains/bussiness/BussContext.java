@@ -1,5 +1,6 @@
 package com.essa.mrchaiemc.biz.models.domains.bussiness;
 
+import com.essa.mrchaiemc.common.util.BussContextUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -47,6 +48,13 @@ public class BussContext {
     private MultipartFile[] file;
 
 
+    /**
+     * 构造方法，构造同时增加
+     */
+    public BussContext(){
+        this.traceId = BussContextUtil.generBizTraceId();
+
+    }
 
 
     public void initContext(){

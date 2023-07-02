@@ -1,8 +1,6 @@
 package com.essa.mrchaiemc.common.dal.repository;
 
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -34,6 +32,9 @@ public class CustInfoDO implements Serializable {
 
     @Column(name = "loginid", nullable = false, length =128)
     private String loginId;
+
+    @Column(name = "user_status", nullable = true, length = 1024)
+    private String userStatus;
 
     public String getCustId() {
         return custId;
@@ -119,5 +120,13 @@ public class CustInfoDO implements Serializable {
      */
     public void setLoginId(String loginId) {
         this.loginId = loginId;
+    }
+
+    public String getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
     }
 }

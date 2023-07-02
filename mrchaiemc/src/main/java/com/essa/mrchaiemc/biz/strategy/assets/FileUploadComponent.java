@@ -29,7 +29,9 @@ public class FileUploadComponent implements BussComponent {
             return false;
         }
         if(StringUtil.isEmpty(request.getUserContext().getUserId())){
-            return false;
+            //todo:noly mocked for test
+            request.getUserContext().setUserId("1111");
+           // return false;
         }
         return true;
     }
@@ -48,6 +50,8 @@ public class FileUploadComponent implements BussComponent {
                 // 获取文件后缀名
                 String[] split = contentType.split("/");
                 String ext = "." + split[1];
+                //traceId作为文件名
+                String newFileName = request.getBussContext().getTraceId()+ext;
 
                 String filePath = null;
                 //判断是视频还是图片
@@ -66,7 +70,7 @@ public class FileUploadComponent implements BussComponent {
                 if (!fileDir.isDirectory()) {
                     fileDir.mkdirs();
                 }
-                File fileServer = new File(filePath, originalFilename);
+                File fileServer = new File(filePath, newFileName);
                 file.transferTo(fileServer);
 
             }
