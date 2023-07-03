@@ -4,16 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "model_info_base",indexes = {@Index(name = "model_id_cust_idx",columnList = "cust_id,model_id", unique = true)})
+@Table(name = "model_info_base")
 public class ModelInfoDO implements Serializable {
 
     /** modelId*/
     @Id
     @Column(name = "model_id", nullable = false, length = 128)
     private String modelId;
-
-    @Column(name = "cust_id", nullable = false, length = 128)
-    private String custId;
 
     /** modelName*/
     @Column(name = "model_name", nullable = true, length = 1024)
@@ -47,13 +44,6 @@ public class ModelInfoDO implements Serializable {
     @Column(name = "cover_videos", nullable = true, length = 5120)
     private String coverVideos;
 
-    public String getCustId() {
-        return custId;
-    }
-
-    public void setCustId(String custId) {
-        this.custId = custId;
-    }
 
     public String getModelId() {
         return modelId;

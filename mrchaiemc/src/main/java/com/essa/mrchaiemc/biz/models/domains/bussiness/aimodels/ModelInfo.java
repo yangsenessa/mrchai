@@ -24,8 +24,6 @@ public class ModelInfo {
     /** cateGory3*/
     private String cateGory3;
 
-    /** modelCover*/
-    private ModelCover modelCover;
 
     public String getModelId() {
         return modelId;
@@ -67,13 +65,6 @@ public class ModelInfo {
         this.cateGory3 = cateGory3;
     }
 
-    public ModelCover getModelCover() {
-        return modelCover;
-    }
-
-    public void setModelCover(ModelCover modelCover) {
-        this.modelCover = modelCover;
-    }
 
     public String getModelName() {
         return modelName;

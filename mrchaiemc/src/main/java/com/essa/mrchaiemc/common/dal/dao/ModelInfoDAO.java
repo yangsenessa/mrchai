@@ -9,6 +9,4 @@ public interface ModelInfoDAO extends JpaRepository<ModelInfoDO, String> {
 
     ModelInfoDO findByModelId(String modelID);
 
-    List<ModelInfoDO> findByCustIdAndModelId(String custId, String ModelId);
-
 }

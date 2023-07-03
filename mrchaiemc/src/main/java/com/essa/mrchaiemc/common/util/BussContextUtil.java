@@ -38,6 +38,7 @@ public class BussContextUtil {
 
         bussRequest.setBussExtInfo(request.getBussData());
         bussRequest.getBussContext().setActionCode(actionCode);
+        bussRequest.getBussContext().setTraceId(generBizTraceId());
 
         //业务组件编排
         String actionArray = SysConfigInit.bussFlowMap.get(actionCode);

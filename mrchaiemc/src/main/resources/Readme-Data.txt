@@ -33,3 +33,12 @@ setAutoration.do
     "authToken":"123456"
     }
 }
+
+#addModel
+addNewModel.do
+{
+	"custId": "1111",
+	"bussData": {
+		"modelInfo": "{\"modelName\":\"myfirst model\",\"modelSubName\":\"myfirst model sub name\",\"category1\":\"LORA\"}"
+	}
+}

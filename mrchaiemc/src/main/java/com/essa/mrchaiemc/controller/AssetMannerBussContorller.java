@@ -13,6 +13,7 @@ import com.essa.mrchaiemc.common.util.BussContextUtil;
 import com.essa.mrchaiemc.common.util.ResUtil;
 import com.essa.mrchaiemc.common.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,9 +41,11 @@ public class AssetMannerBussContorller {
 
     @PostMapping("/assetcommonupload.do")
     @ResponseBody
-    public CustomerCommonResponse assetCommonUpload(@RequestParam("file") MultipartFile[] files, HttpServletRequest request, HttpSession session){
+    public CustomerCommonResponse assetCommonUpload(@RequestParam("file") MultipartFile[] files,
+                                                    @RequestParam(name = "userId") String userId,@RequestParam(name = "modelId") String modelId,HttpServletRequest request){
         CustomCommonReq req = new CustomCommonReq();
-        req.setCustId(request.getParameter("userId"));
+        req.setCustId(userId);
+
 
         BussRequest bussRequest = BussContextUtil.buildBussRequestForAssetOpr(request,req,"ASSETUPLOAD");
         bussRequest.getBussContext().setFile(files);
@@ -51,5 +54,7 @@ public class AssetMannerBussContorller {
         bussPipeline.execWithPipeLine(bussRequest,bussResponse);
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
+
+
 
 }

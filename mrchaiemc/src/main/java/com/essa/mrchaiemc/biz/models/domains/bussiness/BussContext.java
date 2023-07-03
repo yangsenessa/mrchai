@@ -120,4 +120,12 @@ public class BussContext {
     public void setTraceId(String traceId) {
         this.traceId = traceId;
     }
+
+    public ModelContext getModelContext() {
+        return modelContext;
+    }
+
+    public void setModelContext(ModelContext modelContext) {
+        this.modelContext = modelContext;
+    }
 }

@@ -10,7 +10,7 @@ public class BussResponse {
 
     private String resCode;
 
-    private Map<String ,Object> resExtInfo = new HashMap<>();
+    private Map<String ,String> resExtInfo = new HashMap<>();
 
     public String getResCode() {
         return resCode;
@@ -20,11 +20,11 @@ public class BussResponse {
         this.resCode = resCode;
     }
 
-    public Map<String, Object> getResExtInfo() {
+    public Map<String, String> getResExtInfo() {
         return resExtInfo;
     }
 
-    public void setResExtInfo(Map<String, Object> resExtInfo) {
+    public void setResExtInfo(Map<String, String> resExtInfo) {
         this.resExtInfo = resExtInfo;
     }
 }
