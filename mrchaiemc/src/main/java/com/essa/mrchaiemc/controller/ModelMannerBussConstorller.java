@@ -21,6 +21,11 @@ public class ModelMannerBussConstorller {
     @Autowired
     BussPipeline bussPipeline;
 
+    /**
+     * 新增模型
+     * @param req
+     * @return
+     */
     @RequestMapping(value = "/addNewModel.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
     @ResponseBody
     public CustomerCommonResponse addNewModel(@RequestBody CustomCommonReq req){
@@ -30,4 +35,15 @@ public class ModelMannerBussConstorller {
 
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
+
+    @RequestMapping(value = "/modModelDetailInfo.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
+    @ResponseBody
+    public CustomerCommonResponse modModelDetailInfo(@RequestBody CustomCommonReq req){
+        BussResponse bussResponse = new BussResponse();
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"MODMODELDETAIL");
+        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+
+    }
+
 }

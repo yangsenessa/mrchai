@@ -42,3 +42,12 @@ addNewModel.do
 		"modelInfo": "{\"modelName\":\"myfirst model\",\"modelSubName\":\"myfirst model sub name\",\"category1\":\"LORA\"}"
 	}
 }
+#-------response
+{
+    "resultCode": "SUCCESS",
+    "gmtDate": 1688404429748,
+    "loginStatus": "true",
+    "bussData": {
+        "model_id": "77b35362-8914-420b-8648-51c221857d5d"
+    }
+}

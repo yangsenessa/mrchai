@@ -2,6 +2,7 @@ package com.essa.mrchaiemc.biz.services.usersrv;
 
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
+import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
 
 public interface ModelBizService {
     /**
@@ -10,6 +11,13 @@ public interface ModelBizService {
      * @param response
      */
     void addOrUpdateModelInfo(BussRequest request, BussResponse response);
+
+    /**
+     * 获取模型基础信息
+     * @param request
+     * @param response
+     */
+    ModelInfo fetchModelInfoBase(BussRequest request, BussResponse response);
 
 
     /**
@@ -33,5 +41,10 @@ public interface ModelBizService {
      */
     void addOrUpdateModelFilesInfo(BussRequest request, BussResponse response);
 
-
+    /**
+     * 新增，修改模型详细信息
+     * @param request
+     * @param response
+     */
+    void modModelDetailInfo(BussRequest request, BussResponse response);
 }

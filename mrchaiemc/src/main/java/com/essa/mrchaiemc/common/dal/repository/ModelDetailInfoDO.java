@@ -1,6 +1,5 @@
 package com.essa.mrchaiemc.common.dal.repository;
 
-import com.essa.mrchaiemc.biz.models.params.EmcInvokeParam;
 
 import javax.persistence.*;
 
@@ -12,21 +11,54 @@ public class ModelDetailInfoDO {
     @Column(name = "model_id", nullable = false, length = 128)
     private String modelId;
 
-    /** paramModel*/
-    @Column(name = "params", nullable = true, length = 5120)
-    private String params;
+    @Column(name="version", nullable = true, length = 25)
+    private String version;
 
-    /** invoke guide*/
-    @Column(name = "invoke_guide", nullable = true, length = 5120)
-    private String invokeGuide;
 
     /** EmcInvokeParam */
-    @Column(name = "emc_invoke_param", nullable = true, length = 5120)
+    @Column(name = "emc_invoke_param", nullable = true, length = 500)
     private String emcInvokeParam;
 
     /** downLoadLink*/
-    @Column(name = "download_link", nullable = true, length = 5120)
+    @Column(name = "download_link", nullable = true, length = 512)
     private String downLoadLink;
+
+    /** params_guide_link*/
+    @Column(name = "params_guide_link", nullable = true, length = 512)
+    private String paramsGuideLink;
+
+    /** guide_link*/
+    @Column(name = "guide_link", nullable = true, length = 512)
+    private String guideLink;
+
+    /** sample_code_link*/
+    @Column(name = "sample_code_link", nullable = true, length = 512)
+    private String sampleCodeLink;
+
+
+    public String getParamsGuideLink() {
+        return paramsGuideLink;
+    }
+
+    public void setParamsGuideLink(String paramsGuideLink) {
+        this.paramsGuideLink = paramsGuideLink;
+    }
+
+    public String getGuideLink() {
+        return guideLink;
+    }
+
+    public void setGuideLink(String guideLink) {
+        this.guideLink = guideLink;
+    }
+
+    public String getSampleCodeLink() {
+        return sampleCodeLink;
+    }
+
+    public void setSampleCodeLink(String sampleCodeLink) {
+        this.sampleCodeLink = sampleCodeLink;
+    }
 
     public String getModelId() {
         return modelId;
@@ -36,21 +68,6 @@ public class ModelDetailInfoDO {
         this.modelId = modelId;
     }
 
-    public String getParams() {
-        return params;
-    }
-
-    public void setParams(String params) {
-        this.params = params;
-    }
-
-    public String getInvokeGuide() {
-        return invokeGuide;
-    }
-
-    public void setInvokeGuide(String invokeGuide) {
-        this.invokeGuide = invokeGuide;
-    }
 
     public String getEmcInvokeParam() {
         return emcInvokeParam;
@@ -66,5 +83,13 @@ public class ModelDetailInfoDO {
 
     public void setDownLoadLink(String downLoadLink) {
         this.downLoadLink = downLoadLink;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }
