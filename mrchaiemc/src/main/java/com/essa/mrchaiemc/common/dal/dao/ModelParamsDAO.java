@@ -3,6 +3,9 @@ package com.essa.mrchaiemc.common.dal.dao;
 import com.essa.mrchaiemc.common.dal.repository.ModelParamsDO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ModelParamsDAO extends JpaRepository<ModelParamsDO,String> {
-    ModelParamsDO findByModelIdAndVersion();
+    ModelParamsDO findByModelIdAndVersion(String modelId,String version);
+    List<ModelParamsDO> findByModelId(String modelId);
 }

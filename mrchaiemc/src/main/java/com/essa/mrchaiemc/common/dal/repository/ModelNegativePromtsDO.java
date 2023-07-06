@@ -3,23 +3,21 @@ package com.essa.mrchaiemc.common.dal.repository;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "model_params")
-public class ModelParamsDO {
+@Table(name = "model_negative_promts")
+public class ModelNegativePromtsDO {
+
     /** modelId*/
     @Id
     @Column(name = "model_id", nullable = false, length = 128)
     private String modelId;
 
-    /** version*/
-    @Column(name = "version", nullable = true, length = 10)
+    @Column(name = "version", nullable = true, length = 128)
     private String version;
 
-
-    /** commonParams*/
+    /** negativeParams*/
     @Lob
-    @Column(name = "common_params", nullable = true, length = 4000,columnDefinition = "text")
-    private String commonParams;
-
+    @Column(name = "negative_promts", nullable = true, length = 5120,columnDefinition = "text")
+    private String negativePromts;
 
     public String getModelId() {
         return modelId;
@@ -29,20 +27,19 @@ public class ModelParamsDO {
         this.modelId = modelId;
     }
 
-
-    public String getCommonParams() {
-        return commonParams;
-    }
-
-    public void setCommonParams(String commonParams) {
-        this.commonParams = commonParams;
-    }
-
     public String getVersion() {
         return version;
     }
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public String getNegativePromts() {
+        return negativePromts;
+    }
+
+    public void setNegativePromts(String negativePromts) {
+        this.negativePromts = negativePromts;
     }
 }

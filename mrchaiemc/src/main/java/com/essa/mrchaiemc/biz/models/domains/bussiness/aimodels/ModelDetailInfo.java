@@ -27,6 +27,9 @@ public class ModelDetailInfo {
     /** guide_link*/
     private String guideLink;
 
+    /** paramsGuideLink*/
+    private String paramsGuideLink;
+
     /** sample_code_link */
     private String sampleCodeLink;
 
@@ -93,5 +96,13 @@ public class ModelDetailInfo {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public String getParamsGuideLink() {
+        return paramsGuideLink;
+    }
+
+    public void setParamsGuideLink(String paramsGuideLink) {
+        this.paramsGuideLink = paramsGuideLink;
     }
 }

@@ -1,25 +1,25 @@
 package com.essa.mrchaiemc.common.dal.repository;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "model_params")
-public class ModelParamsDO {
+@Table(name = "model_invoke_guide")
+public class ModelInvokeGuideDO {
     /** modelId*/
     @Id
     @Column(name = "model_id", nullable = false, length = 128)
     private String modelId;
 
+    /** invoke guide*/
+    @Column(name = "invoke_guide", nullable = true, length = 5120,columnDefinition = "text")
+    private String invokeGuide;
+
     /** version*/
     @Column(name = "version", nullable = true, length = 10)
     private String version;
-
-
-    /** commonParams*/
-    @Lob
-    @Column(name = "common_params", nullable = true, length = 4000,columnDefinition = "text")
-    private String commonParams;
-
 
     public String getModelId() {
         return modelId;
@@ -29,13 +29,12 @@ public class ModelParamsDO {
         this.modelId = modelId;
     }
 
-
-    public String getCommonParams() {
-        return commonParams;
+    public String getInvokeGuide() {
+        return invokeGuide;
     }
 
-    public void setCommonParams(String commonParams) {
-        this.commonParams = commonParams;
+    public void setInvokeGuide(String invokeGuide) {
+        this.invokeGuide = invokeGuide;
     }
 
     public String getVersion() {

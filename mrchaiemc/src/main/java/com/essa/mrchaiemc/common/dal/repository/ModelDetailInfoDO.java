@@ -16,24 +16,26 @@ public class ModelDetailInfoDO {
 
 
     /** EmcInvokeParam */
-    @Column(name = "emc_invoke_param", nullable = true, length = 500)
+    @Column(name = "emc_invoke_param", nullable = true, length = 128)
     private String emcInvokeParam;
 
     /** downLoadLink*/
-    @Column(name = "download_link", nullable = true, length = 512)
+    @Column(name = "download_link", nullable = true, length = 128)
     private String downLoadLink;
 
     /** params_guide_link*/
-    @Column(name = "params_guide_link", nullable = true, length = 512)
+    @Column(name = "params_guide_link", nullable = true, length = 128)
     private String paramsGuideLink;
 
     /** guide_link*/
-    @Column(name = "guide_link", nullable = true, length = 512)
+    @Column(name = "guide_link", nullable = true, length = 128)
     private String guideLink;
 
     /** sample_code_link*/
-    @Column(name = "sample_code_link", nullable = true, length = 512)
+    @Column(name = "sample_code_link", nullable = true, length = 128)
     private String sampleCodeLink;
+
+
 
 
     public String getParamsGuideLink() {
