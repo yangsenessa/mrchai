@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ModelDetailInfoDAO extends JpaRepository<ModelDetailInfoDO, String> {
-    List<ModelDetailInfoDO> findByModelId(String modelId);
+    ModelDetailInfoDO findByModelId(String modelId);
 }

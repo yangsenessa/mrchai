@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ModelPositivePromtsDAO extends JpaRepository<ModelPositivePromtsDO,String> {
     ModelPositivePromtsDO findByModelIdAndVersion(String modelId,String version);
-    List<ModelPositivePromtsDO> findByModelId(String modelId);
+    ModelPositivePromtsDO findByModelId(String modelId);
 }

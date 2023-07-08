@@ -4,17 +4,28 @@ import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
+import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.Cust2ModelMapping;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfo;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
+import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.ModelStatusEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 
 import com.essa.mrchaiemc.common.dal.dao.*;
 import com.essa.mrchaiemc.common.dal.repository.*;
+import com.essa.mrchaiemc.common.util.DateUtil;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Service("modelBizService")
 public class ModelBizServiceImpl implements ModelBizService{
@@ -28,18 +39,28 @@ public class ModelBizServiceImpl implements ModelBizService{
     private ModelPositivePromtsDAO modelPositivePromtsDAO;
     @Autowired
     private ModelParamsDAO modelParamsDAO;
-
+    @Autowired
+    private Cust2ModelMappingDAO cust2ModelMappingDAO;
 
 
     @Autowired
     private ModelDetailInfoDAO modelDetailInfoDAO;
 
     @Override
+    @Transactional
     public void addOrUpdateModelInfo(BussRequest request, BussResponse response) {
         ModelInfo modelInfo = this.getModelInfo(request);
         ModelInfoDO modelInfoDO = new ModelInfoDO();
         this.covertModelInfo2DO(modelInfo, modelInfoDO);
+
+        Cust2ModelMappingDO cust2ModelMappingDO = new Cust2ModelMappingDO();
+        cust2ModelMappingDO.setCustId(request.getUserContext().getUserId());
+        cust2ModelMappingDO.setGmtCreate(DateUtil.getGmtDateTime());
+        cust2ModelMappingDO.setModelId(modelInfo.getModelId());
+        cust2ModelMappingDO.setMapperId(cust2ModelMappingDO.getCustId()+"-"+modelInfo.getModelId());
+        cust2ModelMappingDO.setStatus(ModelStatusEnum.NORMAL.getCode());
         modelInfoDAO.save(modelInfoDO);
+        cust2ModelMappingDAO.save(cust2ModelMappingDO);
     }
 
     @Override
@@ -49,6 +70,29 @@ public class ModelBizServiceImpl implements ModelBizService{
         ModelInfoDO modelInfoDO = modelInfoDAO.findByModelId(modelDetailInfo.getModelId());
         this.convertDO2ModelInfo(modelInfoDO,modelInfo);
         return modelInfo;
+    }
+
+    @Override
+    public List<ModelInfo> fetchModelInfoBaseListByPages(BussRequest request, BussResponse response) {
+        int pageIndex = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGEINDEX.getCode()));
+        int pageSize = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGESIZE.getCode()));
+
+        List<ModelInfo> modelInfoList = new ArrayList<ModelInfo>();
+
+        //设置分页参数
+        Pageable pageable = PageRequest.of(pageIndex,pageSize);
+         //分页查询
+        Page<ModelInfoDO> pageList = modelInfoDAO.findAll(pageable);
+        if(pageList == null){
+            return null;
+        }
+        for (ModelInfoDO modelInfoDO: pageList){
+            ModelInfo modelInfoItem = new ModelInfo();
+            this.convertDO2ModelInfo(modelInfoDO,modelInfoItem);
+            modelInfoList.add(modelInfoItem);
+        }
+        return modelInfoList;
+
     }
 
     @Override
@@ -95,6 +139,40 @@ public class ModelBizServiceImpl implements ModelBizService{
 
     }
 
+    @Override
+    public ModelDetailInfo getModelDetailInfo(BussRequest request, BussResponse response) {
+        ModelDetailInfo modelDetailInfo = new ModelDetailInfo();
+        String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());
+        ModelDetailInfoDO modelDetailInfoDO = modelDetailInfoDAO.findByModelId(modelId);
+        ModelInvokeGuideDO modelInvokeGuideDO = modelInvokeGuideDAO.findByModelId(modelId);
+        ModelNegativePromtsDO modelNegativePromtsDO = modelNegativePromtsDAO.findByModelId(modelId);
+        ModelParamsDO modelParamsDO = modelParamsDAO.findByModelId(modelId);
+        ModelPositivePromtsDO modelPositivePromtsDO = modelPositivePromtsDAO.findByModelId(modelId);
+
+
+        convertDO2ModelDetailInfo(modelDetailInfoDO,modelInvokeGuideDO,
+                modelNegativePromtsDO,modelPositivePromtsDO,modelParamsDO,modelDetailInfo);
+
+        return modelDetailInfo;
+    }
+
+    @Override
+    public List<String> getModelIdsByCustId(BussRequest request, BussResponse response) {
+        String custId = request.getUserContext().getUserId();
+        if(StringUtil.isEmpty(custId)){
+            return null;
+        }
+
+        List<String> modelIdList = new ArrayList<String>();
+        List<Cust2ModelMappingDO> cust2ModelMappingDOList = this.cust2ModelMappingDAO.findByCustId(custId);
+
+        for(Cust2ModelMappingDO item : cust2ModelMappingDOList){
+            modelIdList.add(item.getModelId());
+        }
+
+        return modelIdList;
+    }
+
     /**
      *
      * @param request
@@ -116,6 +194,7 @@ public class ModelBizServiceImpl implements ModelBizService{
         modelInfoDO.setCateGory3(modelInfo.getCateGory3());
     }
 
+
     /**
      * 2DO模型转换-modeldetailInfo
      * @param modelDetailInfo
@@ -133,6 +212,22 @@ public class ModelBizServiceImpl implements ModelBizService{
     }
 
     /**
+     * DO 2 DOMAIN modelInfo 模型转换
+     * @param modelInfoDO
+     * @param modelInfo
+     */
+    private void convertModelInfoDO2Domain(ModelInfoDO modelInfoDO, ModelInfo modelInfo){
+        modelInfo.setModelId(modelInfoDO.getModelId());
+        modelInfo.setModelKey(modelInfoDO.getModelKey());
+        modelInfo.setModelName(modelInfoDO.getModelName());
+        modelInfo.setModelSubName(modelInfoDO.getModelSubName());
+        modelInfo.setCateGory3(modelInfoDO.getCateGory3());
+        modelInfo.setCateGory2(modelInfoDO.getCateGory2());
+        modelInfo.setCateGory1(modelInfoDO.getCateGory1());
+    }
+
+
+    /**
      *
      * @param modelDetailInfo
      * @param modelInvokeGuideDO
@@ -142,6 +237,24 @@ public class ModelBizServiceImpl implements ModelBizService{
         modelInvokeGuideDO.setModelId(modelDetailInfo.getModelId());
         modelInvokeGuideDO.setVersion(modelDetailInfo.getVersion());
     }
+
+
+    private void convertDO2ModelDetailInfo(ModelDetailInfoDO modelDetailInfoDO,ModelInvokeGuideDO modelInvokeGuideDO,
+                                           ModelNegativePromtsDO modelNegativePromtsDO,
+                                           ModelPositivePromtsDO modelPositivePromtsDO,ModelParamsDO modelParamsDO,ModelDetailInfo modelDetailInfo){
+        modelDetailInfo.setVersion(modelDetailInfoDO.getVersion());
+        modelDetailInfo.setModelId(modelDetailInfoDO.getModelId());
+        modelDetailInfo.setCommonParams(modelParamsDO.getCommonParams());
+        modelDetailInfo.setNegativePromts(modelNegativePromtsDO.getNegativePromts());
+        modelDetailInfo.setPositivePromts(modelPositivePromtsDO.getPromts());
+        modelDetailInfo.setInvokeGuide(modelInvokeGuideDO.getInvokeGuide());
+        modelDetailInfo.setDownLoadLink(modelDetailInfoDO.getDownLoadLink());
+        //modelDetailInfo.setEmcInvokeParam(modelDetailInfoDO.getEmcInvokeParam());
+        modelDetailInfo.setGuideLink(modelDetailInfoDO.getGuideLink());
+        modelDetailInfo.setParamsGuideLink(modelDetailInfoDO.getParamsGuideLink());
+        modelDetailInfo.setSampleCodeLink(modelDetailInfoDO.getSampleCodeLink());
+    }
+
 
     /**
      *

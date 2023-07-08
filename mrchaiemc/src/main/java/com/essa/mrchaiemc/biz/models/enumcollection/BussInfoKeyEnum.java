@@ -13,7 +13,10 @@ public enum BussInfoKeyEnum {
     MODEL_DETAIL("modelDetail","modelDetail"),
     MODEL_PRINCIPLE("modelPrinciple","modelPrinciple"),
     CATEGORY_1("category1","category1"),
-    MODELID("model_id","model_id")
+    MODELID("model_id","model_id"),
+    /** ####### contorl    ##########*/
+    PAGEINDEX("pageIndex","pageIndex"),
+    PAGESIZE("pageSize", "pageSize")
     ;
 
 

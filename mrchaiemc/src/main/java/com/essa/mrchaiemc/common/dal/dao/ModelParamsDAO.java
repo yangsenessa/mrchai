@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ModelParamsDAO extends JpaRepository<ModelParamsDO,String> {
     ModelParamsDO findByModelIdAndVersion(String modelId,String version);
-    List<ModelParamsDO> findByModelId(String modelId);
+    ModelParamsDO findByModelId(String modelId);
 }
