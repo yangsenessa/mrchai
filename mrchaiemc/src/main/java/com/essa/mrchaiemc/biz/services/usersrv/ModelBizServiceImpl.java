@@ -52,11 +52,6 @@ public class ModelBizServiceImpl implements ModelBizService{
     }
 
     @Override
-    public void addOrUpdateModelDetailInfo(BussRequest request, BussResponse response) {
-
-    }
-
-    @Override
     public void addOrUpdateModelCovers(BussRequest request, BussResponse response) {
 
     }

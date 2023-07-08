@@ -11,11 +11,6 @@ public enum BussInfoKeyEnum {
     APPLREGINFO_LOGINID("loginId","loginId"),
     MODEL_INFO("modelInfo","modelInfo"),
     MODEL_DETAIL("modelDetail","modelDetail"),
-    PARAM_MODEL("paramModel","paramModel"),
-    INVOKE_GUIDE("invoke_guide","invoke_guide"),
-    POSITIVE_PROMTS("positive_promts","positive_promts"),
-    NEGATIVE_PROMTS("negative_promts","negative_promts"),
-    MODEL_COMMON_PARAMS("common_promts", "common_promts"),
     MODEL_PRINCIPLE("modelPrinciple","modelPrinciple"),
     CATEGORY_1("category1","category1"),
     MODELID("model_id","model_id")

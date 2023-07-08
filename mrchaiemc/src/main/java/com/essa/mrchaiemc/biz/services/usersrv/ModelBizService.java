@@ -20,12 +20,6 @@ public interface ModelBizService {
     ModelInfo fetchModelInfoBase(BussRequest request, BussResponse response);
 
 
-    /**
-     * 增加或修改模型详细信息
-     * @param request
-     * @param response
-     */
-    void addOrUpdateModelDetailInfo(BussRequest request, BussResponse response);
 
     /**
      * 增加或修改模型封面

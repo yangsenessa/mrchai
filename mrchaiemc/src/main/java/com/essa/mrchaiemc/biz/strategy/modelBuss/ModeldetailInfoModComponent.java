@@ -26,21 +26,22 @@ public class ModeldetailInfoModComponent implements BussComponent {
 
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
-        if(request == null || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_INFO.getCode()))){
+        if(request == null || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_DETAIL.getCode()))){
             return false;
         }
         ModelContext modelContext = new ModelContext();
         ModelDetailInfo modelDetailInfo = null;
         ModelInfo modelInfo = null;
+        request.getBussContext().setModelContext(new ModelContext());
         String modelDetailInfoJson = request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_DETAIL.getCode());
         try {
             modelDetailInfo = JSONObject.parseObject(modelDetailInfoJson, new TypeReference<ModelDetailInfo>() {
             });
-            modelDetailInfo.setInvokeGuide(request.getBussExtInfo().get(BussInfoKeyEnum.INVOKE_GUIDE.getCode()));
-            modelDetailInfo.setPositivePromts(request.getBussExtInfo().get(BussInfoKeyEnum.POSITIVE_PROMTS.getCode()));
-            modelDetailInfo.setNegativePromts(request.getBussExtInfo().get(BussInfoKeyEnum.NEGATIVE_PROMTS.getCode()));
-            modelDetailInfo.setCommonParams(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_COMMON_PARAMS.getCode()));
+            request.getBussContext().getModelContext().setModelDetailInfo(modelDetailInfo);
+
             modelInfo = modelBizService.fetchModelInfoBase(request,response);
+            request.getBussContext().getModelContext().setModelInfo(modelInfo);
+
         } catch (Exception e){
             LoggerUtil.errlog(e,"parse modelinfo or modelDetail fail" +
                     request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_DETAIL.getCode()));
