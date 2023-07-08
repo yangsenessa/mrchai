@@ -36,6 +36,10 @@ public class ModeldetailInfoModComponent implements BussComponent {
         try {
             modelDetailInfo = JSONObject.parseObject(modelDetailInfoJson, new TypeReference<ModelDetailInfo>() {
             });
+            modelDetailInfo.setInvokeGuide(request.getBussExtInfo().get(BussInfoKeyEnum.INVOKE_GUIDE.getCode()));
+            modelDetailInfo.setPositivePromts(request.getBussExtInfo().get(BussInfoKeyEnum.POSITIVE_PROMTS.getCode()));
+            modelDetailInfo.setNegativePromts(request.getBussExtInfo().get(BussInfoKeyEnum.NEGATIVE_PROMTS.getCode()));
+            modelDetailInfo.setCommonParams(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_COMMON_PARAMS.getCode()));
             modelInfo = modelBizService.fetchModelInfoBase(request,response);
         } catch (Exception e){
             LoggerUtil.errlog(e,"parse modelinfo or modelDetail fail" +

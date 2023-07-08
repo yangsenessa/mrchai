@@ -1,7 +1,7 @@
 package com.essa.mrchaiemc.biz.services.usersrv;
 
+import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfo;
@@ -23,7 +23,7 @@ public class ModelBizServiceImpl implements ModelBizService{
     @Autowired
     private ModelInvokeGuideDAO modelInvokeGuideDAO;
     @Autowired
-    private ModelNegativePromtsDAO modelNegativePromtsDAo;
+    private ModelNegativePromtsDAO modelNegativePromtsDAO;
     @Autowired
     private ModelPositivePromtsDAO modelPositivePromtsDAO;
     @Autowired
@@ -84,7 +84,7 @@ public class ModelBizServiceImpl implements ModelBizService{
             this.modelDetailInfoDAO.save(modelDetailInfoDO);
             this.modelInvokeGuideDAO.save(modelInvokeGuideDO);
             this.modelParamsDAO.save(modelParamsDO);
-            this.modelNegativePromtsDAo.save(modelNegativePromtsDO);
+            this.modelNegativePromtsDAO.save(modelNegativePromtsDO);
             this.modelPositivePromtsDAO.save(modelPositivePromtsDO);
             response.setResCode(ResultCode.SUCCESS.name());
             response.setResExtInfo(new HashMap<>());
@@ -154,8 +154,8 @@ public class ModelBizServiceImpl implements ModelBizService{
      * @param modelNegativePromtsDO
      */
     private void convertModelDetailInfo2ModelNagativePromptsDO(ModelDetailInfo modelDetailInfo, ModelNegativePromtsDO modelNegativePromtsDO){
-        if(modelDetailInfo.getParamModel().getNegativePromts()!= null){
-            modelNegativePromtsDO.setNegativePromts(JSONObject.toJSONString(modelDetailInfo.getParamModel().getNegativePromts()));
+        if(!StringUtil.isEmpty( modelDetailInfo.getNegativePromts())){
+            modelNegativePromtsDO.setNegativePromts(JSONObject.toJSONString(modelDetailInfo.getNegativePromts()));
         }
         modelNegativePromtsDO.setModelId(modelDetailInfo.getModelId());
         modelNegativePromtsDO.setVersion(modelDetailInfo.getVersion());
@@ -170,8 +170,8 @@ public class ModelBizServiceImpl implements ModelBizService{
         modelPositivePromtsDO.setModelId(modelDetailInfo.getModelId());
         modelPositivePromtsDO.setVersion(modelDetailInfo.getVersion());
 
-        if(modelDetailInfo.getParamModel().getPromts()!= null){
-            modelPositivePromtsDO.setPromts(JSONObject.toJSONString(modelDetailInfo.getParamModel().getPromts()));
+        if(!StringUtil.isEmpty(modelDetailInfo.getPositivePromts()) ){
+            modelPositivePromtsDO.setPromts(JSONObject.toJSONString(modelDetailInfo.getPositivePromts()));
         }
     }
 
@@ -184,8 +184,8 @@ public class ModelBizServiceImpl implements ModelBizService{
 
         modelParamsDO.setModelId(modelDetailInfo.getModelId());
         modelParamsDO.setVersion(modelDetailInfo.getVersion());
-        if((modelDetailInfo.getParamModel().getCommonParams() != null)){
-            modelParamsDO.setCommonParams(JSONObject.toJSONString(modelDetailInfo.getParamModel().getCommonParams()) );
+        if(!StringUtil.isEmpty(modelDetailInfo.getCommonParams())){
+            modelParamsDO.setCommonParams(JSONObject.toJSONString(modelDetailInfo.getCommonParams()) );
         }
     }
 

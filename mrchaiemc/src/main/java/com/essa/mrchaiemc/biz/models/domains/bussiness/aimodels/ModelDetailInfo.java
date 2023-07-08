@@ -8,15 +8,9 @@ public class ModelDetailInfo {
     /** modelId*/
     private String modelId;
 
-
     /** vesion*/
     private String version;
 
-    /** paramModel*/
-    private ParamModel paramModel;
-
-    /** invoke guide*/
-    private String invokeGuide;
 
     /** EmcInvokeParam */
     private EmcInvokeParam emcInvokeParam;
@@ -33,6 +27,33 @@ public class ModelDetailInfo {
     /** sample_code_link */
     private String sampleCodeLink;
 
+    /** invoke_guide*/
+    private String invokeGuide;
+
+    /** negative promts*/
+    private String negativePromts;
+
+    /** positive_promts*/
+    private String positivePromts;
+
+    /** common_params*/
+    private String commonParams;
+
+    public String getNegativePromts() {
+        return negativePromts;
+    }
+
+    public void setNegativePromts(String negativePromts) {
+        this.negativePromts = negativePromts;
+    }
+
+    public String getPositivePromts() {
+        return positivePromts;
+    }
+
+    public void setPositivePromts(String positivePromts) {
+        this.positivePromts = positivePromts;
+    }
 
     public String getGuideLink() {
         return guideLink;
@@ -58,21 +79,7 @@ public class ModelDetailInfo {
         this.modelId = modelId;
     }
 
-    public ParamModel getParamModel() {
-        return paramModel;
-    }
 
-    public void setParamModel(ParamModel paramModel) {
-        this.paramModel = paramModel;
-    }
-
-    public String getInvokeGuide() {
-        return invokeGuide;
-    }
-
-    public void setInvokeGuide(String invokeGuide) {
-        this.invokeGuide = invokeGuide;
-    }
 
     public EmcInvokeParam getEmcInvokeParam() {
         return emcInvokeParam;
@@ -104,5 +111,21 @@ public class ModelDetailInfo {
 
     public void setParamsGuideLink(String paramsGuideLink) {
         this.paramsGuideLink = paramsGuideLink;
+    }
+
+    public String getInvokeGuide() {
+        return invokeGuide;
+    }
+
+    public void setInvokeGuide(String invokeGuide) {
+        this.invokeGuide = invokeGuide;
+    }
+
+    public String getCommonParams() {
+        return commonParams;
+    }
+
+    public void setCommonParams(String commonParams) {
+        this.commonParams = commonParams;
     }
 }
