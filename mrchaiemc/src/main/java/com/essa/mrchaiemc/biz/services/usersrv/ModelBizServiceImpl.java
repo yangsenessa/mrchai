@@ -149,6 +149,22 @@ public class ModelBizServiceImpl implements ModelBizService{
         ModelParamsDO modelParamsDO = modelParamsDAO.findByModelId(modelId);
         ModelPositivePromtsDO modelPositivePromtsDO = modelPositivePromtsDAO.findByModelId(modelId);
 
+        if(modelDetailInfoDO == null){
+            response.setResCode(ResultCode.DATANOTCOMPLETED.name());
+            return null;
+        }
+        if(modelInvokeGuideDO == null){
+            modelInvokeGuideDO = new ModelInvokeGuideDO();
+        }
+        if(modelNegativePromtsDO == null){
+            modelNegativePromtsDO = new ModelNegativePromtsDO();
+        }
+        if(modelParamsDO == null){
+            modelParamsDO = new ModelParamsDO();
+        }
+        if(modelPositivePromtsDO == null){
+            modelPositivePromtsDO = new ModelPositivePromtsDO();
+        }
 
         convertDO2ModelDetailInfo(modelDetailInfoDO,modelInvokeGuideDO,
                 modelNegativePromtsDO,modelPositivePromtsDO,modelParamsDO,modelDetailInfo);
@@ -242,6 +258,8 @@ public class ModelBizServiceImpl implements ModelBizService{
     private void convertDO2ModelDetailInfo(ModelDetailInfoDO modelDetailInfoDO,ModelInvokeGuideDO modelInvokeGuideDO,
                                            ModelNegativePromtsDO modelNegativePromtsDO,
                                            ModelPositivePromtsDO modelPositivePromtsDO,ModelParamsDO modelParamsDO,ModelDetailInfo modelDetailInfo){
+
+
         modelDetailInfo.setVersion(modelDetailInfoDO.getVersion());
         modelDetailInfo.setModelId(modelDetailInfoDO.getModelId());
         modelDetailInfo.setCommonParams(modelParamsDO.getCommonParams());

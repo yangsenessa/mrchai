@@ -33,11 +33,11 @@ public class ModelDetailInfoGenerComponent implements BussComponent {
             return false;
         }
         //check params
-        if(StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODELID))){
+        if(StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode()))){
             response.setResCode(ResultCode.INVAILDPARAMS.name());
             return false;
         }
-        String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID);
+        String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());
         List<String> modelIdList =  modelBizService.getModelIdsByCustId(request,response);
         if(CollectionUtils.isEmpty(modelIdList)){
             return false;
@@ -52,7 +52,7 @@ public class ModelDetailInfoGenerComponent implements BussComponent {
             ModelDetailInfo modelDetailInfo =  modelBizService.getModelDetailInfo(request,response);
             response.setResCode(ResultCode.SUCCESS.name());
             response.setResExtInfo(new HashMap<String, String>());
-            response.getResExtInfo().put(BussInfoKeyEnum.MODEL_DETAIL.getCode(), JSONObject.toJSONString(modelDetailInfo.getModelId()));
+            response.getResExtInfo().put(BussInfoKeyEnum.MODEL_DETAIL.getCode(),JSONObject.toJSONString(modelDetailInfo));
         } catch (Exception e) {
             LoggerUtil.errlog(e,"DB err!");
             response.setResCode(ResultCode.DBEXCEPTION.name());

@@ -40,7 +40,7 @@ public class CheckIdentityComponent implements BussComponent {
             return true;
         }
         //用户注册，需要检查用户现有的注册信息
-        if(StringUtil.equals("register",request.getBussContext().getActionCode())){
+        if(StringUtil.equals("APPLYREGISTER",request.getBussContext().getActionCode())){
             return true;
         }
         if( StringUtil.isNotEmpty(request.getUserContext().getUserId()) ){
