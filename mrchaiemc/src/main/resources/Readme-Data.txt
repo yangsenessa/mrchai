@@ -6,7 +6,7 @@
     userprofile:"simple" --  simple/adavance
     actionCode:"login"/"register"/"opr"
 }
-#userLogin
+#userLogin 用户登录
 userLogin.do
 {
 	"custId": "1111",
@@ -15,7 +15,7 @@ userLogin.do
 		"authToken": "0xa89981988ba"
 	}
 }
-#userRegAppl
+#userRegAppl 用户注册
 applyRegister.do
 {
 	"actionCode": "register",
@@ -23,7 +23,7 @@ applyRegister.do
 		"applRegInfo": "{\"loginId\":\"yangsenessa1\",\"email\":\"yangsenessa@gmail.com\",\"mobilePhone\": \"138888888888\",\"nickName\": \"barry\"}"
 	}
 }
-#setOrUpdateAuthToken
+#setOrUpdateAuthToken 用户修改鉴权-密码
 setAutoration.do
 {
     "actionCode":"setToken",
@@ -34,7 +34,7 @@ setAutoration.do
     }
 }
 
-#addModel
+#addModel 新增模型
 addNewModel.do
 {
 	"custId": "1111",
@@ -52,7 +52,7 @@ addNewModel.do
     }
 }
 
-#modModelDetailInfo.do
+#modModelDetailInfo.do 修改模型详情
 {
 	"custId": "1111",
 	"bussData": {
@@ -68,7 +68,7 @@ addNewModel.do
 	}
 }
 
-#queryModelInfoForMainView.do
+#queryModelInfoForMainView.do 首页查询详情列表
 {
     "custId":"1111",
     "bussData" :{
@@ -86,7 +86,7 @@ addNewModel.do
     }
 }
 
-#queryModelDetailInfo.do
+#queryModelDetailInfo.do 查询模型详情
 {
     "custId":"1111",
     "bussData": {
