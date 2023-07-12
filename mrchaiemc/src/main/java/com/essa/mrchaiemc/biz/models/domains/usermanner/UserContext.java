@@ -7,31 +7,31 @@ public class UserContext {
     /** userId - custId*/
     private String userId;
 
-    /** loginId */
+    /** loginId  用户登录id*/
     private String loginId;
 
-    /** loginName */
+    /** loginName  用户登录名*/
     private String loginName;
 
-    /** nickName*/
+    /** nickName 用户昵称*/
     private String nickName;
 
-    /** userProfile */
+    /** userProfile 用户附加配置信息-预留，暂时不用实现 */
     private UserProfile profile;
 
-    /** grandLevel*/
+    /** grandLevel 用户VIP层级*/
     private int grandLevel;
 
     /** email */
     private String email;
 
-    /** mobilePhoneNo*/
+    /** mobilePhoneNo 手机号*/
     private String mobilePhoneNo;
 
-    /** hasLogin*/
+    /** hasLogin 登录状态*/
     private boolean hasLogin;
 
-    /** userStatusEnum*/
+    /** userStatusEnum 当前用户状态*/
     private UserStatusEnum userStatus;
 
 

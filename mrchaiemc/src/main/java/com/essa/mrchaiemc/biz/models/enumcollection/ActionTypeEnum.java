@@ -14,7 +14,7 @@ public enum ActionTypeEnum {
     /** 视频上传*/
     VIDEO_PROJ("VIDEO_PROJ","VIDEO_PROJ"),
     /** 模型选择*/
-    ASSET_CHOOSE("ASSET_CHOOSE","ASSET_CHOOSE"),
+    ASSET_DOWNLOAD("ASSET_DOWNLOAD","ASSET_DOWNLOAD"),
     /** 模型发布*/
     ASSET_PUB("ASSET_PUB","ASSET_PUB");
 

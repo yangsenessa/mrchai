@@ -6,21 +6,25 @@ import java.util.Set;
 public class ParamModel {
     /**
      * prompts Set
+     * 正向提示词
      */
     private Set<String> promts;
 
     /**
      * negative promts
+     * 反向提示此
      */
     private Set<String> negativePromts;
 
     /**
      * commonParams
+     * 通用参数：step,Sampler,Model,CFG scale,Seed,Clip skip
      */
     private Map<String, String> commonParams;
 
     /**
      * paramLink
+     * 模型上传者git链接
      */
     private String paramLink;
 

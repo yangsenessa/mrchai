@@ -2,6 +2,9 @@ package com.essa.mrchaiemc.biz.models.domains.usermanner;
 
 import java.util.Date;
 
+/**
+ * 预留，目前没有token激励需求
+ */
 public class UserIdentifyLogs {
     /** userId*/
     private String userId;

@@ -1,20 +1,23 @@
 package com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels;
 
+/**
+ * 模型定价
+ */
 public class ModelPrinciple {
 
     /** modelId*/
     private String modelId;
 
-    /** downLoadPrice*/
+    /** downLoadPrice 下载价格/+定价  -激励 */
     private long downLoadPrice;
 
-    /** invokePrice*/
+    /** invokePrice 调用算力节点价格， +定价  -激励*/
     private long invokePrice;
 
-    /** enableDownLoad*/
+    /** enableDownLoad 是否允许下载*/
     private boolean enableDownLoad;
 
-    /** enableInvoke*/
+    /** enableInvoke 是否允许通过算力节点调度*/
     private boolean enableInvoke;
 
     public String getModelId() {

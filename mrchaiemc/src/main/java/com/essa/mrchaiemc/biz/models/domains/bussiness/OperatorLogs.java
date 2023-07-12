@@ -4,6 +4,9 @@ import com.essa.mrchaiemc.biz.models.enumcollection.ActionTypeEnum;
 
 import java.util.Date;
 
+/**
+ * 模型上传下载流水
+ */
 public class OperatorLogs {
 
     /** traceId*/
@@ -12,7 +15,7 @@ public class OperatorLogs {
     /** userId*/
     private String userId;
 
-    /** 动作类型*/
+    /** 动作类型 ASSET_DOWNLOAD - ASSET_PUB*/
     private ActionTypeEnum actionType;
 
     /** 创建时间*/

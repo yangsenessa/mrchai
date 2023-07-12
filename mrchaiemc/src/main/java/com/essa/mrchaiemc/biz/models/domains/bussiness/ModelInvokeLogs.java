@@ -2,6 +2,9 @@ package com.essa.mrchaiemc.biz.models.domains.bussiness;
 
 import java.util.Date;
 
+/**
+ * 模型算力节点调用流水
+ */
 public class ModelInvokeLogs {
 
     /** traceId*/

@@ -7,7 +7,7 @@ public class ModelStoreageMapper {
     /** modelId*/
     private String modelId;
 
-    /** bucket*/
+    /** bucket 分布式对象存储 bucket*/
     private String bucket;
 
     /** storeUrl ,降级为本地存储时候有值*/
