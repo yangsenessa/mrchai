@@ -19,7 +19,7 @@ public class  WebMvcConfig implements WebMvcConfigurer {
     public MultipartResolver multipartResolver() {
         LoggerUtil.info(logger,"Loading the multipart resolver");
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(1024000);
+        multipartResolver.setMaxUploadSize(1024000000);
         return multipartResolver;
     }
 
