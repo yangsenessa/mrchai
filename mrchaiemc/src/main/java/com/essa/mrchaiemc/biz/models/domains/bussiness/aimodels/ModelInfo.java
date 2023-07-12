@@ -2,26 +2,26 @@ package com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels;
 
 public class ModelInfo {
 
-    /** modelId*/
+    /** modelId  模型id uuid生成*/
     private String modelId;
 
-    /** modelName*/
+    /** modelName 模型名称-主页模型列表(grid)展示的名称*/
     private String modelName;
 
-    /** modelSubName*/
+    /** modelSubName 模型二级明细-详情页详细名称*/
     private String modelSubName;
 
 
-    /** modelkey*/
+    /** modelkey 模型对象存储key*/
     private String modelKey;
 
-    /** cateGory1*/
+    /** cateGory1 模型分类:lora,checkpoint....*/
     private String cateGory1;
 
-    /** cateGory2*/
+    /** cateGory2 模型tag，PERSON,WOMEN,WEDDING*/
     private String cateGory2;
 
-    /** cateGory3*/
+    /** cateGory3 预留*/
     private String cateGory3;
 
 

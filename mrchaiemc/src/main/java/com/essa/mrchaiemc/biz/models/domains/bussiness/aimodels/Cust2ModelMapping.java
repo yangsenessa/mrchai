@@ -4,23 +4,26 @@ import com.essa.mrchaiemc.biz.models.enumcollection.ModelCustVIewStatEnum;
 
 import java.util.Date;
 
+/**
+ * 用户模型归属映射模型
+ */
 public class Cust2ModelMapping {
     /** userId*/
     private String userId;
 
-    /** modelId*/
+    /** modelId 模型id*/
     private String modelId;
 
-    /** gmtCreate*/
+    /** gmtCreate 模型创建时间*/
     private Date gmtBizCreate;
 
-    /** gmtBizModified*/
+    /** gmtBizModified 上一次模型修改时间*/
     private Date gmtBizModified;
 
-    /** gmtDrop*/
+    /** gmtDrop 模型删除/下架时间*/
     private Date gmtDrop;
 
-    /** status*/
+    /** status 模型展示状态*/
     private ModelCustVIewStatEnum status;
 
     public String getUserId() {

@@ -4,11 +4,11 @@ import java.util.List;
 
 public class ModelCover {
 
-    /** img list*/
+    /** img list 模型封面-图片组*/
     private List<String> coverImgList;
-    /** video list*/
+    /** video list 模型封面-视频组-预留*/
     private List<String> coverVideoList;
-    /** tips*/
+    /** tips 模型检索特征词，推荐算法预留*/
     private List<String> tips;
 
     public List<String> getCoverImgList() {
