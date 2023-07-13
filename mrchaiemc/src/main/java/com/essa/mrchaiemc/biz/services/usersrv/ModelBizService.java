@@ -31,6 +31,14 @@ public interface ModelBizService {
      */
     List<ModelInfo> fetchModelInfoBaseListByPages(BussRequest request, BussResponse response);
 
+    /**
+     * 分类分页获取模型列表信息-Category1分类
+     * @param request
+     * @param response
+     * @return
+     */
+    List<ModelInfo> findByCategory1(BussRequest request, BussResponse response);
+
 
 
     /**

@@ -86,6 +86,25 @@ addNewModel.do
     }
 }
 
+#queryModelInfoByCategory1.do 首页分类查询详情列表
+{
+    "custId":"1111",
+    "bussData" :{
+        pageIndex:0,
+        pageSize:10,
+        "cateGory1": "LORA"
+    }
+}
+# --response
+{
+    "resultCode": "SUCCESS",
+    "gmtDate": 1688826163641,
+    "loginStatus": "true",
+    "bussData": {
+        "modelList": "[{\"cateGory1\":\"LORA\",\"modelId\":\"77b35362-8914-420b-8648-51c221857d5d\",\"modelName\":\"myfirst model\",\"modelSubName\":\"myfirst model sub name\"}]"
+    }
+}
+
 #queryModelDetailInfo.do 查询模型详情
 {
     "custId":"1111",

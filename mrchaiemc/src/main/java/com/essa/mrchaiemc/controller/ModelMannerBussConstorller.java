@@ -51,24 +51,39 @@ public class ModelMannerBussConstorller {
      * @param req
      * @return
      */
-    @RequestMapping(value = "/queryModelInfoForMainView.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
+    @RequestMapping(value = "/queryModelInfoForMainView.do", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     @ResponseBody
-    public CustomerCommonResponse queryModelInfoForMainView(@RequestBody CustomCommonReq req){
+    public CustomerCommonResponse queryModelInfoForMainView(@RequestBody CustomCommonReq req) {
         BussResponse bussResponse = new BussResponse();
-        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"QUERYMODELMAINVIEW");
-        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req, "QUERYMODELMAINVIEW");
+        bussPipeline.execWithPipeLine(bussRequest, bussResponse);
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
 
-
     /**
-     * 首页模型展示数据
+     * 首页模型分类展示数据
+     *
      * @param req
      * @return
      */
-    @RequestMapping(value = "/queryModelDetailInfo.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
+    @RequestMapping(value = "/queryModelInfoByCategory1.do", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     @ResponseBody
-    public CustomerCommonResponse queryModelDetailInfo(@RequestBody CustomCommonReq req){
+    public CustomerCommonResponse querModelInfoByCategory(@RequestBody CustomCommonReq req) {
+        BussResponse bussResponse = new BussResponse();
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req, "QUERYMODELBYCATEGORY1");
+        bussPipeline.execWithPipeLine(bussRequest, bussResponse);
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+    }
+
+    /**
+     * 首页模型展示数据
+     *
+     * @param req
+     * @return
+     */
+    @RequestMapping(value = "/queryModelDetailInfo.do", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
+    @ResponseBody
+    public CustomerCommonResponse queryModelDetailInfo(@RequestBody CustomCommonReq req) {
         BussResponse bussResponse = new BussResponse();
         BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"QUERYMODELDEAILINFO");
         bussPipeline.execWithPipeLine(bussRequest,bussResponse);
