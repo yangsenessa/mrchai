@@ -14,6 +14,7 @@ public enum BussInfoKeyEnum {
     MODEL_PRINCIPLE("modelPrinciple","modelPrinciple"),
     CATEGORY_1("category1","category1"),
     MODELID("model_id","model_id"),
+    FILEID("file_id","file_id"),
     /** ####### contorl    ##########*/
     PAGEINDEX("pageIndex","pageIndex"),
     PAGESIZE("pageSize", "pageSize")

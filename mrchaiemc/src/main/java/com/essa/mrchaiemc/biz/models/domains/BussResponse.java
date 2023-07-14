@@ -1,5 +1,6 @@
 package com.essa.mrchaiemc.biz.models.domains;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ public class BussResponse {
     public String getResCode() {
         return resCode;
     }
+    private HttpServletResponse httpServletResponse;
 
     public void setResCode(String resCode) {
         this.resCode = resCode;
@@ -26,5 +28,23 @@ public class BussResponse {
 
     public void setResExtInfo(Map<String, String> resExtInfo) {
         this.resExtInfo = resExtInfo;
+    }
+
+    /**
+     * Getter method for property <tt>httpServletResponse</tt>.
+     *
+     * @return property value of httpServletResponse
+     */
+    public HttpServletResponse getHttpServletResponse() {
+        return httpServletResponse;
+    }
+
+    /**
+     * Setter method for property <tt>httpServletResponse</tt>.
+     *
+     * @param httpServletResponse value to be assigned to property httpServletResponse
+     */
+    public void setHttpServletResponse(HttpServletResponse httpServletResponse) {
+        this.httpServletResponse = httpServletResponse;
     }
 }

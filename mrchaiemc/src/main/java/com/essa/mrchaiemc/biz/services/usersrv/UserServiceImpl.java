@@ -2,12 +2,13 @@ package com.essa.mrchaiemc.biz.services.usersrv;
 
 import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.OperatorLogs;
-import com.essa.mrchaiemc.biz.models.domains.usermanner.UserProfile;
-import com.essa.mrchaiemc.biz.models.enumcollection.*;
+import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.CustIdentiTypeEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
+import com.essa.mrchaiemc.biz.models.enumcollection.UserStatusEnum;
 import com.essa.mrchaiemc.biz.models.exceptions.DbOprException;
 import com.essa.mrchaiemc.common.dal.dao.CustIdentityInfoDAO;
 import com.essa.mrchaiemc.common.dal.dao.CustInfoDAO;
@@ -141,8 +142,7 @@ public class UserServiceImpl implements UserService {
         request.getUserContext().setUserId(custInfoDO.getCustId());
         request.getUserContext().setEmail(custInfoDO.getEmail());
         request.getUserContext().setNickName(custInfoDO.getNickName());
-        request.getUserContext().setProfile(JSONObject.parseObject(custInfoDO.getProfile(), new TypeReference<UserProfile>() {
-        }));
+     //   request.getUserContext().setProfile(JSONObject.parseObject(custInfoDO.getProfile(),new TypeReference<UserProfile>(){}) );
         request.getUserContext().setLoginId(custInfoDO.getLoginId());
         request.getUserContext().setGrandLevel(custInfoDO.getGrandLevel());
         request.getUserContext().setMobilePhoneNo(custInfoDO.getMobilePhoneNo());
