@@ -42,4 +42,11 @@ public interface UserService {
      */
     void setOrChangeAuthToken(BussRequest request, BussResponse response);
 
+    /**
+     * 存储用户行为日志
+     * @param request
+     * @param response
+     */
+    void saveOperatorLog(BussRequest request, BussResponse response);
+
 }

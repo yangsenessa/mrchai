@@ -27,8 +27,8 @@ public class ModelInfoListMainViewComponent implements BussComponent {
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
         //如果前端没有上传分页参数，赋值默认值
-        if(StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.PAGEINDEX.getCode()))
-           || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.PAGESIZE.getCode()))){
+        if (StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.PAGEINDEX.getCode()))
+                || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.PAGESIZE.getCode()))) {
 
             request.getBussExtInfo().put(BussInfoKeyEnum.PAGEINDEX.getCode(),
                     String.valueOf(BussConstant.PAGEINDEX));

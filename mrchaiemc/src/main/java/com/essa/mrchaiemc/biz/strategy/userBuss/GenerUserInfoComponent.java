@@ -7,9 +7,9 @@ package com.essa.mrchaiemc.biz.strategy.userBuss;
 import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.essa.mrchaiemc.biz.models.domains.usermanner.UserContext;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
+import com.essa.mrchaiemc.biz.models.domains.usermanner.UserContext;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.biz.models.enumcollection.UserStatusEnum;
@@ -36,7 +36,7 @@ public class GenerUserInfoComponent implements BussComponent {
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
         boolean res = false;
-        if(response != null && request.getBussExtInfo() != null && StringUtil.equals(ResultCode.NEEDREGISTER.getMsg(),response.getResCode())){
+        if (response != null && request.getBussExtInfo() != null && StringUtil.equals(ResultCode.NEEDREGISTER.getMsg(), response.getResCode())) {
             //check and unpack userContext
             String userContext = request.getBussExtInfo().get(BussInfoKeyEnum.APPLREGINFO.getCode());
             if(StringUtil.isNotEmpty(userContext)){

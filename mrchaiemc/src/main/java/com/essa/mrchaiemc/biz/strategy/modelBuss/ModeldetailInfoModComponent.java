@@ -26,7 +26,7 @@ public class ModeldetailInfoModComponent implements BussComponent {
 
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
-        if(request == null || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_DETAIL.getCode()))){
+        if (request == null || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_DETAIL.getCode()))) {
             return false;
         }
         ModelContext modelContext = new ModelContext();
