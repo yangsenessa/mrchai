@@ -102,7 +102,14 @@ public class ModelBizServiceImpl implements ModelBizService{
         //设置分页参数
         Pageable pageable = PageRequest.of(pageIndex, pageSize);
         //分页查询
-        Page<ModelInfoDO> pageList = modelInfoDAO.findByCateGory1(cateGory1, pageable);
+        Page<ModelInfoDO> pageList = null;
+        if(StringUtil.isEmpty(cateGory1)){
+            //无分类参数，降级查询全部
+            pageList = modelInfoDAO.findAll(pageable);
+        } else {
+            pageList = modelInfoDAO.findByCateGory1(cateGory1, pageable);
+
+        }
         if (pageList == null) {
             return null;
         }

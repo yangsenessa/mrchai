@@ -27,6 +27,7 @@ import java.util.HashMap;
  * @version : AssetMannerBussContorller.java, v 0.1 2023年06月08日 11:32 PM senyang Exp $
  */
 @Controller
+@CrossOrigin
 @RequestMapping(value = "/")
 public class AssetMannerBussContorller {
 

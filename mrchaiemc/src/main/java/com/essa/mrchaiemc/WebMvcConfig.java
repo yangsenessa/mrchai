@@ -14,10 +14,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class  WebMvcConfig implements WebMvcConfigurer {
 
-    Logger logger =  Logger.getLogger(WebMvcConfig.class);
     @Bean(name = "multipartResolver")
     public MultipartResolver multipartResolver() {
-        LoggerUtil.info(logger,"Loading the multipart resolver");
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(1024000);
         return multipartResolver;
