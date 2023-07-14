@@ -12,4 +12,5 @@ public interface CustInfoDAO extends JpaRepository<CustInfoDO, String> {
      */
     CustInfoDO findByLoginId(String loginId);
 
+
 }

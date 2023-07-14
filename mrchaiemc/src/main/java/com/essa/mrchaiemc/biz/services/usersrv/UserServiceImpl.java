@@ -46,7 +46,9 @@ public class UserServiceImpl implements UserService{
         }
         int loginTypeCode = CustIdentiTypeEnum.getCustIdentiTypeCodeByMsg(loginType);
 
-        CustIdentityInfoDO custIdentityInfo =  custIdentityInfoDAO.findByCustIdAndIdentiType(userId,loginTypeCode);
+        //取custId
+        CustInfoDO custInfoDO = custInfoDAO.findByLoginId(userId);
+        CustIdentityInfoDO custIdentityInfo =  custIdentityInfoDAO.findByCustIdAndIdentiType(custInfoDO.getCustId(),loginTypeCode);
         if(custIdentityInfo != null && StringUtil.equals(custIdentityInfo.getAuthCode(),token)){
             response.setResCode(ResultCode.SUCCESS.name());
         } else if(custIdentityInfo == null) {
