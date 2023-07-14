@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         CustInfoDO custInfoDB = custInfoDAO.findByLoginId(custInfoDO.getLoginId());
         if (custInfoDB != null) {
             response.setResCode(ResultCode.DUPLOGINID.name());
-            return null;
+            return custInfoDB.getCustId();
         }
         custInfoDAO.save(custInfoDO);
         //获取custId并写入上下文

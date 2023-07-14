@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -71,6 +72,11 @@ public class GenerUserInfoComponent implements BussComponent {
         }
         request.getUserContext().setUserId(userId);
         response.setResCode(ResultCode.SUCCESS.name());
+        if(response.getResExtInfo() == null){
+            response.setResExtInfo(new HashMap<>());
+        }
+        Map<String,String> extInfo = response.getResExtInfo();
+        extInfo.put(BussInfoKeyEnum.CUSTID.getCode(),userId);
     }
 
     @Override
