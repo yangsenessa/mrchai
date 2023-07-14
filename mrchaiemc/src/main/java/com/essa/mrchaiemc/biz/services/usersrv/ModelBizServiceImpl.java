@@ -4,13 +4,11 @@ import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
-import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.Cust2ModelMapping;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfo;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ModelStatusEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
-
 import com.essa.mrchaiemc.common.dal.dao.*;
 import com.essa.mrchaiemc.common.dal.repository.*;
 import com.essa.mrchaiemc.common.util.DateUtil;
@@ -21,7 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,13 +83,42 @@ public class ModelBizServiceImpl implements ModelBizService{
         if(pageList == null){
             return null;
         }
-        for (ModelInfoDO modelInfoDO: pageList){
+        for (ModelInfoDO modelInfoDO : pageList) {
             ModelInfo modelInfoItem = new ModelInfo();
-            this.convertDO2ModelInfo(modelInfoDO,modelInfoItem);
+            this.convertDO2ModelInfo(modelInfoDO, modelInfoItem);
             modelInfoList.add(modelInfoItem);
         }
         return modelInfoList;
 
+    }
+
+    @Override
+    public List<ModelInfo> findByCategory1(BussRequest request, BussResponse response) {
+        int pageIndex = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGEINDEX.getCode()));
+        int pageSize = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGESIZE.getCode()));
+        String cateGory1 = request.getBussExtInfo().get(BussInfoKeyEnum.CATEGORY_1.getCode());
+        List<ModelInfo> modelInfoList = new ArrayList<ModelInfo>();
+
+        //设置分页参数
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        //分页查询
+        Page<ModelInfoDO> pageList = null;
+        if(StringUtil.isEmpty(cateGory1)){
+            //无分类参数，降级查询全部
+            pageList = modelInfoDAO.findAll(pageable);
+        } else {
+            pageList = modelInfoDAO.findByCateGory1(cateGory1, pageable);
+
+        }
+        if (pageList == null) {
+            return null;
+        }
+        for (ModelInfoDO modelInfoDO : pageList) {
+            ModelInfo modelInfoItem = new ModelInfo();
+            this.convertDO2ModelInfo(modelInfoDO, modelInfoItem);
+            modelInfoList.add(modelInfoItem);
+        }
+        return modelInfoList;
     }
 
     @Override

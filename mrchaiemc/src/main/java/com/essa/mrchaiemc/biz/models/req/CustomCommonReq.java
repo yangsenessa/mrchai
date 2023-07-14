@@ -18,6 +18,7 @@ public class CustomCommonReq extends BaseReq {
 
 
 
+
     public String getCustId() {
         return custId;
     }
