@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class ModelDetailInfoGenerComponent implements BussComponent {
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
         //chek custinfo
-        if(request.getUserContext() == null || StringUtil.isEmpty(request.getUserContext().getUserId())){
+        if (request.getUserContext() == null || StringUtil.isEmpty(request.getUserContext().getUserId())) {
             response.setResCode(ResultCode.NEEDLOGIN.name());
             return false;
         }

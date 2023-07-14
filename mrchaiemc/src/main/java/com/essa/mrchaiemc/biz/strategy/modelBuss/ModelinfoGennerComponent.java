@@ -17,7 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.UUID;
 
 @Component("MODELINFOGENER")
 public class ModelinfoGennerComponent implements BussComponent {
@@ -29,7 +30,7 @@ public class ModelinfoGennerComponent implements BussComponent {
 
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
-        if(request == null || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_INFO.getCode()))){
+        if (request == null || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_INFO.getCode()))) {
             return false;
         }
         ModelContext modelContext = new ModelContext();

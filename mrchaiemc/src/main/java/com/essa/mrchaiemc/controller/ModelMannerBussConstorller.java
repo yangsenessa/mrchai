@@ -125,6 +125,24 @@ public class ModelMannerBussConstorller {
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
 
+    /**
+     * 上传图片
+     * @param
+     * @return
+     */
+    @PostMapping("/fileUpload.do")
+    @ResponseBody
+    public CustomerCommonResponse imgsUpload(@RequestParam("file") MultipartFile[] files, HttpServletRequest request){
+        BussResponse bussResponse = new BussResponse();
+        CustomCommonReq req = new CustomCommonReq();
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"FILEUPLOAD");
+        bussRequest.getBussContext().setFile(files);
+
+        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
+
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+    }
+
     @RequestMapping(value = "/modelDownload.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
     @ResponseBody
     public  CustomerCommonResponse modelDownload(@RequestBody CustomCommonReq req, HttpServletRequest request, HttpServletResponse res){
