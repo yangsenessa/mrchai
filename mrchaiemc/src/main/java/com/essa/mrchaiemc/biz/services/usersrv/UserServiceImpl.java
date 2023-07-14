@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService{
         request.getUserContext().setUserId(custInfoDO.getCustId());
         request.getUserContext().setEmail(custInfoDO.getEmail());
         request.getUserContext().setNickName(custInfoDO.getNickName());
-        request.getUserContext().setProfile(JSONObject.parseObject(custInfoDO.getProfile(),new TypeReference<UserProfile>(){}) );
+     //   request.getUserContext().setProfile(JSONObject.parseObject(custInfoDO.getProfile(),new TypeReference<UserProfile>(){}) );
         request.getUserContext().setLoginId(custInfoDO.getLoginId());
         request.getUserContext().setGrandLevel(custInfoDO.getGrandLevel());
         request.getUserContext().setMobilePhoneNo(custInfoDO.getMobilePhoneNo());
