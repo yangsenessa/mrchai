@@ -42,6 +42,7 @@ public class ModelMannerBussConstorller {
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
 
+
     @RequestMapping(value = "/modModelDetailInfo.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
     @ResponseBody
     public CustomerCommonResponse modModelDetailInfo(@RequestBody CustomCommonReq req){
@@ -101,27 +102,14 @@ public class ModelMannerBussConstorller {
      * @param
      * @return
      */
-    @PostMapping("/modelUpload.do")
+    @RequestMapping(value = "/modelUpload.do", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     @ResponseBody
-    public CustomerCommonResponse modelUpload(@RequestParam("file") MultipartFile[] files,
-                                              @RequestParam(name = "userId") String userId,
-                                              @RequestParam(name = "modelDetail") String modelDetail, HttpServletRequest request){
+    public CustomerCommonResponse modelUpload(@RequestBody CustomCommonReq req){
+
         BussResponse bussResponse = new BussResponse();
-        CustomCommonReq req = new CustomCommonReq();
-        req.setCustId(userId);
+
         BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"MODELUPLOAD");
-
-        ModelContext modelContext = new ModelContext();
-        //       String modelDetail="{\"modelId\":\"b20db117-e130-413a-ae92-059e49839cb9\",\"version\":\"111\",\"guideLink\":\"guideLink\",\"paramsGuideLink\":\"paramsGuideLink\",\"sampleCodeLink\":\"sampleCodeLink\"}";
-        //版本信息
-        ModelDetailInfo modelDetailInfo= JSONObject.parseObject(modelDetail,new TypeReference<ModelDetailInfo>(){});
-        modelContext.setModelDetailInfo(modelDetailInfo);
-
-        bussRequest.getBussContext().setModelContext(modelContext);
-        bussRequest.getBussContext().setFile(files);
-
         bussPipeline.execWithPipeLine(bussRequest,bussResponse);
-
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
 

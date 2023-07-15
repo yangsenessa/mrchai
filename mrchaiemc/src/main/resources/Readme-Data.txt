@@ -42,6 +42,15 @@ addNewModel.do
 		"modelInfo": "{\"modelName\":\"myfirst model\",\"modelSubName\":\"myfirst model sub name\",\"category1\":\"LORA\"}"
 	}
 }
+
+#addModel 修改模型 与新增公用一个接口
+{
+	"custId": "1111",
+	"bussData": {
+		"modelInfo": "{\"modelName\":\"myf\",\"modelId\":\"0099243d-a166-4c9c-a0a4-e36ec9672de2\",\"modelSubName\":\"myfib name\",\"category1\":\"LORA\"}",
+        "modelCover": "{\"coverImgList\":\"http://36.155.7.134:9000/emcbucket/2023/07/14/%5B1689349213013%5Dphoto01.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20230714%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230714T154013Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=e71c37bf2559d6358aa344947a6a8d400a0924870a2836bbf68d00ad6ea41135\"}"
+	}
+}
 #-------response
 {
     "resultCode": "SUCCESS",
