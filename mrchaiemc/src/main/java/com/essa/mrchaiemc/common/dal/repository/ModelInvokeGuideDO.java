@@ -18,7 +18,7 @@ public class ModelInvokeGuideDO {
     private String invokeGuide;
 
     /** version*/
-    @Column(name = "version", nullable = true, length = 10)
+    @Column(name = "version", nullable = true, length = 128)
     private String version;
 
     public String getModelId() {

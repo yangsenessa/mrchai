@@ -5,9 +5,11 @@ import com.alibaba.fastjson.TypeReference;
 import com.essa.mrchaiemc.biz.models.exceptions.SysInitException;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,8 +38,18 @@ public class SysConfigInit {
         Map<String, String> configMap = null;
         try {
             ClassPathResource resource = new ClassPathResource("sysconfig.json");
-            File configFile = resource.getFile();
-            String content = FileUtils.readFileToString(configFile, "UTF-8");
+            InputStream inputStream = resource.getInputStream();
+            //File configFile = resource.getFile();
+            StringBuilder textBuilder = new StringBuilder();
+            try (Reader reader = new BufferedReader(new InputStreamReader
+                    (inputStream, StandardCharsets.UTF_8))) {
+                int c = 0;
+                while ((c = reader.read()) != -1) {
+                    textBuilder.append((char) c);
+                }
+            }
+           // String content = FileUtils.readFileToString(configFile, "UTF-8");
+            String content = textBuilder.toString();
             configMap = JSONObject.parseObject(content, new TypeReference<Map<String, String>>() {
             });
         } catch (Exception e) {
@@ -54,8 +66,17 @@ public class SysConfigInit {
         Map<String, String> flowMap = null;
         try {
             ClassPathResource resource = new ClassPathResource("bussflow.json");
-            File configFile = resource.getFile();
-            String content = FileUtils.readFileToString(configFile, "UTF-8");
+            InputStream inputStream = resource.getInputStream();
+
+            StringBuilder textBuilder = new StringBuilder();
+            try (Reader reader = new BufferedReader(new InputStreamReader
+                    (inputStream, StandardCharsets.UTF_8))) {
+                int c = 0;
+                while ((c = reader.read()) != -1) {
+                    textBuilder.append((char) c);
+                }
+            }
+            String content = textBuilder.toString();
             bussFlowMap = JSONObject.parseObject(content, new TypeReference<Map<String, String>>() {
             });
 
