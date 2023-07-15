@@ -49,6 +49,7 @@ public class BussContextUtil {
         operatorLogs.setUserId(request.getCustId());
         operatorLogs.setTraceId(traceId);
         operatorLogs.setGmtCreate(DateUtil.getGmtDate());
+        operatorLogs.setActionType(ActionEnumMappingUtil.getActionTypeEnumFromActionCode(actionCode));
 
         //业务组件编排
         String actionArray = SysConfigInit.bussFlowMap.get(actionCode);

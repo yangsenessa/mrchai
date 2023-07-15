@@ -28,8 +28,17 @@ public enum ActionTypeEnum {
     /**
      * 模型发布
      */
-    ASSET_PUB("ASSET_PUB", "ASSET_PUB");
+    ASSET_PUB("ASSET_PUB", "ASSET_PUB"),
 
+    /**
+     * 模型上传
+     */
+    MODEL_UPLOAD("MODEL_UPLOAD", "MODEL_UPLOAD"),
+
+    /**
+     * 模型下载
+     */
+    MODEL_DOWNLOAD("MODEL_DOWNLOAD","MODEL_DOWNLOAD");
     /**
      * actionCode
      */
