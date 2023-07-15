@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.geom.RectangularShape;
 import java.util.Optional;
 
 @Service("userService")
@@ -41,6 +42,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void checkUserValid(BussRequest request, BussResponse response) {
         String userId = request.getUserContext().getUserId();
+        if(StringUtil.equals("PUBLIC", userId)){
+            this.dealAsPublicCust(request,response);
+            return;
+        }
         String loginType = request.getBussExtInfo().get(BussInfoKeyEnum.LOGINTYPE.getCode());
         String token = request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode());
         if (StringUtil.isEmpty(loginType) || StringUtil.isEmpty(userId)) {
@@ -61,6 +66,15 @@ public class UserServiceImpl implements UserService {
             response.setResCode(ResultCode.AUTHERR.name());
         }
     }
+
+    private void dealAsPublicCust(BussRequest request, BussResponse response){
+        request.getUserContext().setHasLogin(true);
+        request.getUserContext().setNickName("SUPER");
+        request.getUserContext().setGrandLevel(8);
+        request.getUserContext().setUserStatus(UserStatusEnum.NORMAL);
+        response.setResCode(ResultCode.SUCCESS.name());
+    }
+
 
     @Override
     public void doUserLogIn(BussRequest request, BussResponse response) {

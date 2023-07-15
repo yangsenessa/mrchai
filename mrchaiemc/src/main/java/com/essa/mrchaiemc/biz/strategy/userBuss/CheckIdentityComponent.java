@@ -36,6 +36,9 @@ public class CheckIdentityComponent implements BussComponent {
             LoggerUtil.errlog("request or request.getUserContext() is null");
             return false;
         }
+        if(StringUtil.equals("PUBLIC", request.getUserContext().getUserId())){
+            return true;
+        }
         if(request.getBussExtInfo().containsKey(BussInfoKeyEnum.LOGINTYPE.getCode())
             && request.getBussExtInfo().containsKey(BussInfoKeyEnum.AUTHTOKEN.getCode())){
             return true;

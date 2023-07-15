@@ -50,13 +50,20 @@ public class MinioConfig {
         LoggerUtil.info(logger,"---------- Minio文件系统初始化加载 ----------");
         MinioClient minioClient = new MinioClient(url, access, secret);
         // 判断Bucket是否存在
-        boolean isExist = minioClient.bucketExists(bucket);
-        if(isExist) {
-            logger.info("---------- Minio文件系统Bucket已存在 ----------");
-        } else {
-            // 不存在创建一个新的Bucket
-            minioClient.makeBucket(bucket);
-            logger.info("---------- Minio文件系统Bucket已创建 ----------");
+        boolean isExist = false;
+        try {
+             isExist = minioClient.bucketExists(bucket);
+            if(isExist) {
+                logger.info("---------- Minio文件系统Bucket已存在 ----------");
+            } else {
+                // 不存在创建一个新的Bucket
+                minioClient.makeBucket(bucket);
+                logger.info("---------- Minio文件系统Bucket已创建 ----------");
+            }
+
+        } catch (Exception e) {
+            LoggerUtil.errlog(e,"bucketExists");
+
         }
         logger.info("---------- Minio文件系统初始化完成 ----------");
         return minioClient;

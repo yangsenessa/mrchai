@@ -32,7 +32,10 @@ public class BussContextUtil {
         BussRequest bussRequest = new BussRequest();
         bussRequest.setBussContext(new BussContext());
         bussRequest.setUserContext(new UserContext());
-
+        //custID为null,推介期间降级为公共id
+        if(StringUtil.isEmpty(request.getCustId())){
+            bussRequest.getUserContext().setUserId("PUBLIC");
+        }
         bussRequest.getUserContext().setUserId(request.getCustId());
         bussRequest.getUserContext().setHasLogin(false);
 
