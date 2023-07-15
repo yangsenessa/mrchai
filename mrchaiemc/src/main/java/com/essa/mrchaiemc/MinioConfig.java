@@ -1,4 +1,5 @@
 package com.essa.mrchaiemc;
+import com.essa.mrchaiemc.common.util.LoggerUtil;
 import io.minio.MinioClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
@@ -46,7 +47,7 @@ public class MinioConfig {
 
     @Bean(name = "minioClient")
     public MinioClient minioClient() throws Exception {
-        logger.info("---------- Minio文件系统初始化加载 ----------");
+        LoggerUtil.info(logger,"---------- Minio文件系统初始化加载 ----------");
         MinioClient minioClient = new MinioClient(url, access, secret);
         // 判断Bucket是否存在
         boolean isExist = minioClient.bucketExists(bucket);

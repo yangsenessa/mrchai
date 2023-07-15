@@ -1,6 +1,7 @@
 package com.essa.mrchaiemc.common.util;
 
 import io.minio.MinioClient;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,5 +166,17 @@ public class MinioUtil {
             logger.error("{}文件获取失败", objectName);
             return "";
         }
+    }
+
+    /**
+     * 获取文件外链
+     * @param bucketName
+     * @param objectName
+     * @param expires
+     * @return
+     */
+    @SneakyThrows
+    public String getFileURL(String bucketName, String objectName, Integer expires) {
+        return minioClient.presignedGetObject(bucketName, objectName, expires);
     }
 }
