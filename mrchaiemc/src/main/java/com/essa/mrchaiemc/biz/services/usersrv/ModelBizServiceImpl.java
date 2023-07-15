@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service("modelBizService")
-public class ModelBizServiceImpl implements ModelBizService{
+public class ModelBizServiceImpl implements ModelBizService {
     @Autowired
     private ModelInfoDAO modelInfoDAO;
     @Autowired
@@ -48,11 +48,11 @@ public class ModelBizServiceImpl implements ModelBizService{
     @Transactional
     public void addOrUpdateModelInfo(BussRequest request, BussResponse response) {
         ModelInfo modelInfo = this.getModelInfo(request);
-        ModelCover modelCover=request.getBussContext().getModelContext().getModelCover();
+        ModelCover modelCover = request.getBussContext().getModelContext().getModelCover();
 
         ModelInfoDO modelInfoDO = new ModelInfoDO();
         this.covertModelInfo2DO(modelInfo, modelInfoDO);
-        if(modelCover !=null ){
+        if (modelCover != null) {
             modelInfoDO.setCoverImgs(JSONObject.toJSONString(modelCover.getCoverImgList()));
             modelInfoDO.setCoverVideos(JSONObject.toJSONString(modelCover.getCoverVideoList()));
         }
@@ -61,7 +61,7 @@ public class ModelBizServiceImpl implements ModelBizService{
         cust2ModelMappingDO.setCustId(request.getUserContext().getUserId());
         cust2ModelMappingDO.setGmtCreate(DateUtil.getGmtDateTime());
         cust2ModelMappingDO.setModelId(modelInfo.getModelId());
-        cust2ModelMappingDO.setMapperId(cust2ModelMappingDO.getCustId()+"-"+modelInfo.getModelId());
+        cust2ModelMappingDO.setMapperId(cust2ModelMappingDO.getCustId() + "-" + modelInfo.getModelId());
         cust2ModelMappingDO.setStatus(ModelStatusEnum.NORMAL.getCode());
         modelInfoDAO.save(modelInfoDO);
         cust2ModelMappingDAO.save(cust2ModelMappingDO);
@@ -72,7 +72,7 @@ public class ModelBizServiceImpl implements ModelBizService{
         ModelDetailInfo modelDetailInfo = request.getBussContext().getModelContext().getModelDetailInfo();
         ModelInfo modelInfo = new ModelInfo();
         ModelInfoDO modelInfoDO = modelInfoDAO.findByModelId(modelDetailInfo.getModelId());
-        this.convertDO2ModelInfo(modelInfoDO,modelInfo);
+        this.convertDO2ModelInfo(modelInfoDO, modelInfo);
         return modelInfo;
     }
 
@@ -84,10 +84,10 @@ public class ModelBizServiceImpl implements ModelBizService{
         List<ModelInfo> modelInfoList = new ArrayList<ModelInfo>();
 
         //设置分页参数
-        Pageable pageable = PageRequest.of(pageIndex,pageSize);
-         //分页查询
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        //分页查询
         Page<ModelInfoDO> pageList = modelInfoDAO.findAll(pageable);
-        if(pageList == null){
+        if (pageList == null) {
             return null;
         }
         for (ModelInfoDO modelInfoDO : pageList) {
@@ -110,7 +110,7 @@ public class ModelBizServiceImpl implements ModelBizService{
         Pageable pageable = PageRequest.of(pageIndex, pageSize);
         //分页查询
         Page<ModelInfoDO> pageList = null;
-        if(StringUtil.isEmpty(cateGory1)){
+        if (StringUtil.isEmpty(cateGory1)) {
             //无分类参数，降级查询全部
             pageList = modelInfoDAO.findAll(pageable);
         } else {
@@ -140,7 +140,7 @@ public class ModelBizServiceImpl implements ModelBizService{
 
     @Override
     public void modModelDetailInfo(BussRequest request, BussResponse response) {
-        ModelDetailInfo modelDetailInfo =request.getBussContext().getModelContext().getModelDetailInfo();
+        ModelDetailInfo modelDetailInfo = request.getBussContext().getModelContext().getModelDetailInfo();
         ModelDetailInfoDO modelDetailInfoDO = new ModelDetailInfoDO();
         ModelParamsDO modelParamsDO = new ModelParamsDO();
         ModelPositivePromtsDO modelPositivePromtsDO = new ModelPositivePromtsDO();
@@ -151,7 +151,7 @@ public class ModelBizServiceImpl implements ModelBizService{
         this.convertModelDetailInfo2ModelInvokeGuideDO(modelDetailInfo, modelInvokeGuideDO);
         this.convertModelDetailInfo2ModelNagativePromptsDO(modelDetailInfo, modelNegativePromtsDO);
         this.convertModelDetailInfo2ModelPositivePromptsDO(modelDetailInfo, modelPositivePromtsDO);
-        this.convertModelDetailInfo2ModelParamsDO(modelDetailInfo,modelParamsDO);
+        this.convertModelDetailInfo2ModelParamsDO(modelDetailInfo, modelParamsDO);
         try {
             this.modelDetailInfoDAO.save(modelDetailInfoDO);
             this.modelInvokeGuideDAO.save(modelInvokeGuideDO);
@@ -166,7 +166,7 @@ public class ModelBizServiceImpl implements ModelBizService{
                     JSONObject.toJSONString(request.getBussContext().getModelContext().getModelDetailInfo()));
 
         } catch (Exception e) {
-            LoggerUtil.errlog(e,"DB opr err!");
+            LoggerUtil.errlog(e, "DB opr err!");
             response.setResCode(ResultCode.DBEXCEPTION.name());
         }
 
@@ -182,25 +182,25 @@ public class ModelBizServiceImpl implements ModelBizService{
         ModelParamsDO modelParamsDO = modelParamsDAO.findByModelId(modelId);
         ModelPositivePromtsDO modelPositivePromtsDO = modelPositivePromtsDAO.findByModelId(modelId);
 
-        if(modelDetailInfoDO == null){
+        if (modelDetailInfoDO == null) {
             response.setResCode(ResultCode.DATANOTCOMPLETED.name());
             return null;
         }
-        if(modelInvokeGuideDO == null){
+        if (modelInvokeGuideDO == null) {
             modelInvokeGuideDO = new ModelInvokeGuideDO();
         }
-        if(modelNegativePromtsDO == null){
+        if (modelNegativePromtsDO == null) {
             modelNegativePromtsDO = new ModelNegativePromtsDO();
         }
-        if(modelParamsDO == null){
+        if (modelParamsDO == null) {
             modelParamsDO = new ModelParamsDO();
         }
-        if(modelPositivePromtsDO == null){
+        if (modelPositivePromtsDO == null) {
             modelPositivePromtsDO = new ModelPositivePromtsDO();
         }
 
-        convertDO2ModelDetailInfo(modelDetailInfoDO,modelInvokeGuideDO,
-                modelNegativePromtsDO,modelPositivePromtsDO,modelParamsDO,modelDetailInfo);
+        convertDO2ModelDetailInfo(modelDetailInfoDO, modelInvokeGuideDO,
+                modelNegativePromtsDO, modelPositivePromtsDO, modelParamsDO, modelDetailInfo);
 
         return modelDetailInfo;
     }
@@ -208,14 +208,14 @@ public class ModelBizServiceImpl implements ModelBizService{
     @Override
     public List<String> getModelIdsByCustId(BussRequest request, BussResponse response) {
         String custId = request.getUserContext().getUserId();
-        if(StringUtil.isEmpty(custId)){
+        if (StringUtil.isEmpty(custId)) {
             return null;
         }
 
         List<String> modelIdList = new ArrayList<String>();
         List<Cust2ModelMappingDO> cust2ModelMappingDOList = this.cust2ModelMappingDAO.findByCustId(custId);
 
-        for(Cust2ModelMappingDO item : cust2ModelMappingDOList){
+        for (Cust2ModelMappingDO item : cust2ModelMappingDOList) {
             modelIdList.add(item.getModelId());
         }
 
@@ -223,18 +223,19 @@ public class ModelBizServiceImpl implements ModelBizService{
     }
 
     /**
-     *
      * @param request
      */
-    private ModelInfo getModelInfo(BussRequest request){
+    private ModelInfo getModelInfo(BussRequest request) {
         return request.getBussContext().getModelContext().getModelInfo();
     }
+
     /**
      * 2DO模型转换
+     *
      * @param modelInfo
      * @param modelInfoDO
      */
-    private void covertModelInfo2DO(ModelInfo modelInfo, ModelInfoDO modelInfoDO){
+    private void covertModelInfo2DO(ModelInfo modelInfo, ModelInfoDO modelInfoDO) {
         modelInfoDO.setModelId(modelInfo.getModelId());
         modelInfoDO.setModelName(modelInfo.getModelName());
         modelInfoDO.setModelSubName(modelInfo.getModelSubName());
@@ -246,11 +247,12 @@ public class ModelBizServiceImpl implements ModelBizService{
 
     /**
      * 2DO模型转换-modeldetailInfo
+     *
      * @param modelDetailInfo
      * @param modelDetailInfoDO
      */
     private void convertModelDetailInfo2DO(ModelDetailInfo modelDetailInfo,
-                                           ModelDetailInfoDO modelDetailInfoDO){
+                                           ModelDetailInfoDO modelDetailInfoDO) {
         modelDetailInfoDO.setModelId(modelDetailInfo.getModelId());
         modelDetailInfoDO.setDownLoadLink(modelDetailInfo.getDownLoadLink());
         modelDetailInfoDO.setEmcInvokeParam(JSONObject.toJSONString(modelDetailInfo.getEmcInvokeParam()));
@@ -262,10 +264,11 @@ public class ModelBizServiceImpl implements ModelBizService{
 
     /**
      * DO 2 DOMAIN modelInfo 模型转换
+     *
      * @param modelInfoDO
      * @param modelInfo
      */
-    private void convertModelInfoDO2Domain(ModelInfoDO modelInfoDO, ModelInfo modelInfo){
+    private void convertModelInfoDO2Domain(ModelInfoDO modelInfoDO, ModelInfo modelInfo) {
         modelInfo.setModelId(modelInfoDO.getModelId());
         modelInfo.setModelKey(modelInfoDO.getModelKey());
         modelInfo.setModelName(modelInfoDO.getModelName());
@@ -277,20 +280,19 @@ public class ModelBizServiceImpl implements ModelBizService{
 
 
     /**
-     *
      * @param modelDetailInfo
      * @param modelInvokeGuideDO
      */
-    private void convertModelDetailInfo2ModelInvokeGuideDO(ModelDetailInfo modelDetailInfo, ModelInvokeGuideDO modelInvokeGuideDO){
+    private void convertModelDetailInfo2ModelInvokeGuideDO(ModelDetailInfo modelDetailInfo, ModelInvokeGuideDO modelInvokeGuideDO) {
         modelInvokeGuideDO.setInvokeGuide(modelDetailInfo.getInvokeGuide());
         modelInvokeGuideDO.setModelId(modelDetailInfo.getModelId());
         modelInvokeGuideDO.setVersion(modelDetailInfo.getVersion());
     }
 
 
-    private void convertDO2ModelDetailInfo(ModelDetailInfoDO modelDetailInfoDO,ModelInvokeGuideDO modelInvokeGuideDO,
+    private void convertDO2ModelDetailInfo(ModelDetailInfoDO modelDetailInfoDO, ModelInvokeGuideDO modelInvokeGuideDO,
                                            ModelNegativePromtsDO modelNegativePromtsDO,
-                                           ModelPositivePromtsDO modelPositivePromtsDO,ModelParamsDO modelParamsDO,ModelDetailInfo modelDetailInfo){
+                                           ModelPositivePromtsDO modelPositivePromtsDO, ModelParamsDO modelParamsDO, ModelDetailInfo modelDetailInfo) {
 
 
         modelDetailInfo.setVersion(modelDetailInfoDO.getVersion());
@@ -308,12 +310,11 @@ public class ModelBizServiceImpl implements ModelBizService{
 
 
     /**
-     *
      * @param modelDetailInfo
      * @param modelNegativePromtsDO
      */
-    private void convertModelDetailInfo2ModelNagativePromptsDO(ModelDetailInfo modelDetailInfo, ModelNegativePromtsDO modelNegativePromtsDO){
-        if(!StringUtil.isEmpty( modelDetailInfo.getNegativePromts())){
+    private void convertModelDetailInfo2ModelNagativePromptsDO(ModelDetailInfo modelDetailInfo, ModelNegativePromtsDO modelNegativePromtsDO) {
+        if (!StringUtil.isEmpty(modelDetailInfo.getNegativePromts())) {
             modelNegativePromtsDO.setNegativePromts(JSONObject.toJSONString(modelDetailInfo.getNegativePromts()));
         }
         modelNegativePromtsDO.setModelId(modelDetailInfo.getModelId());
@@ -321,44 +322,43 @@ public class ModelBizServiceImpl implements ModelBizService{
     }
 
     /**
-     *
      * @param modelDetailInfo
      * @param modelPositivePromtsDO
      */
-    private void convertModelDetailInfo2ModelPositivePromptsDO(ModelDetailInfo modelDetailInfo, ModelPositivePromtsDO modelPositivePromtsDO){
+    private void convertModelDetailInfo2ModelPositivePromptsDO(ModelDetailInfo modelDetailInfo, ModelPositivePromtsDO modelPositivePromtsDO) {
         modelPositivePromtsDO.setModelId(modelDetailInfo.getModelId());
         modelPositivePromtsDO.setVersion(modelDetailInfo.getVersion());
 
-        if(!StringUtil.isEmpty(modelDetailInfo.getPositivePromts()) ){
+        if (!StringUtil.isEmpty(modelDetailInfo.getPositivePromts())) {
             modelPositivePromtsDO.setPromts(JSONObject.toJSONString(modelDetailInfo.getPositivePromts()));
         }
     }
 
     /**
-     *
      * @param modelDetailInfo
      * @param modelParamsDO
      */
-    private void convertModelDetailInfo2ModelParamsDO(ModelDetailInfo modelDetailInfo,ModelParamsDO modelParamsDO){
+    private void convertModelDetailInfo2ModelParamsDO(ModelDetailInfo modelDetailInfo, ModelParamsDO modelParamsDO) {
 
         modelParamsDO.setModelId(modelDetailInfo.getModelId());
         modelParamsDO.setVersion(modelDetailInfo.getVersion());
-        if(!StringUtil.isEmpty(modelDetailInfo.getCommonParams())){
-            modelParamsDO.setCommonParams(JSONObject.toJSONString(modelDetailInfo.getCommonParams()) );
+        if (!StringUtil.isEmpty(modelDetailInfo.getCommonParams())) {
+            modelParamsDO.setCommonParams(JSONObject.toJSONString(modelDetailInfo.getCommonParams()));
         }
     }
 
 
     /**
      * Domain 模型转换
+     *
      * @param modelInfoDO
      * @param modelInfo
      */
-    private void convertDO2ModelInfo(ModelInfoDO modelInfoDO, ModelInfo modelInfo){
-        if(modelInfo == null){
+    private void convertDO2ModelInfo(ModelInfoDO modelInfoDO, ModelInfo modelInfo) {
+        if (modelInfo == null) {
             modelInfo = new ModelInfo();
         }
-        if(modelInfoDO == null){
+        if (modelInfoDO == null) {
             modelInfo = null;
         } else {
             modelInfo.setModelId(modelInfoDO.getModelId());
@@ -368,10 +368,15 @@ public class ModelBizServiceImpl implements ModelBizService{
             modelInfo.setCateGory1(modelInfoDO.getCateGory1());
             modelInfo.setCateGory2(modelInfoDO.getCateGory2());
             modelInfo.setCateGory3(modelInfoDO.getCateGory3());
+
+            ModelCover modelCover = new ModelCover();
+            List<String> coverImgList = JSONObject.parseObject(modelInfoDO.getCoverImgs(), List.class);
+            modelCover.setCoverImgList(coverImgList);
+
+            List<String> coverVideoList = JSONObject.parseObject(modelInfoDO.getCoverVideos(), List.class);
+            modelCover.setCoverVideoList(coverVideoList);
+            modelInfo.setModelCover(modelCover);
         }
-
     }
-
-
 
 }

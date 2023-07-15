@@ -24,6 +24,9 @@ public class ModelInfo {
     /** cateGory3 预留*/
     private String cateGory3;
 
+    /** 模型封面*/
+    private ModelCover modelCover;
+
 
     public String getModelId() {
         return modelId;
@@ -80,5 +83,13 @@ public class ModelInfo {
 
     public void setModelSubName(String modelSubName) {
         this.modelSubName = modelSubName;
+    }
+
+    public ModelCover getModelCover() {
+        return modelCover;
+    }
+
+    public void setModelCover(ModelCover modelCover) {
+        this.modelCover = modelCover;
     }
 }
