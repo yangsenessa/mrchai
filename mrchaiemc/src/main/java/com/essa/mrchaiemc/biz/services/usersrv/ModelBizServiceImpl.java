@@ -30,6 +30,8 @@ public class ModelBizServiceImpl implements ModelBizService {
     @Autowired
     private ModelInfoDAO modelInfoDAO;
     @Autowired
+    private ModelCoverDAO modelCoverDAO;
+    @Autowired
     private ModelInvokeGuideDAO modelInvokeGuideDAO;
     @Autowired
     private ModelNegativePromtsDAO modelNegativePromtsDAO;
@@ -49,14 +51,14 @@ public class ModelBizServiceImpl implements ModelBizService {
     public void addOrUpdateModelInfo(BussRequest request, BussResponse response) {
         ModelInfo modelInfo = this.getModelInfo(request);
         ModelCover modelCover = request.getBussContext().getModelContext().getModelCover();
-
+        ModelCoverDO modelCoverDO= new ModelCoverDO();
         ModelInfoDO modelInfoDO = new ModelInfoDO();
         this.covertModelInfo2DO(modelInfo, modelInfoDO);
         if (modelCover != null) {
-            modelInfoDO.setCoverImgs(JSONObject.toJSONString(modelCover.getCoverImgList()));
-            modelInfoDO.setCoverVideos(JSONObject.toJSONString(modelCover.getCoverVideoList()));
+            this.covertModelCover2DO(modelCover,modelCoverDO);
+            modelCoverDO.setModelId(modelInfo.getModelId());
+            modelCoverDAO.save(modelCoverDO);
         }
-
         Cust2ModelMappingDO cust2ModelMappingDO = new Cust2ModelMappingDO();
         cust2ModelMappingDO.setCustId(request.getUserContext().getUserId());
         cust2ModelMappingDO.setGmtCreate(DateUtil.getGmtDateTime());
@@ -377,6 +379,16 @@ public class ModelBizServiceImpl implements ModelBizService {
             modelCover.setCoverVideoList(coverVideoList);
             modelInfo.setModelCover(modelCover);
         }
+    }
+    /**
+     * 2DO模型转换
+     * @param modelCover
+     * @param modelCoverDO
+     */
+    private void covertModelCover2DO(ModelCover modelCover, ModelCoverDO modelCoverDO){
+        modelCoverDO.setCoverImgList(JSONObject.toJSONString(modelCover.getCoverImgList()));
+        modelCoverDO.setCoverVideoList(JSONObject.toJSONString(modelCover.getCoverVideoList()));
+        modelCoverDO.setTips(JSONObject.toJSONString(modelCover.getTips()));
     }
 
 }
