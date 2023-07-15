@@ -10,7 +10,6 @@ import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.biz.services.usersrv.UserService;
 import com.essa.mrchaiemc.biz.strategy.BussComponent;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,7 +28,7 @@ public class CheckUserInfoComponent implements BussComponent {
 
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
-        if(StringUtil.isEmpty(request.getUserContext().getUserId())) {
+        if (StringUtil.isEmpty(request.getUserContext().getUserId())) {
             response.setResCode(ResultCode.INVAILDPARAMS.name());
             return false;
         }

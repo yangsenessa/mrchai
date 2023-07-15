@@ -23,13 +23,14 @@ public class SetUserAuthTokenComponent implements BussComponent {
 
     @Autowired
     private UserService userService;
+
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
-        if(StringUtil.isNotEmpty(response.getResCode()) && !StringUtil.equals(response.getResCode(),ResultCode.SUCCESS.name())){
+        if (StringUtil.isNotEmpty(response.getResCode()) && !StringUtil.equals(response.getResCode(), ResultCode.SUCCESS.name())) {
             return false;
         }
-        if(StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode()))
-                || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.LOGINTYPE.getCode()))){
+        if (StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode()))
+                || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.LOGINTYPE.getCode()))) {
             response.setResCode(ResultCode.INVAILDPARAMS.name());
             return false;
         }

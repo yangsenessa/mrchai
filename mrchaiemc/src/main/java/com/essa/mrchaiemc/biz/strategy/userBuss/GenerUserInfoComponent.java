@@ -7,9 +7,9 @@ package com.essa.mrchaiemc.biz.strategy.userBuss;
 import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.essa.mrchaiemc.biz.models.domains.usermanner.UserContext;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
+import com.essa.mrchaiemc.biz.models.domains.usermanner.UserContext;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.biz.models.enumcollection.UserStatusEnum;
@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -36,7 +37,7 @@ public class GenerUserInfoComponent implements BussComponent {
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
         boolean res = false;
-        if(response != null && request.getBussExtInfo() != null && StringUtil.equals(ResultCode.NEEDREGISTER.getMsg(),response.getResCode())){
+        if (response != null && request.getBussExtInfo() != null && StringUtil.equals(ResultCode.NEEDREGISTER.getMsg(), response.getResCode())) {
             //check and unpack userContext
             String userContext = request.getBussExtInfo().get(BussInfoKeyEnum.APPLREGINFO.getCode());
             if(StringUtil.isNotEmpty(userContext)){
@@ -71,6 +72,11 @@ public class GenerUserInfoComponent implements BussComponent {
         }
         request.getUserContext().setUserId(userId);
         response.setResCode(ResultCode.SUCCESS.name());
+        if(response.getResExtInfo() == null){
+            response.setResExtInfo(new HashMap<>());
+        }
+        Map<String,String> extInfo = response.getResExtInfo();
+        extInfo.put(BussInfoKeyEnum.CUSTID.getCode(),userId);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.ModelContext;
+import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelCover;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
@@ -17,7 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.UUID;
 
 @Component("MODELINFOGENER")
 public class ModelinfoGennerComponent implements BussComponent {
@@ -29,17 +31,27 @@ public class ModelinfoGennerComponent implements BussComponent {
 
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
-        if(request == null || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_INFO.getCode()))){
+        if (request == null || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_INFO.getCode()))) {
             return false;
         }
         ModelContext modelContext = new ModelContext();
         String modelInfoJson = request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_INFO.getCode());
+
         ModelInfo modelInfo=JSONObject.parseObject(modelInfoJson,new TypeReference<ModelInfo>(){});
         if(modelInfo == null) {
             response.setResCode(ResultCode.INVAILDPARAMS.name());
             return false;
         }
         modelContext.setModelInfo(modelInfo);
+
+        String modelCoverJson = request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_COVER.getCode());
+        ModelCover modelCover=JSONObject.parseObject(modelCoverJson,new TypeReference<ModelCover>(){});
+        if(modelCover == null) {
+
+        }else{
+            modelContext.setModelCover(modelCover);
+        }
+
         request.getBussContext().setModelContext(modelContext);
         return true;
     }
@@ -47,7 +59,9 @@ public class ModelinfoGennerComponent implements BussComponent {
     @Override
     public void doProcess(BussRequest request, BussResponse response) {
         ModelInfo modelInfo = request.getBussContext().getModelContext().getModelInfo();
-        modelInfo.setModelId(UUID.randomUUID().toString());
+        if(modelInfo.getModelId() ==null ||StringUtil.isEmpty(modelInfo.getModelId()) ){
+            modelInfo.setModelId(UUID.randomUUID().toString());
+        }
         try {
             modelBizService.addOrUpdateModelInfo(request,response);
             response.setResCode(ResultCode.SUCCESS.name());

@@ -47,17 +47,22 @@ public class BussContext {
      */
     private MultipartFile[] file;
 
+    /**
+     * 行为记录
+     */
+    private OperatorLogs operatorLogs;
+
 
     /**
      * 构造方法，构造同时增加
      */
-    public BussContext(){
+    public BussContext() {
         this.traceId = BussContextUtil.generBizTraceId();
 
     }
 
 
-    public void initContext(){
+    public void initContext() {
         emcContext = new EmcContext();
     }
 
@@ -127,5 +132,13 @@ public class BussContext {
 
     public void setModelContext(ModelContext modelContext) {
         this.modelContext = modelContext;
+    }
+
+    public OperatorLogs getOperatorLogs() {
+        return operatorLogs;
+    }
+
+    public void setOperatorLogs(OperatorLogs operatorLogs) {
+        this.operatorLogs = operatorLogs;
     }
 }

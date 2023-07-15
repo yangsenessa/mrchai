@@ -18,9 +18,10 @@ public class CheckIdentityComponent implements BussComponent {
 
     @Autowired
     private UserService userService;
+
     @Override
     public void doProcess(BussRequest request, BussResponse response) {
-        userService.checkUserValid(request,response);
+        userService.checkUserValid(request, response);
     }
 
     /**

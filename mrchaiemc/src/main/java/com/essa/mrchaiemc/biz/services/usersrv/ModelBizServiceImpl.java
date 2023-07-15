@@ -4,6 +4,7 @@ import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
+import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelCover;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfo;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
@@ -47,8 +48,14 @@ public class ModelBizServiceImpl implements ModelBizService{
     @Transactional
     public void addOrUpdateModelInfo(BussRequest request, BussResponse response) {
         ModelInfo modelInfo = this.getModelInfo(request);
+        ModelCover modelCover=request.getBussContext().getModelContext().getModelCover();
+
         ModelInfoDO modelInfoDO = new ModelInfoDO();
         this.covertModelInfo2DO(modelInfo, modelInfoDO);
+        if(modelCover !=null ){
+            modelInfoDO.setCoverImgs(JSONObject.toJSONString(modelCover.getCoverImgList()));
+            modelInfoDO.setCoverVideos(JSONObject.toJSONString(modelCover.getCoverVideoList()));
+        }
 
         Cust2ModelMappingDO cust2ModelMappingDO = new Cust2ModelMappingDO();
         cust2ModelMappingDO.setCustId(request.getUserContext().getUserId());

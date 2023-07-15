@@ -19,4 +19,12 @@ public class DateUtil {
         Date date = new Date();
         return date.getTime();
     }
+
+    /**
+     * 返回系统当前的date
+     * @return
+     */
+    public static Date getGmtDate() {
+        return new Date();
+    }
 }

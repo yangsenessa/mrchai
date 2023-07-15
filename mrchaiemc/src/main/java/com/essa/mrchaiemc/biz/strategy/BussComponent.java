@@ -18,6 +18,7 @@ public interface BussComponent {
      */
      void doProcess(BussRequest request, BussResponse response);
 
+
     /**
      * 返回组件ActionCode
      * @return
