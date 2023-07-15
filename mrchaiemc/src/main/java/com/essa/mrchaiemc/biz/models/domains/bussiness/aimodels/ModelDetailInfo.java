@@ -8,6 +8,9 @@ public class ModelDetailInfo {
     /** modelId*/
     private String modelId;
 
+    /** modelDesc*/
+    private String modelDesc;
+
     /** vesion*/
     private String version;
 
@@ -77,6 +80,14 @@ public class ModelDetailInfo {
 
     public void setModelId(String modelId) {
         this.modelId = modelId;
+    }
+
+    public String getModelDesc() {
+        return modelDesc;
+    }
+
+    public void setModelDesc(String modelDesc) {
+        this.modelDesc = modelDesc;
     }
 
 

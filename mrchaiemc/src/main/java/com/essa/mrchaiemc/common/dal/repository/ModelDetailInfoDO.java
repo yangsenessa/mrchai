@@ -10,6 +10,9 @@ public class ModelDetailInfoDO {
     @Id
     @Column(name = "model_id", nullable = false, length = 128)
     private String modelId;
+    /** modelDesc*/
+    @Column(name = "model_desc", nullable = true, length = 1024)
+    private String modelDesc;
 
     @Column(name="version", nullable = true, length = 25)
     private String version;
@@ -70,6 +73,13 @@ public class ModelDetailInfoDO {
         this.modelId = modelId;
     }
 
+    public String getModelDesc() {
+        return modelDesc;
+    }
+
+    public void setModelDesc(String modelDesc) {
+        this.modelDesc = modelDesc;
+    }
 
     public String getEmcInvokeParam() {
         return emcInvokeParam;

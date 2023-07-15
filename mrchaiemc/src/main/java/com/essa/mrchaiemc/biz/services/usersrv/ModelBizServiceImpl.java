@@ -262,6 +262,7 @@ public class ModelBizServiceImpl implements ModelBizService {
         modelDetailInfoDO.setParamsGuideLink(modelDetailInfo.getParamsGuideLink());
         modelDetailInfoDO.setSampleCodeLink(modelDetailInfo.getSampleCodeLink());
         modelDetailInfoDO.setVersion(modelDetailInfo.getVersion());
+        modelDetailInfoDO.setModelDesc(modelDetailInfo.getModelDesc());
     }
 
     /**
