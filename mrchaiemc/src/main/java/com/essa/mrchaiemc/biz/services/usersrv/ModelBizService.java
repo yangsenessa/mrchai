@@ -70,6 +70,15 @@ public interface ModelBizService {
      */
     ModelDetailInfo getModelDetailInfo(BussRequest request, BussResponse response);
 
+
+    /**
+     * fetch modelinfo by modelId
+     * @param request
+     * @param response
+     * @return
+     */
+    ModelInfo getCertailModelInfo(BussRequest request, BussResponse response);
+
     /**
      * 获取归属custId 的 modelID
      * @param request

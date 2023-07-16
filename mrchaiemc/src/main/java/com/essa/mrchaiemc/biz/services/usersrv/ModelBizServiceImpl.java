@@ -178,6 +178,8 @@ public class ModelBizServiceImpl implements ModelBizService {
     public ModelDetailInfo getModelDetailInfo(BussRequest request, BussResponse response) {
         ModelDetailInfo modelDetailInfo = new ModelDetailInfo();
         String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());
+
+
         ModelDetailInfoDO modelDetailInfoDO = modelDetailInfoDAO.findByModelId(modelId);
         ModelInvokeGuideDO modelInvokeGuideDO = modelInvokeGuideDAO.findByModelId(modelId);
         ModelNegativePromtsDO modelNegativePromtsDO = modelNegativePromtsDAO.findByModelId(modelId);
@@ -205,6 +207,16 @@ public class ModelBizServiceImpl implements ModelBizService {
                 modelNegativePromtsDO, modelPositivePromtsDO, modelParamsDO, modelDetailInfo);
 
         return modelDetailInfo;
+    }
+
+    @Override
+    public ModelInfo getCertailModelInfo(BussRequest request, BussResponse response) {
+        ModelInfo modelInfo = new ModelInfo();
+        String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());
+
+        ModelInfoDO modelInfoDO = modelInfoDAO.findByModelId(modelId);
+        this.convertDO2ModelInfo(modelInfoDO,modelInfo);
+        return modelInfo;
     }
 
     @Override

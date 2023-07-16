@@ -5,3 +5,8 @@
 2、ProcessStep:
    Init Processing SuccessFinish FailRetry FailNotRetry
 
+
+nohup java -jar mrchaiemc-0.0.1-SNAPSHOT.jar > mrchaiemclog.log 2>&1 &
+
+
+
