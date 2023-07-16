@@ -14,6 +14,7 @@ import com.essa.mrchaiemc.common.dal.dao.*;
 import com.essa.mrchaiemc.common.dal.repository.*;
 import com.essa.mrchaiemc.common.util.DateUtil;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,14 +52,26 @@ public class ModelBizServiceImpl implements ModelBizService {
     public void addOrUpdateModelInfo(BussRequest request, BussResponse response) {
         ModelInfo modelInfo = this.getModelInfo(request);
         ModelCover modelCover = request.getBussContext().getModelContext().getModelCover();
-        ModelCoverDO modelCoverDO= new ModelCoverDO();
-        ModelInfoDO modelInfoDO = new ModelInfoDO();
-        this.covertModelInfo2DO(modelInfo, modelInfoDO);
+
+        ModelCoverDO modelCoverDO = new ModelCoverDO();
         if (modelCover != null) {
-            this.covertModelCover2DO(modelCover,modelCoverDO);
+            this.covertModelCover2DO(modelCover, modelCoverDO);
             modelCoverDO.setModelId(modelInfo.getModelId());
             modelCoverDAO.save(modelCoverDO);
         }
+        if (modelCover == null) {
+            modelCover = new ModelCover();
+        }
+        ModelInfoDO modelInfoDO = null;
+        if (StringUtils.isNoneBlank(modelInfo.getModelId())) {
+            modelInfoDO = modelInfoDAO.findByModelId(modelInfo.getModelId());
+        }
+        if (modelInfoDO == null) {
+            modelInfoDO = new ModelInfoDO();
+        }
+
+        modelInfo.setModelCover(modelCover);
+        this.covertModelInfo2DO(modelInfo, modelInfoDO);
         Cust2ModelMappingDO cust2ModelMappingDO = new Cust2ModelMappingDO();
         cust2ModelMappingDO.setCustId(request.getUserContext().getUserId());
         cust2ModelMappingDO.setGmtCreate(DateUtil.getGmtDateTime());
@@ -250,12 +263,26 @@ public class ModelBizServiceImpl implements ModelBizService {
      * @param modelInfoDO
      */
     private void covertModelInfo2DO(ModelInfo modelInfo, ModelInfoDO modelInfoDO) {
-        modelInfoDO.setModelId(modelInfo.getModelId());
-        modelInfoDO.setModelName(modelInfo.getModelName());
-        modelInfoDO.setModelSubName(modelInfo.getModelSubName());
-        modelInfoDO.setCateGory1(modelInfo.getCateGory1());
-        modelInfoDO.setCateGory2(modelInfo.getCateGory2());
-        modelInfoDO.setCateGory3(modelInfo.getCateGory3());
+        if (StringUtils.isNotBlank(modelInfo.getModelId())) {
+            modelInfoDO.setModelId(modelInfo.getModelId());
+        }
+        if (StringUtils.isNotBlank(modelInfo.getModelName())) {
+            modelInfoDO.setModelName(modelInfo.getModelName());
+        }
+        if (StringUtils.isNotBlank(modelInfo.getModelSubName())) {
+            modelInfoDO.setModelSubName(modelInfo.getModelSubName());
+        }
+        if (StringUtils.isNotBlank(modelInfo.getCateGory1())) {
+            modelInfoDO.setCateGory1(modelInfo.getCateGory1());
+        }
+        if (StringUtils.isNotBlank(modelInfo.getCateGory2())) {
+            modelInfoDO.setCateGory2(modelInfo.getCateGory2());
+        }
+        if (StringUtils.isNotBlank(modelInfo.getCateGory3())) {
+            modelInfoDO.setCateGory3(modelInfo.getCateGory3());
+        }
+        modelInfoDO.setCoverImgs(JSONObject.toJSONString(modelInfo.getModelCover().getCoverImgList()));
+        modelInfoDO.setCoverVideos(JSONObject.toJSONString(modelInfo.getModelCover().getCoverVideoList()));
     }
 
 
