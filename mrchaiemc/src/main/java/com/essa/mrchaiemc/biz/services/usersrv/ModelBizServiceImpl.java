@@ -51,14 +51,19 @@ public class ModelBizServiceImpl implements ModelBizService {
     public void addOrUpdateModelInfo(BussRequest request, BussResponse response) {
         ModelInfo modelInfo = this.getModelInfo(request);
         ModelCover modelCover = request.getBussContext().getModelContext().getModelCover();
+
         ModelCoverDO modelCoverDO= new ModelCoverDO();
         ModelInfoDO modelInfoDO = new ModelInfoDO();
-        this.covertModelInfo2DO(modelInfo, modelInfoDO);
         if (modelCover != null) {
             this.covertModelCover2DO(modelCover,modelCoverDO);
             modelCoverDO.setModelId(modelInfo.getModelId());
             modelCoverDAO.save(modelCoverDO);
         }
+        if (modelCover == null) {
+            modelCover = new ModelCover();
+        }
+        modelInfo.setModelCover(modelCover);
+        this.covertModelInfo2DO(modelInfo, modelInfoDO);
         Cust2ModelMappingDO cust2ModelMappingDO = new Cust2ModelMappingDO();
         cust2ModelMappingDO.setCustId(request.getUserContext().getUserId());
         cust2ModelMappingDO.setGmtCreate(DateUtil.getGmtDateTime());
@@ -244,6 +249,8 @@ public class ModelBizServiceImpl implements ModelBizService {
         modelInfoDO.setCateGory1(modelInfo.getCateGory1());
         modelInfoDO.setCateGory2(modelInfo.getCateGory2());
         modelInfoDO.setCateGory3(modelInfo.getCateGory3());
+        modelInfoDO.setCoverImgs(JSONObject.toJSONString(modelInfo.getModelCover().getCoverImgList()));
+        modelInfoDO.setCoverVideos(JSONObject.toJSONString(modelInfo.getModelCover().getCoverVideoList()));
     }
 
 
