@@ -52,6 +52,8 @@ public class GenerUserInfoComponent implements BussComponent {
                     request.getUserContext().setEmail(applyRegMap.get(BussInfoKeyEnum.APPLREGINFO_EMAIL.getCode()));
                     request.getUserContext().setUserStatus(UserStatusEnum.UN_AUTHTOKEN);
                     request.getUserContext().setNickName(applyRegMap.get(BussInfoKeyEnum.APPLREGINFO_NICKNAME.getCode()));
+
+
                 } catch (Exception e) {
                     LoggerUtil.errlog("parse applyRegInfo err");
                     res = false;

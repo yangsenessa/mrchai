@@ -15,6 +15,8 @@ public class ActionEnumMappingUtil {
 
         //CustomerBussContorller
         string2ActiontypeEnum.put("APPLYREGISTER", ActionTypeEnum.USER_REGIST);
+        string2ActiontypeEnum.put("RELATOEWALLET", ActionTypeEnum.USER_REGIST);
+
 
 
         //ModelMannerBussConstorller

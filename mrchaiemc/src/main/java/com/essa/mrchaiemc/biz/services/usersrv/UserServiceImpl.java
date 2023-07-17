@@ -10,9 +10,11 @@ import com.essa.mrchaiemc.biz.models.enumcollection.CustIdentiTypeEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.biz.models.enumcollection.UserStatusEnum;
 import com.essa.mrchaiemc.biz.models.exceptions.DbOprException;
+import com.essa.mrchaiemc.common.dal.dao.CustAcctBaseDAO;
 import com.essa.mrchaiemc.common.dal.dao.CustIdentityInfoDAO;
 import com.essa.mrchaiemc.common.dal.dao.CustInfoDAO;
 import com.essa.mrchaiemc.common.dal.dao.OperatorLogsDAO;
+import com.essa.mrchaiemc.common.dal.repository.CustAcctBaseDO;
 import com.essa.mrchaiemc.common.dal.repository.CustIdentityInfoDO;
 import com.essa.mrchaiemc.common.dal.repository.CustInfoDO;
 import com.essa.mrchaiemc.common.dal.repository.OperatorLogsDO;
@@ -23,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.geom.RectangularShape;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Service("userService")
@@ -38,6 +41,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private OperatorLogsDAO operatorLogsDAO;
+
+    @Autowired
+    private CustAcctBaseDAO custAcctBaseDAO;
 
     @Override
     public void checkUserValid(BussRequest request, BussResponse response) {
@@ -59,6 +65,8 @@ public class UserServiceImpl implements UserService {
         CustInfoDO custInfoDO = custInfoDAO.findByLoginId(userId);
         CustIdentityInfoDO custIdentityInfo =  custIdentityInfoDAO.findByCustIdAndIdentiType(custInfoDO.getCustId(),loginTypeCode);
         if(custIdentityInfo != null && StringUtil.equals(custIdentityInfo.getAuthCode(),token)){
+            response.setResExtInfo(new HashMap<>());
+            response.getResExtInfo().put(BussInfoKeyEnum.CUSTID.getCode(),custInfoDO.getCustId() );
             response.setResCode(ResultCode.SUCCESS.name());
         } else if (custIdentityInfo == null) {
             response.setResCode(ResultCode.NEEDREGISTER.name());
@@ -83,6 +91,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void dealUserAcctOpen(BussRequest request, BussResponse response) {
+        if(request.getUserContext() == null || StringUtil.isEmpty(request.getUserContext().getUserId())){
+            LoggerUtil.errlog("CustId info is null");
+            response.setResCode(ResultCode.INVAILDPARAMS.name());
+        }
+        CustAcctBaseDO custAcctBaseDO = new CustAcctBaseDO();
+        custAcctBaseDO.setCustId(request.getUserContext().getUserId());
+        custAcctBaseDO.setTokenType("EMC_IC");
+        custAcctBaseDO.setTokenVal(request.getBussExtInfo().get(BussInfoKeyEnum.WALLETTOKEN.getCode()));
+        custAcctBaseDAO.save(custAcctBaseDO);
+        response.setResCode(ResultCode.SUCCESS.name());
+
+    }
+
+    @Override
     public String doUserRegister(BussRequest request, BussResponse response) {
         CustInfoDO custInfoDO = new CustInfoDO();
         this.constractCustInfoDO(request, custInfoDO);
@@ -98,6 +121,10 @@ public class UserServiceImpl implements UserService {
             LoggerUtil.errlog("DB operator err");
             throw new DbOprException();
         }
+        response.setResExtInfo(new HashMap<>());
+        response.getResExtInfo().put(BussInfoKeyEnum.APPLREGINFO_NICKNAME.getCode(),custInfoDB.getNickName());
+        response.getResExtInfo().put(BussInfoKeyEnum.APPLREGINFO_LOGINID.getCode(),custInfoDB.getLoginId());
+
         return custInfoDB.getCustId();
     }
 

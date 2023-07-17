@@ -52,13 +52,23 @@ public class CustomerBussContorller {
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
     @ResponseBody
+    @RequestMapping(value = "userRelatedWithPrinciple.do",produces = { MediaType.APPLICATION_JSON_VALUE })
+    public CustomerCommonResponse userRelatedWithPrinciple(@RequestBody CustomCommonReq req){
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"RELATOEWALLET");
+        BussResponse bussResponse = new BussResponse();
+        bussRequest.setBussExtInfo(req.getBussData());
+        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+
+    }
+
+    @ResponseBody
     @RequestMapping(value = "applyRegister.do", produces = { MediaType.APPLICATION_JSON_VALUE })
     public CustomerCommonResponse applyRegister(@RequestBody CustomCommonReq req){
         BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"APPLYREGISTER");
         BussResponse bussResponse = new BussResponse();
         bussRequest.setBussExtInfo(req.getBussData());
         bussPipeline.execWithPipeLine(bussRequest,bussResponse);
-
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
     @ResponseBody
@@ -68,7 +78,6 @@ public class CustomerBussContorller {
         BussResponse bussResponse = new BussResponse();
         bussRequest.setBussExtInfo(req.getBussData());
         bussPipeline.execWithPipeLine(bussRequest,bussResponse);
-
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
 
