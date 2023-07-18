@@ -1,6 +1,7 @@
 package com.essa.mrchaiemc.biz.strategy.modelBuss;
 
 import cn.minsin.core.tools.StringUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
@@ -15,6 +16,7 @@ import com.essa.mrchaiemc.biz.strategy.BussComponent;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 
@@ -26,14 +28,14 @@ public class ModeldetailInfoModComponent implements BussComponent {
 
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
-        if (request == null || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_DETAIL.getCode()))) {
+        if (request == null || CollectionUtils.isEmpty(request.getBussExtInfo())) {
             return false;
         }
         ModelContext modelContext = new ModelContext();
         ModelDetailInfo modelDetailInfo = null;
         ModelInfo modelInfo = null;
         request.getBussContext().setModelContext(new ModelContext());
-        String modelDetailInfoJson = request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_DETAIL.getCode());
+        String modelDetailInfoJson = JSON.toJSONString(request.getBussExtInfo()) ;
         try {
             modelDetailInfo = JSONObject.parseObject(modelDetailInfoJson, new TypeReference<ModelDetailInfo>() {
             });

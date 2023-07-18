@@ -2,6 +2,7 @@ package com.essa.mrchaiemc.biz.strategy.modelBuss;
 
 import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfo;
@@ -17,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component("QUERYMODELDEAILINFO")
 public class ModelDetailInfoGenerComponent implements BussComponent {
@@ -38,11 +40,7 @@ public class ModelDetailInfoGenerComponent implements BussComponent {
             return false;
         }
         String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());
-        List<String> modelIdList =  modelBizService.getModelIdsByCustId(request,response);
-        if(CollectionUtils.isEmpty(modelIdList)){
-            return false;
-        }
-        return modelIdList.contains(modelId);
+        return StringUtil.isNotEmpty(modelId);
 
     }
 
@@ -52,9 +50,13 @@ public class ModelDetailInfoGenerComponent implements BussComponent {
             ModelDetailInfo modelDetailInfo =  modelBizService.getModelDetailInfo(request,response);
             ModelInfo modelInfo = modelBizService.getCertailModelInfo(request,response);
             response.setResCode(ResultCode.SUCCESS.name());
-            response.setResExtInfo(new HashMap<String, String>());
-            response.getResExtInfo().put(BussInfoKeyEnum.MODEL_INFO.getCode(),JSONObject.toJSONString(modelInfo));
-            response.getResExtInfo().put(BussInfoKeyEnum.MODEL_DETAIL.getCode(),JSONObject.toJSONString(modelDetailInfo));
+            String jsonExt = JSONObject.toJSONString(modelInfo);
+            String jsonDetailExt = JSONObject.toJSONString(modelDetailInfo);
+            Map<String,String> modelDetailMap = JSONObject.parseObject(jsonDetailExt,new TypeReference<Map<String,String>>(){});
+
+            response.setResExtInfo(JSONObject.parseObject(jsonExt,new TypeReference<Map<String,String>>(){}));
+            response.getResExtInfo().putAll(modelDetailMap);
+
         } catch (Exception e) {
             LoggerUtil.errlog(e,"DB err!");
             response.setResCode(ResultCode.DBEXCEPTION.name());

@@ -18,6 +18,10 @@ public class ModelPositivePromtsDO {
     @Column(name = "promts", nullable = true, length = 5120,columnDefinition = "text")
     private String promts;
 
+    @Lob
+    @Column(name = "enhance_promts", nullable = true, length = 1024,columnDefinition = "text")
+    private String enhancePromts;
+
     public String getPromts() {
         return promts;
     }
@@ -40,5 +44,23 @@ public class ModelPositivePromtsDO {
 
     public void setModelId(String modelId) {
         this.modelId = modelId;
+    }
+
+    /**
+     * Getter method for property <tt>enhancePromts</tt>.
+     *
+     * @return property value of enhancePromts
+     */
+    public String getEnhancePromts() {
+        return enhancePromts;
+    }
+
+    /**
+     * Setter method for property <tt>enhancePromts</tt>.
+     *
+     * @param enhancePromts value to be assigned to property enhancePromts
+     */
+    public void setEnhancePromts(String enhancePromts) {
+        this.enhancePromts = enhancePromts;
     }
 }

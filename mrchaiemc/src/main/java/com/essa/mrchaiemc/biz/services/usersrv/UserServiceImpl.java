@@ -47,22 +47,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void checkUserValid(BussRequest request, BussResponse response) {
-        String userId = request.getUserContext().getUserId();
-        if(StringUtil.equals("PUBLIC", userId)){
+        String loginId = request.getUserContext().getLoginId();
+        if(StringUtil.equals("PUBLIC", loginId)){
             this.dealAsPublicCust(request,response);
             return;
         }
         String loginType = request.getBussExtInfo().get(BussInfoKeyEnum.LOGINTYPE.getCode());
         String token = request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode());
-        if (StringUtil.isEmpty(loginType) || StringUtil.isEmpty(userId)) {
+        if (StringUtil.isEmpty(loginType) || StringUtil.isEmpty(loginId)) {
             LoggerUtil.errlog("loginType is null");
             response.setResCode(ResultCode.NEEDREGISTER.name());
             return;
         }
         int loginTypeCode = CustIdentiTypeEnum.getCustIdentiTypeCodeByMsg(loginType);
 
-        //取custId
-        CustInfoDO custInfoDO = custInfoDAO.findByLoginId(userId);
+
+        CustInfoDO custInfoDO = custInfoDAO.findByLoginId(loginId);
+        if(custInfoDO == null){
+            LoggerUtil.errlog("None cust info");
+            response.setResCode(ResultCode.NEEDREGISTER.name());
+            return;
+        }
         CustIdentityInfoDO custIdentityInfo =  custIdentityInfoDAO.findByCustIdAndIdentiType(custInfoDO.getCustId(),loginTypeCode);
         if(custIdentityInfo != null && StringUtil.equals(custIdentityInfo.getAuthCode(),token)){
             response.setResExtInfo(new HashMap<>());
@@ -114,6 +119,7 @@ public class UserServiceImpl implements UserService {
             response.setResCode(ResultCode.DUPLOGINID.name());
             return custInfoDB.getCustId();
         }
+        custInfoDO.setUserStatus(UserStatusEnum.UN_AUTHTOKEN.getCode());
         custInfoDAO.save(custInfoDO);
         //获取custId并写入上下文
         custInfoDB = custInfoDAO.findByLoginId(custInfoDO.getLoginId());

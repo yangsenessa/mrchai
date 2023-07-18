@@ -61,7 +61,7 @@ public class ModelUploadComponent implements BussComponent {
             modelDetailInfoDO.setParamsGuideLink(modelDetailInfo.getParamsGuideLink());
             modelDetailInfoDO.setSampleCodeLink(modelDetailInfo.getSampleCodeLink());
             modelDetailInfoDO.setVersion(modelDetailInfo.getVersion());
-            modelDetailInfoDO.setDownLoadLink(modelDetailInfo.getDownLoadLink());
+            modelDetailInfoDO.setModelFileLink(modelDetailInfo.getModelFileLink());
             this.modelDetailInfoDAO.save(modelDetailInfoDO);
 
             response.setResExtInfo(new HashMap<String, String>());

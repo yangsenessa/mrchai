@@ -24,8 +24,9 @@ public class ModelInfo {
     /** cateGory3 预留*/
     private String cateGory3;
 
-    /** 模型封面*/
-    private ModelCover modelCover;
+    /** modelCover1*/
+    private String modelCover1;
+
 
 
     public String getModelId() {
@@ -85,11 +86,21 @@ public class ModelInfo {
         this.modelSubName = modelSubName;
     }
 
-    public ModelCover getModelCover() {
-        return modelCover;
+    /**
+     * Getter method for property <tt>modelCover1</tt>.
+     *
+     * @return property value of modelCover1
+     */
+    public String getModelCover1() {
+        return modelCover1;
     }
 
-    public void setModelCover(ModelCover modelCover) {
-        this.modelCover = modelCover;
+    /**
+     * Setter method for property <tt>modelCover1</tt>.
+     *
+     * @param modelCover1 value to be assigned to property modelCover1
+     */
+    public void setModelCover1(String modelCover1) {
+        this.modelCover1 = modelCover1;
     }
 }

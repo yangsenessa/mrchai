@@ -1,6 +1,5 @@
 package com.essa.mrchaiemc.biz.models.domains.bussiness;
 
-import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelCover;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfo;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelPrinciple;
@@ -16,8 +15,6 @@ public class ModelContext {
     /** 模型详细信息*/
     private ModelDetailInfo modelDetailInfo;
 
-    /** 模型封面*/
-    private ModelCover modelCover;
 
     /** 模型条款*/
     private ModelPrinciple modelPrinciple;
@@ -38,13 +35,6 @@ public class ModelContext {
         this.modelDetailInfo = modelDetailInfo;
     }
 
-    public ModelCover getModelCover() {
-        return modelCover;
-    }
-
-    public void setModelCover(ModelCover modelCover) {
-        this.modelCover = modelCover;
-    }
 
     public ModelPrinciple getModelPrinciple() {
         return modelPrinciple;

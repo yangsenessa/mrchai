@@ -37,7 +37,9 @@ public class BussContextUtil {
             bussRequest.getUserContext().setUserId("PUBLIC");
         }
         bussRequest.getUserContext().setUserId(request.getCustId());
+        bussRequest.getUserContext().setLoginId(request.getLoginId());
         bussRequest.getUserContext().setHasLogin(false);
+
 
         String traceId = generBizTraceId();
         bussRequest.setBussExtInfo(request.getBussData());

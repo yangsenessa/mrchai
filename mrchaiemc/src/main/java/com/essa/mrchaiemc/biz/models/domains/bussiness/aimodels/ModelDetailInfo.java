@@ -19,7 +19,7 @@ public class ModelDetailInfo {
     private EmcInvokeParam emcInvokeParam;
 
     /** downLoadLink*/
-    private String downLoadLink;
+    private String modelFileLink;
 
     /** guide_link*/
     private String guideLink;
@@ -40,7 +40,92 @@ public class ModelDetailInfo {
     private String positivePromts;
 
     /** common_params*/
-    private String commonParams;
+    private String enhancePromts;
+
+    /** numInferenceSteps*/
+    private int numInferenceSteps;
+
+    /** seed*/
+    private int seed;
+
+    /** sampleImgFileLink*/
+    private String sampleImgFileLink;
+
+    /** tags*/
+    private String tags;
+
+
+    /**
+     * Getter method for property <tt>modelFileLink</tt>.
+     *
+     * @return property value of modelFileLink
+     */
+    public String getModelFileLink() {
+        return modelFileLink;
+    }
+
+    /**
+     * Setter method for property <tt>modelFileLink</tt>.
+     *
+     * @param modelFileLink value to be assigned to property modelFileLink
+     */
+    public void setModelFileLink(String modelFileLink) {
+        this.modelFileLink = modelFileLink;
+    }
+
+    /**
+     * Getter method for property <tt>numInferenceSteps</tt>.
+     *
+     * @return property value of numInferenceSteps
+     */
+    public int getNumInferenceSteps() {
+        return numInferenceSteps;
+    }
+
+    /**
+     * Setter method for property <tt>numInferenceSteps</tt>.
+     *
+     * @param numInferenceSteps value to be assigned to property numInferenceSteps
+     */
+    public void setNumInferenceSteps(int numInferenceSteps) {
+        this.numInferenceSteps = numInferenceSteps;
+    }
+
+    /**
+     * Getter method for property <tt>seed</tt>.
+     *
+     * @return property value of seed
+     */
+    public int getSeed() {
+        return seed;
+    }
+
+    /**
+     * Setter method for property <tt>seed</tt>.
+     *
+     * @param seed value to be assigned to property seed
+     */
+    public void setSeed(int seed) {
+        this.seed = seed;
+    }
+
+    /**
+     * Getter method for property <tt>sampleImgFileLink</tt>.
+     *
+     * @return property value of sampleImgFileLink
+     */
+    public String getSampleImgFileLink() {
+        return sampleImgFileLink;
+    }
+
+    /**
+     * Setter method for property <tt>sampleImgFileLink</tt>.
+     *
+     * @param sampleImgFileLink value to be assigned to property sampleImgFileLink
+     */
+    public void setSampleImgFileLink(String sampleImgFileLink) {
+        this.sampleImgFileLink = sampleImgFileLink;
+    }
 
     public String getNegativePromts() {
         return negativePromts;
@@ -100,13 +185,6 @@ public class ModelDetailInfo {
         this.emcInvokeParam = emcInvokeParam;
     }
 
-    public String getDownLoadLink() {
-        return downLoadLink;
-    }
-
-    public void setDownLoadLink(String downLoadLink) {
-        this.downLoadLink = downLoadLink;
-    }
 
     public String getVersion() {
         return version;
@@ -132,11 +210,40 @@ public class ModelDetailInfo {
         this.invokeGuide = invokeGuide;
     }
 
-    public String getCommonParams() {
-        return commonParams;
+
+    /**
+     * Getter method for property <tt>tags</tt>.
+     *
+     * @return property value of tags
+     */
+    public String getTags() {
+        return tags;
     }
 
-    public void setCommonParams(String commonParams) {
-        this.commonParams = commonParams;
+    /**
+     * Setter method for property <tt>tags</tt>.
+     *
+     * @param tags value to be assigned to property tags
+     */
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * Getter method for property <tt>enhancePromts</tt>.
+     *
+     * @return property value of enhancePromts
+     */
+    public String getEnhancePromts() {
+        return enhancePromts;
+    }
+
+    /**
+     * Setter method for property <tt>enhancePromts</tt>.
+     *
+     * @param enhancePromts value to be assigned to property enhancePromts
+     */
+    public void setEnhancePromts(String enhancePromts) {
+        this.enhancePromts = enhancePromts;
     }
 }

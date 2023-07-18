@@ -1,10 +1,10 @@
 package com.essa.mrchaiemc.biz.models.req;
 
-import java.util.Map;
-
 public class CustomCommonReq extends BaseReq {
 
     private String custId;
+
+    private String loginId;
 
 
     /**
@@ -36,4 +36,21 @@ public class CustomCommonReq extends BaseReq {
         this.panelId = panelId;
     }
 
+    /**
+     * Getter method for property <tt>loginId</tt>.
+     *
+     * @return property value of loginId
+     */
+    public String getLoginId() {
+        return loginId;
+    }
+
+    /**
+     * Setter method for property <tt>loginId</tt>.
+     *
+     * @param loginId value to be assigned to property loginId
+     */
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 }

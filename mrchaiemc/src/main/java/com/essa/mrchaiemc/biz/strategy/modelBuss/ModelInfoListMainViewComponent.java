@@ -46,12 +46,13 @@ public class ModelInfoListMainViewComponent implements BussComponent {
             modelifoList = modelBizService.fetchModelInfoBaseListByPages(request, response);
             if(!CollectionUtils.isEmpty(modelifoList)){
                 response.setResExtInfo(new HashMap<String,String>());
-                response.getResExtInfo().put("modelList", JSONObject.toJSONString(modelifoList));
+                response.setModelListArray(modelifoList);
             }
         } catch (Exception e) {
             LoggerUtil.errlog(e,"Db err!");
             response.setResCode(ResultCode.DBEXCEPTION.name());
         }
+        response.setModelListArray(modelifoList);
         response.setResCode(ResultCode.SUCCESS.name());
     }
 

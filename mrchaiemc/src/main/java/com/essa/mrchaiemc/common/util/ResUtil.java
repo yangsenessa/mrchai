@@ -45,6 +45,8 @@ public class ResUtil {
         customerCommonResponse.setGmtDate(DateUtil.getGmtDateTime());
         customerCommonResponse.setLoginStatus(String.valueOf(LogInStatusUtil.isCustLogInSuccess(response)));
         customerCommonResponse.setBussData(response.getResExtInfo());;
+        customerCommonResponse.setTotalNum(response.getTotalNum());
+        customerCommonResponse.setModelInfoList(response.getModelListArray());
         return customerCommonResponse;
     }
 }

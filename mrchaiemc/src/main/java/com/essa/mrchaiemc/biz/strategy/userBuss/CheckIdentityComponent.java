@@ -39,6 +39,7 @@ public class CheckIdentityComponent implements BussComponent {
         if(StringUtil.equals("PUBLIC", request.getUserContext().getUserId())){
             return true;
         }
+        //if login busspileline?
         if(request.getBussExtInfo().containsKey(BussInfoKeyEnum.LOGINTYPE.getCode())
             && request.getBussExtInfo().containsKey(BussInfoKeyEnum.AUTHTOKEN.getCode())){
             return true;

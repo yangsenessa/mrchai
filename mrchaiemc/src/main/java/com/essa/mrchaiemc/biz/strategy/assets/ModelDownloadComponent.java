@@ -27,7 +27,7 @@ public class ModelDownloadComponent implements BussComponent {
         String modelDetailInfoJson = request.getBussExtInfo().get(BussInfoKeyEnum.MODEL_DETAIL.getCode());
         ModelDetailInfo modelDetailInfo = JSONObject.parseObject(modelDetailInfoJson, new TypeReference<ModelDetailInfo>() {
         });
-        String downLoadLink=modelDetailInfo.getDownLoadLink();
+        String downLoadLink=modelDetailInfo.getModelFileLink();
         String fileName = downLoadLink.substring(downLoadLink.lastIndexOf("]")+1);
         try {
             // String downLoadurl=minioUtil.getFileUrl(downLoadLink); //下载地址链接

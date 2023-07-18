@@ -9,6 +9,7 @@ public enum BussInfoKeyEnum {
     APPLREGINFO("applRegInfo","applRegInfo"),
     APPLREGINFO_NICKNAME("nickName","nickName"),
     APPLREGINFO_EMAIL("email","email"),
+    APPLRREGINFO_MOBILEPHONENO("mobilePhoneNo","mobilePhoneNo"),
     APPLREGINFO_MOBILEPHONE("mobilePhone","mobilePhone"),
     APPLREGINFO_LOGINID("loginId","loginId"),
     MODEL_INFO("modelInfo","modelInfo"),
@@ -20,7 +21,14 @@ public enum BussInfoKeyEnum {
     FILELINK("file_link","file_link"),
     /** ####### contorl    ##########*/
     PAGEINDEX("pageIndex","pageIndex"),
-    PAGESIZE("pageSize", "pageSize")
+    PAGESIZE("pageSize", "pageSize"),
+    /** ========================================== */
+    MODELINFO_MODELNAME("modelName","modelName"),
+    MODELINFO_MODELSUBNAME("modelSubName","modelSubName"),
+    MODELINFO_CATEGORY1("category1","category1"),
+    MODELINFO_CATEGORY2("category2","category2"),
+    MODELINFO_CATEGORY3("category3","category3"),
+
     ;
 
 

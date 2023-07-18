@@ -37,13 +37,6 @@ public class ModelInfoDO implements Serializable {
     @Column(name = "category_3", nullable = true, length = 50)
     private String cateGory3;
 
-    /** modelCover*/
-    @Column(name = "cover_imgs", nullable = true, length = 5120)
-    private String coverImgs;
-
-    @Column(name = "cover_videos", nullable = true, length = 5120)
-    private String coverVideos;
-
 
     public String getModelId() {
         return modelId;
@@ -101,19 +94,4 @@ public class ModelInfoDO implements Serializable {
         this.cateGory3 = cateGory3;
     }
 
-    public String getCoverImgs() {
-        return coverImgs;
-    }
-
-    public void setCoverImgs(String coverImgs) {
-        this.coverImgs = coverImgs;
-    }
-
-    public String getCoverVideos() {
-        return coverVideos;
-    }
-
-    public void setCoverVideos(String coverVideos) {
-        this.coverVideos = coverVideos;
-    }
 }

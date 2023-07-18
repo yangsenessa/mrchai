@@ -37,29 +37,14 @@ public class GenerUserInfoComponent implements BussComponent {
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
         boolean res = false;
-        if (response != null && request.getBussExtInfo() != null && StringUtil.equals(ResultCode.NEEDREGISTER.getMsg(), response.getResCode())) {
+        if (response != null && request.getBussExtInfo() != null) {
             //check and unpack userContext
-            String userContext = request.getBussExtInfo().get(BussInfoKeyEnum.APPLREGINFO.getCode());
-            if(StringUtil.isNotEmpty(userContext)){
-                try {
-                    Map<String, String> applyRegMap =
-                            JSONObject.parseObject(userContext, new TypeReference<Map<String, String>>() {
-                            });
-                    if(request.getUserContext() == null){
-                        request.setUserContext(new UserContext());
-                    }
-                    request.getUserContext().setLoginId(applyRegMap.get(BussInfoKeyEnum.APPLREGINFO_LOGINID.getCode()));
-                    request.getUserContext().setEmail(applyRegMap.get(BussInfoKeyEnum.APPLREGINFO_EMAIL.getCode()));
-                    request.getUserContext().setUserStatus(UserStatusEnum.UN_AUTHTOKEN);
-                    request.getUserContext().setNickName(applyRegMap.get(BussInfoKeyEnum.APPLREGINFO_NICKNAME.getCode()));
-
-
-                } catch (Exception e) {
-                    LoggerUtil.errlog("parse applyRegInfo err");
-                    res = false;
-                }
-                res= true;
-            }
+            request.getUserContext().setLoginId(request.getBussExtInfo().get(BussInfoKeyEnum.APPLREGINFO_LOGINID.getCode()));
+            request.getUserContext().setEmail(request.getBussExtInfo().get(BussInfoKeyEnum.APPLREGINFO_EMAIL.getCode()));
+            request.getUserContext().setMobilePhoneNo(request.getBussExtInfo().get(BussInfoKeyEnum.APPLRREGINFO_MOBILEPHONENO.getCode()));
+            request.getUserContext().setNickName(request.getBussExtInfo().get(BussInfoKeyEnum.APPLREGINFO_NICKNAME.getCode()));
+            request.getUserContext().setUserStatus(UserStatusEnum.UN_AUTHTOKEN);
+            res = true;
         }
         return res;
     }
@@ -67,18 +52,18 @@ public class GenerUserInfoComponent implements BussComponent {
     @Override
     public void doProcess(BussRequest request, BussResponse response) {
         String userId = null;
-        try{
-            userId = userService.doUserRegister(request,response);
-        }  catch (Exception e) {
+        try {
+            userId = userService.doUserRegister(request, response);
+        } catch (Exception e) {
             response.setResCode(ResultCode.SYSFAIL.name());
         }
         request.getUserContext().setUserId(userId);
         response.setResCode(ResultCode.SUCCESS.name());
-        if(response.getResExtInfo() == null){
+        if (response.getResExtInfo() == null) {
             response.setResExtInfo(new HashMap<>());
         }
-        Map<String,String> extInfo = response.getResExtInfo();
-        extInfo.put(BussInfoKeyEnum.CUSTID.getCode(),userId);
+        Map<String, String> extInfo = response.getResExtInfo();
+        extInfo.put(BussInfoKeyEnum.CUSTID.getCode(), userId);
     }
 
     @Override
