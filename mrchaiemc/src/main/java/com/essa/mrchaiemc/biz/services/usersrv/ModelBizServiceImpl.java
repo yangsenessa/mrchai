@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfo;
+import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfoV2;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ModelStatusEnum;
@@ -12,7 +13,6 @@ import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.common.dal.dao.*;
 import com.essa.mrchaiemc.common.dal.repository.*;
 import com.essa.mrchaiemc.common.util.DateUtil;
-import com.essa.mrchaiemc.common.util.LoggerUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service("modelBizService")
@@ -71,7 +70,7 @@ public class ModelBizServiceImpl implements ModelBizService {
 
     @Override
     public ModelInfo fetchModelInfoBase(BussRequest request, BussResponse response) {
-        ModelDetailInfo modelDetailInfo = request.getBussContext().getModelContext().getModelDetailInfo();
+        ModelDetailInfoV2 modelDetailInfo = request.getBussContext().getModelContext().getModelDetailInfo();
         ModelInfo modelInfo = new ModelInfo();
         ModelInfoDO modelInfoDO = modelInfoDAO.findByModelId(modelDetailInfo.getModelId());
         this.convertDO2ModelInfo(modelInfoDO, modelInfo);
@@ -149,34 +148,10 @@ public class ModelBizServiceImpl implements ModelBizService {
 
     @Override
     public void modModelDetailInfo(BussRequest request, BussResponse response) {
-        ModelDetailInfo modelDetailInfo = request.getBussContext().getModelContext().getModelDetailInfo();
-        ModelDetailInfoDO modelDetailInfoDO = new ModelDetailInfoDO();
-        ModelPositivePromtsDO modelPositivePromtsDO = new ModelPositivePromtsDO();
-        ModelNegativePromtsDO modelNegativePromtsDO = new ModelNegativePromtsDO();
-        ModelInvokeGuideDO modelInvokeGuideDO = new ModelInvokeGuideDO();
+    }
 
-        ModelCoverDO modelCoverDO = new ModelCoverDO();
-
-        this.convertModelDetailInfo2DO(modelDetailInfo, modelDetailInfoDO);
-        this.convertModelDetailInfo2ModelInvokeGuideDO(modelDetailInfo, modelInvokeGuideDO);
-        this.convertModelDetailInfo2ModelNagativePromptsDO(modelDetailInfo, modelNegativePromtsDO);
-        this.convertModelDetailInfo2ModelPositivePromptsDO(modelDetailInfo, modelPositivePromtsDO);
-        modelCoverDO.setModelId(modelDetailInfo.getModelId());
-        modelCoverDO.setCoverImgList(modelDetailInfo.getSampleImgFileLink());
-        try {
-            this.modelDetailInfoDAO.save(modelDetailInfoDO);
-            this.modelInvokeGuideDAO.save(modelInvokeGuideDO);
-            this.modelNegativePromtsDAO.save(modelNegativePromtsDO);
-            this.modelPositivePromtsDAO.save(modelPositivePromtsDO);
-            this.modelCoverDAO.save(modelCoverDO);
-
-            response.setResCode(ResultCode.SUCCESS.name());
-            response.setResExtInfo(new HashMap<>());
-        } catch (Exception e) {
-            LoggerUtil.errlog(e, "DB opr err!");
-            response.setResCode(ResultCode.DBEXCEPTION.name());
-        }
-
+    @Override
+    public void modModelDetailInfoV2(BussRequest request, BussResponse response) {
     }
 
     @Override
@@ -238,6 +213,11 @@ public class ModelBizServiceImpl implements ModelBizService {
         return modelIdList;
     }
 
+    @Override
+    public  ModelDetailInfoV2 getModelDetailInfoV2(BussRequest request, BussResponse response){
+        return null;
+    }
+
     /**
      * @param request
      */
@@ -254,6 +234,12 @@ public class ModelBizServiceImpl implements ModelBizService {
     private void covertModelInfo2DO(ModelInfo modelInfo, ModelInfoDO modelInfoDO) {
         if (StringUtils.isNotBlank(modelInfo.getModelId())) {
             modelInfoDO.setModelId(modelInfo.getModelId());
+        }
+        if (StringUtils.isNotBlank(modelInfo.getOwnerCustId())){
+            modelInfoDO.setOwnerCustId(modelInfo.getOwnerCustId());
+        }
+        if (StringUtils.isNotBlank(modelInfo.getMannerUserId())){
+            modelInfoDO.setMannerUserId(modelInfo.getMannerUserId());
         }
         if (StringUtils.isNotBlank(modelInfo.getModelName())) {
             modelInfoDO.setModelName(modelInfo.getModelName());

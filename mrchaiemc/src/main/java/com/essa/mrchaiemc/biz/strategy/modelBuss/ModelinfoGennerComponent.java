@@ -42,6 +42,7 @@ public class ModelinfoGennerComponent implements BussComponent {
         modelInfo.setCateGory1(request.getBussExtInfo().get(BussInfoKeyEnum.MODELINFO_CATEGORY1.getCode()));
         modelInfo.setCateGory2(request.getBussExtInfo().get(BussInfoKeyEnum.MODELINFO_CATEGORY2.getCode()));
         modelInfo.setCateGory3(request.getBussExtInfo().get(BussInfoKeyEnum.MODELINFO_CATEGORY3.getCode()));
+        modelInfo.setOwnerCustId(request.getUserContext().getUserId());
 
         modelContext.setModelInfo(modelInfo);
 

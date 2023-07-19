@@ -12,6 +12,13 @@ public class ModelInfo {
     private String modelSubName;
 
 
+    /** ownerCustId*/
+    private String ownerCustId;
+
+    /** review And public userid*/
+    private String mannerUserId;
+
+
     /** modelkey 模型对象存储key*/
     private String modelKey;
 
@@ -102,5 +109,41 @@ public class ModelInfo {
      */
     public void setModelCover1(String modelCover1) {
         this.modelCover1 = modelCover1;
+    }
+
+    /**
+     * Getter method for property <tt>ownerCustId</tt>.
+     *
+     * @return property value of ownerCustId
+     */
+    public String getOwnerCustId() {
+        return ownerCustId;
+    }
+
+    /**
+     * Setter method for property <tt>ownerCustId</tt>.
+     *
+     * @param ownerCustId value to be assigned to property ownerCustId
+     */
+    public void setOwnerCustId(String ownerCustId) {
+        this.ownerCustId = ownerCustId;
+    }
+
+    /**
+     * Getter method for property <tt>manerUserId</tt>.
+     *
+     * @return property value of manerUserId
+     */
+    public String getMannerUserId() {
+        return mannerUserId;
+    }
+
+    /**
+     * Setter method for property <tt>manerUserId</tt>.
+     *
+     * @param manerUserId value to be assigned to property manerUserId
+     */
+    public void setMannerUserId(String mannerUserId) {
+        this.mannerUserId = mannerUserId;
     }
 }

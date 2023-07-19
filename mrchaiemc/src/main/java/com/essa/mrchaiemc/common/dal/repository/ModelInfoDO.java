@@ -12,6 +12,12 @@ public class ModelInfoDO implements Serializable {
     @Column(name = "model_id", nullable = false, length = 128)
     private String modelId;
 
+    @Column(name = "owner_custid", nullable = false, length = 50)
+    private String ownerCustId;
+
+    @Column(name = "manner_userid", nullable = true, length = 50)
+    private String mannerUserId;
+
     /** modelName*/
     @Column(name = "model_name", nullable = true, length = 1024)
     private String modelName;
@@ -94,4 +100,39 @@ public class ModelInfoDO implements Serializable {
         this.cateGory3 = cateGory3;
     }
 
+    /**
+     * Getter method for property <tt>ownerCustId</tt>.
+     *
+     * @return property value of ownerCustId
+     */
+    public String getOwnerCustId() {
+        return ownerCustId;
+    }
+
+    /**
+     * Setter method for property <tt>ownerCustId</tt>.
+     *
+     * @param ownerCustId value to be assigned to property ownerCustId
+     */
+    public void setOwnerCustId(String ownerCustId) {
+        this.ownerCustId = ownerCustId;
+    }
+
+    /**
+     * Getter method for property <tt>mannerUserId</tt>.
+     *
+     * @return property value of mannerUserId
+     */
+    public String getMannerUserId() {
+        return mannerUserId;
+    }
+
+    /**
+     * Setter method for property <tt>mannerUserId</tt>.
+     *
+     * @param mannerUserId value to be assigned to property mannerUserId
+     */
+    public void setMannerUserId(String mannerUserId) {
+        this.mannerUserId = mannerUserId;
+    }
 }

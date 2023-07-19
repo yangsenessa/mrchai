@@ -17,7 +17,7 @@ public enum BussInfoKeyEnum {
     MODEL_DETAIL("modelDetail","modelDetail"),
     MODEL_PRINCIPLE("modelPrinciple","modelPrinciple"),
     CATEGORY_1("category1","category1"),
-    MODELID("model_id","model_id"),
+    MODELID("modelId","modelId"),
     FILELINK("file_link","file_link"),
     /** ####### contorl    ##########*/
     PAGEINDEX("pageIndex","pageIndex"),
@@ -28,6 +28,12 @@ public enum BussInfoKeyEnum {
     MODELINFO_CATEGORY1("category1","category1"),
     MODELINFO_CATEGORY2("category2","category2"),
     MODELINFO_CATEGORY3("category3","category3"),
+    /** =================================================*/
+    MODELDETAIL_VERSION("version","version"),
+    MODELDETAIL_MODELFILELINKS("modelFileLinks","modelFileLinks"),
+    MODELDETAIL_SAMPLEIMGLINKS("sampleImgFileLinks","sampleImgFileLinks"),
+    MODELDETAIL_MODELFILEHASECODE("modelFileHashCodes","modelFileHashCodes"),
+    MODELDETAIL_MODELFILENAMES("modelFileNames","modelFileNames")
 
     ;
 
