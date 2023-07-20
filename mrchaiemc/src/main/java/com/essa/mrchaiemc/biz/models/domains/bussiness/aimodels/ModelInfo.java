@@ -34,6 +34,9 @@ public class ModelInfo {
     /** modelCover1*/
     private String sampleImgFileLinks;
 
+    /** modelStat*/
+    private String modelStat;
+
 
 
     public String getModelId() {
@@ -147,5 +150,23 @@ public class ModelInfo {
      */
     public void setSampleImgFileLinks(String sampleImgFileLink) {
         this.sampleImgFileLinks = sampleImgFileLink;
+    }
+
+    /**
+     * Getter method for property <tt>modelStat</tt>.
+     *
+     * @return property value of modelStat
+     */
+    public String getModelStat() {
+        return modelStat;
+    }
+
+    /**
+     * Setter method for property <tt>modelStat</tt>.
+     *
+     * @param modelStat value to be assigned to property modelStat
+     */
+    public void setModelStat(String modelStat) {
+        this.modelStat = modelStat;
     }
 }

@@ -33,7 +33,10 @@ public enum BussInfoKeyEnum {
     MODELDETAIL_MODELFILELINKS("modelFileLinks","modelFileLinks"),
     MODELDETAIL_SAMPLEIMGLINKS("sampleImgFileLinks","sampleImgFileLinks"),
     MODELDETAIL_MODELFILEHASECODE("modelFileHashCodes","modelFileHashCodes"),
-    MODELDETAIL_MODELFILENAMES("modelFileNames","modelFileNames")
+    MODELDETAIL_MODELFILENAMES("modelFileNames","modelFileNames"),
+
+    /** ============================================================ */
+    MODELREVIEW("reviewIssue","reviewIssue")
 
     ;
 

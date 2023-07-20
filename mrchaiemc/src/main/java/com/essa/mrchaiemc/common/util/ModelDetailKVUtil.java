@@ -65,6 +65,35 @@ public class ModelDetailKVUtil {
         return stb.toString();
     }
 
+    /**
+     *
+     * @param modelId
+     * @param colName
+     * @return
+     */
+    public static String buildSingleKey(String modelId,String colName){
+        StringBuffer stb = new StringBuffer();
+        stb.append(modelId);
+        stb.append("#");
+        stb.append(DEFAULT_V);
+        stb.append("#");
+        stb.append("#");
+        stb.append(colName);
+        return stb.toString();
+    }
+
+    public static String buildSingleGroupKey(String modelId){
+        StringBuffer stb = new StringBuffer();
+        stb.append(modelId);
+        stb.append("#");
+
+        stb.append(DEFAULT_V);
+        stb.append("#");
+
+        return stb.toString();
+
+    }
+
 
 
     /**
@@ -77,6 +106,8 @@ public class ModelDetailKVUtil {
         stb.append(keyName);
         return stb.toString();
     }
+
+
 
     /**
      * build ModelDetailInfoKVFamily
@@ -95,6 +126,22 @@ public class ModelDetailKVUtil {
             modelDetailInfoKVDOList.add(buildDOByKey(modelDetailInfoV2, key, modelDetailInfoV2.getExtDetailInfo().get(key)));
         }
         return modelDetailInfoKVDOList;
+    }
+
+    /**
+     *
+     * @param modelId
+     * @param key
+     * @param value
+     * @return
+     */
+    public static ModelDetailInfoKVDO buildColSingle(String modelId, String key, String value){
+        ModelDetailInfoKVDO modelDetailInfoKVDO = new ModelDetailInfoKVDO();
+        modelDetailInfoKVDO.setMainKey(buildSingleKey(modelId,key));
+        modelDetailInfoKVDO.setGroupKey(buildSingleGroupKey(modelId));
+        modelDetailInfoKVDO.setValue(value);
+        modelDetailInfoKVDO.setColName(key);
+        return modelDetailInfoKVDO;
     }
 
     /**

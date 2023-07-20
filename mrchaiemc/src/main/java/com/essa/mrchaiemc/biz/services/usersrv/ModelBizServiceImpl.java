@@ -21,9 +21,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +66,8 @@ public class ModelBizServiceImpl implements ModelBizService {
         }
         if (modelInfoDO == null) {
             modelInfoDO = new ModelInfoDO();
+            // inti upload
+            modelInfo.setModelStat(ModelStatusEnum.HIDDEN.getCode());
         }
         this.covertModelInfo2DO(modelInfo, modelInfoDO);
         Cust2ModelMappingDO cust2ModelMappingDO = new Cust2ModelMappingDO();
@@ -91,8 +98,27 @@ public class ModelBizServiceImpl implements ModelBizService {
 
         //设置分页参数
         Pageable pageable = PageRequest.of(pageIndex, pageSize);
-        //分页查询
-        Page<ModelInfoDO> pageList = modelInfoDAO.findAll(pageable);
+        //封装条件查询对象Specification
+        Specification<ModelInfoDO> specification = new Specification<ModelInfoDO>(){
+
+            @Override
+            public Specification<ModelInfoDO> and(Specification<ModelInfoDO> other) {
+                return Specification.super.and(other);
+            }
+
+            @Override
+            public Specification<ModelInfoDO> or(Specification<ModelInfoDO> other) {
+                return Specification.super.or(other);
+            }
+
+            @Override
+            public Predicate toPredicate(Root<ModelInfoDO> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                return query.where(criteriaBuilder.equal(root.get("modelStat"),"NORMAL")).getRestriction();
+            }
+        };
+
+            //分页查询
+        Page<ModelInfoDO> pageList = modelInfoDAO.findAll(specification,pageable);
         if (pageList == null) {
             return null;
         }
@@ -113,7 +139,7 @@ public class ModelBizServiceImpl implements ModelBizService {
             modelInfoList.add(modelInfoItem);
         }
         //paged need send totalNum
-        long total = modelInfoDAO.count();
+        long total = modelInfoDAO.countValidModel();
         response.setTotalNum(total);
         return modelInfoList;
 
@@ -231,6 +257,20 @@ public class ModelBizServiceImpl implements ModelBizService {
         return null;
     }
 
+    @Override
+    public void mannerModelPublish(BussRequest request, BussResponse response) {
+        String custId =  request.getUserContext().getUserId();
+        String reviewIssue = request.getBussExtInfo().get(BussInfoKeyEnum.MODELREVIEW.getCode());
+        String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());
+
+        ModelInfoDO modelInfoDO =this.modelInfoDAO.findByModelId(modelId);
+        modelInfoDO.setModelStat(ModelStatusEnum.NORMAL.getCode());
+        this.modelInfoDAO.save(modelInfoDO);
+
+        ModelDetailInfoKVDO modelDetailInfoKVDO =  ModelDetailKVUtil.buildColSingle(modelId,BussInfoKeyEnum.MODELREVIEW.getCode(), reviewIssue);
+        this.modelDetailInfoKVDAO.save(modelDetailInfoKVDO);
+    }
+
     /**
      * @param request
      */
@@ -268,6 +308,9 @@ public class ModelBizServiceImpl implements ModelBizService {
         }
         if (StringUtils.isNotBlank(modelInfo.getCateGory3())) {
             modelInfoDO.setCateGory3(modelInfo.getCateGory3());
+        }
+        if(StringUtil.isNotBlank(modelInfo.getModelStat())){
+            modelInfoDO.setModelStat(modelInfo.getModelStat());
         }
     }
 
@@ -414,7 +457,7 @@ public class ModelBizServiceImpl implements ModelBizService {
             modelInfo.setCateGory1(modelInfoDO.getCateGory1());
             modelInfo.setCateGory2(modelInfoDO.getCateGory2());
             modelInfo.setCateGory3(modelInfoDO.getCateGory3());
-
+            modelInfo.setModelStat(modelInfoDO.getModelStat());
         }
     }
 

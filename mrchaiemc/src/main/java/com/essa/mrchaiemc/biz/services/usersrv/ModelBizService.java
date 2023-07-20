@@ -101,5 +101,16 @@ public interface ModelBizService {
      * @param request
      * @param response
      * @return*/
-    public ModelDetailInfoV2 getModelDetailInfoV2(BussRequest request, BussResponse response);
+     ModelDetailInfoV2 getModelDetailInfoV2(BussRequest request, BussResponse response);
+
+
+    /**
+     * review and public
+     * @param request
+     * @param response
+     */
+     void mannerModelPublish(BussRequest request, BussResponse response);
+
+
+
 }

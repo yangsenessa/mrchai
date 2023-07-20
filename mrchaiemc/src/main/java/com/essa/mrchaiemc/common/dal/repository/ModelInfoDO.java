@@ -43,6 +43,9 @@ public class ModelInfoDO implements Serializable {
     @Column(name = "category_3", nullable = true, length = 50)
     private String cateGory3;
 
+    @Column(name = "model_stat", nullable = true,length = 10)
+    private String modelStat;
+
 
     public String getModelId() {
         return modelId;
@@ -134,5 +137,23 @@ public class ModelInfoDO implements Serializable {
      */
     public void setMannerUserId(String mannerUserId) {
         this.mannerUserId = mannerUserId;
+    }
+
+    /**
+     * Getter method for property <tt>modelStat</tt>.
+     *
+     * @return property value of modelStat
+     */
+    public String getModelStat() {
+        return modelStat;
+    }
+
+    /**
+     * Setter method for property <tt>modelStat</tt>.
+     *
+     * @param modelStat value to be assigned to property modelStat
+     */
+    public void setModelStat(String modelStat) {
+        this.modelStat = modelStat;
     }
 }

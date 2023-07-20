@@ -143,5 +143,15 @@ public class ModelMannerBussConstorller {
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
 
+    @RequestMapping(value = "/mannerModelPublish.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
+    @ResponseBody
+    public CustomerCommonResponse mannerModelPublish(@RequestBody CustomCommonReq req) {
+        BussResponse bussResponse = new BussResponse();
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"MODELREVIEW");
+        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+
+
+    }
 
 }
