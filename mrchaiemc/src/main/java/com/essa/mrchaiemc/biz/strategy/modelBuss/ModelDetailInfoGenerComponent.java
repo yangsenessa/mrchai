@@ -29,11 +29,6 @@ public class ModelDetailInfoGenerComponent implements BussComponent {
 
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
-        //chek custinfo
-        if (request.getUserContext() == null || StringUtil.isEmpty(request.getUserContext().getUserId())) {
-            response.setResCode(ResultCode.NEEDLOGIN.name());
-            return false;
-        }
         //check params
         if (StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode()))) {
             response.setResCode(ResultCode.INVAILDPARAMS.name());
