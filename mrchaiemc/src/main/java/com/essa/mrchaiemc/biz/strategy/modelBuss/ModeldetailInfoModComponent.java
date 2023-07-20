@@ -42,8 +42,8 @@ public class ModeldetailInfoModComponent implements BussComponent {
         modelDetailInfo.setModelId(modelDetailMap.get(BussInfoKeyEnum.MODELID.getCode()));
         modelDetailMap.remove(BussInfoKeyEnum.MODELID.getCode());
 
-        modelDetailInfo.setVersion(modelDetailMap.get(BussInfoKeyEnum.MODELDETAIL_VERSION.getCode()));
-        modelDetailMap.remove(BussInfoKeyEnum.MODELDETAIL_VERSION.getCode());
+        /*modelDetailInfo.setVersion(modelDetailMap.get(BussInfoKeyEnum.MODELDETAIL_VERSION.getCode()));
+        modelDetailMap.remove(BussInfoKeyEnum.MODELDETAIL_VERSION.getCode());*/
 
         modelDetailInfo.setModelFileLinks(modelDetailMap.get(BussInfoKeyEnum.MODELDETAIL_MODELFILELINKS.getCode()));
         modelDetailMap.remove(BussInfoKeyEnum.MODELDETAIL_MODELFILELINKS.getCode());

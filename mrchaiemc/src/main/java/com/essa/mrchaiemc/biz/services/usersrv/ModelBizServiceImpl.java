@@ -107,6 +107,9 @@ public class ModelBizServiceImpl implements ModelBizService {
             if(modelDetailInfoKVDO!= null){
                 modelInfoItem.setSampleImgFileLinks(modelDetailInfoKVDO.getValue());
             }
+            if(StringUtil.isEmpty(modelInfoItem.getSampleImgFileLinks())){
+                continue;
+            }
             modelInfoList.add(modelInfoItem);
         }
         //paged need send totalNum
@@ -406,6 +409,8 @@ public class ModelBizServiceImpl implements ModelBizService {
             modelInfo.setModelName(modelInfoDO.getModelName());
             modelInfo.setModelKey(modelInfoDO.getModelKey());
             modelInfo.setModelSubName(modelInfoDO.getModelSubName());
+            modelInfo.setOwnerCustId(modelInfoDO.getOwnerCustId());
+            modelInfo.setMannerUserId(modelInfoDO.getMannerUserId());
             modelInfo.setCateGory1(modelInfoDO.getCateGory1());
             modelInfo.setCateGory2(modelInfoDO.getCateGory2());
             modelInfo.setCateGory3(modelInfoDO.getCateGory3());

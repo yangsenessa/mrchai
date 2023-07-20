@@ -39,10 +39,6 @@ public class ModelDetailInfoGenerComponent implements BussComponent {
             response.setResCode(ResultCode.INVAILDPARAMS.name());
             return false;
         }
-        if (StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODELDETAIL_VERSION.getCode()))) {
-            response.setResCode(ResultCode.INVAILDPARAMS.name());
-            return false;
-        }
         return true;
 
     }
