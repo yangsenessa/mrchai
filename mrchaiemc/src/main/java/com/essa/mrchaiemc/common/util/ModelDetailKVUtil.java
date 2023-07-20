@@ -6,6 +6,7 @@ package com.essa.mrchaiemc.common.util;
 
 import cn.minsin.core.tools.StringUtil;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfoV2;
+import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.common.dal.repository.v2.ModelDetailInfoKVDO;
 
@@ -19,6 +20,8 @@ import java.util.Map;
  * @version : ModelDetailKVUtil.java, v 0.1 2023年07月20日 12:43 AM senyang Exp $
  */
 public class ModelDetailKVUtil {
+    /** not have managemented version*/
+    private static String DEFAULT_V = "NO_VERSION";
 
     /**
      * build grpup_key
@@ -28,7 +31,7 @@ public class ModelDetailKVUtil {
         stb.append(modelDetailInfoV2.getModelId());
         stb.append("#");
 
-        stb.append(modelDetailInfoV2.getVersion());
+        stb.append(DEFAULT_V);
         stb.append("#");
 
         return stb.toString();
@@ -41,6 +44,35 @@ public class ModelDetailKVUtil {
     public static String buildKey(ModelDetailInfoV2 modelDetailInfoV2, String keyName) {
         StringBuffer stb = new StringBuffer();
         stb.append(buldGroupKey(modelDetailInfoV2));
+        stb.append("#");
+        stb.append(keyName);
+        return stb.toString();
+    }
+
+    /**
+     *
+     * @param modelInfo
+     * @return
+     */
+    public static String buldGroupKey(ModelInfo modelInfo) {
+        StringBuffer stb = new StringBuffer();
+        stb.append(modelInfo.getModelId());
+        stb.append("#");
+
+        stb.append(DEFAULT_V);
+        stb.append("#");
+
+        return stb.toString();
+    }
+
+
+
+    /**
+     * build key
+     */
+    public static String buildKey(ModelInfo modelInfo, String keyName) {
+        StringBuffer stb = new StringBuffer();
+        stb.append(buldGroupKey(modelInfo));
         stb.append("#");
         stb.append(keyName);
         return stb.toString();
@@ -114,6 +146,8 @@ public class ModelDetailKVUtil {
         modelDetailInfoKVDO.setValue(val);
         return modelDetailInfoKVDO;
     }
+
+
 
 
 }

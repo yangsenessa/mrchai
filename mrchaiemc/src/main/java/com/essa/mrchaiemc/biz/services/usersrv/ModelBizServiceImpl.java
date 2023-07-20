@@ -11,8 +11,11 @@ import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ModelStatusEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.common.dal.dao.*;
+import com.essa.mrchaiemc.common.dal.dao.v2.ModelDetailInfoKVDAO;
 import com.essa.mrchaiemc.common.dal.repository.*;
+import com.essa.mrchaiemc.common.dal.repository.v2.ModelDetailInfoKVDO;
 import com.essa.mrchaiemc.common.util.DateUtil;
+import com.essa.mrchaiemc.common.util.ModelDetailKVUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,9 +43,11 @@ public class ModelBizServiceImpl implements ModelBizService {
     @Autowired
     private Cust2ModelMappingDAO cust2ModelMappingDAO;
 
-
     @Autowired
     private ModelDetailInfoDAO modelDetailInfoDAO;
+
+    @Autowired
+    private ModelDetailInfoKVDAO modelDetailInfoKVDAO;
 
     @Override
     @Transactional
@@ -93,10 +98,14 @@ public class ModelBizServiceImpl implements ModelBizService {
         }
         for (ModelInfoDO modelInfoDO : pageList) {
             ModelInfo modelInfoItem = new ModelInfo();
-            ModelCoverDO modelCoverDO = this.modelCoverDAO.findByModelId(modelInfoDO.getModelId());
             this.convertDO2ModelInfo(modelInfoDO, modelInfoItem);
-            if(modelCoverDO != null && StringUtil.isNotEmpty(modelCoverDO.getCoverImgList())){
-                modelInfoItem.setModelCover1(modelCoverDO.getCoverImgList().split(",")[0]);
+            ModelDetailInfoKVDO modelDetailInfoKVDO  =
+                    this.modelDetailInfoKVDAO.findByMainKey(
+                            ModelDetailKVUtil.buildKey(modelInfoItem,BussInfoKeyEnum.MODELDETAIL_SAMPLEIMGLINKS.getCode())
+                    );
+
+            if(modelDetailInfoKVDO!= null){
+                modelInfoItem.setSampleImgFileLinks(modelDetailInfoKVDO.getValue());
             }
             modelInfoList.add(modelInfoItem);
         }
@@ -155,6 +164,7 @@ public class ModelBizServiceImpl implements ModelBizService {
     }
 
     @Override
+    @Deprecated
     public ModelDetailInfo getModelDetailInfo(BussRequest request, BussResponse response) {
         ModelDetailInfo modelDetailInfo = new ModelDetailInfo();
         String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());

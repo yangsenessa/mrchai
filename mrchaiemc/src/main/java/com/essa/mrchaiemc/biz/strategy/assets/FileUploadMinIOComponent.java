@@ -38,15 +38,21 @@ public class FileUploadMinIOComponent implements BussComponent {
     public void doProcess(BussRequest request, BussResponse response) {
 
 
-        MinIOFileInfoDO minIOFileInfoDO = new MinIOFileInfoDO();
-        minIOFileInfoDO.setFileId(UUID.randomUUID().toString());
+        MinIOFileInfoDO minIOFileInfoDO = null;
 // String downLoadurl=minioUtil.getFileUrl(downLoadLink); //下载地址链接
         MultipartFile[] files = request.getBussContext().getFile();
+        StringBuffer linkForDowmLoad = new StringBuffer();
         try {
             for (MultipartFile file : files) {
+                if(StringUtil.isNotEmpty(linkForDowmLoad.toString())){
+                    linkForDowmLoad.append(",");
+                }
+                minIOFileInfoDO = new MinIOFileInfoDO();
+                minIOFileInfoDO.setFileId(UUID.randomUUID().toString());
                 String returns=minioUtil.uploadFile(file);
                 minIOFileInfoDO.setMinIOurlk(returns);
                 String downLoadurl=minioUtil.getFileUrl(returns);
+                linkForDowmLoad.append(downLoadurl);
                 minIOFileInfoDO.setDownLoadLink(downLoadurl);
                 this.minIOFileInfoDAO.save(minIOFileInfoDO);
             }
@@ -55,7 +61,7 @@ public class FileUploadMinIOComponent implements BussComponent {
         }
         response.setResCode(ResultCode.SUCCESS.name());
         response.setResExtInfo(new HashMap<String, String>());
-        response.getResExtInfo().put(BussInfoKeyEnum.FILELINK.getCode(), minIOFileInfoDO.getDownLoadLink());
+        response.getResExtInfo().put(BussInfoKeyEnum.FILELINK.getCode(), linkForDowmLoad.toString());
     }
 
     @Override

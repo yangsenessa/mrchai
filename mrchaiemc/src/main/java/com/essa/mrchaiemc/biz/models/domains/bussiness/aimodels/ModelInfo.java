@@ -32,7 +32,7 @@ public class ModelInfo {
     private String cateGory3;
 
     /** modelCover1*/
-    private String modelCover1;
+    private String sampleImgFileLinks;
 
 
 
@@ -93,23 +93,6 @@ public class ModelInfo {
         this.modelSubName = modelSubName;
     }
 
-    /**
-     * Getter method for property <tt>modelCover1</tt>.
-     *
-     * @return property value of modelCover1
-     */
-    public String getModelCover1() {
-        return modelCover1;
-    }
-
-    /**
-     * Setter method for property <tt>modelCover1</tt>.
-     *
-     * @param modelCover1 value to be assigned to property modelCover1
-     */
-    public void setModelCover1(String modelCover1) {
-        this.modelCover1 = modelCover1;
-    }
 
     /**
      * Getter method for property <tt>ownerCustId</tt>.
@@ -145,5 +128,24 @@ public class ModelInfo {
      */
     public void setMannerUserId(String mannerUserId) {
         this.mannerUserId = mannerUserId;
+    }
+
+
+    /**
+     * Getter method for property <tt>sampleImgFileLink</tt>.
+     *
+     * @return property value of sampleImgFileLink
+     */
+    public String getSampleImgFileLinks() {
+        return sampleImgFileLinks;
+    }
+
+    /**
+     * Setter method for property <tt>sampleImgFileLink</tt>.
+     *
+     * @param sampleImgFileLink value to be assigned to property sampleImgFileLink
+     */
+    public void setSampleImgFileLinks(String sampleImgFileLink) {
+        this.sampleImgFileLinks = sampleImgFileLink;
     }
 }
