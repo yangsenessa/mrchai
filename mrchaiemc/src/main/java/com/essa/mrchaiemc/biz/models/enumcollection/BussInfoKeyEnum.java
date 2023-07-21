@@ -34,6 +34,7 @@ public enum BussInfoKeyEnum {
     MODELDETAIL_SAMPLEIMGLINKS("sampleImgFileLinks","sampleImgFileLinks"),
     MODELDETAIL_MODELFILEHASECODE("modelFileHashCodes","modelFileHashCodes"),
     MODELDETAIL_MODELFILENAMES("modelFileNames","modelFileNames"),
+    MODELDETAIL_HASHCODE("modelHashCode","modelHashCode"),
 
     /** ============================================================ */
     MODELREVIEW("reviewIssue","reviewIssue")

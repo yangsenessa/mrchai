@@ -111,6 +111,14 @@ public interface ModelBizService {
      */
      void mannerModelPublish(BussRequest request, BussResponse response);
 
+    /**
+     * load ModelInfo by Certain Param
+     * @param request
+     * @param response
+     * @return
+     */
+     List<ModelInfo> fetchModelInfosByHashCode(BussRequest request, BussResponse response);
+
 
 
 }

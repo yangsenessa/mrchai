@@ -24,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -235,6 +236,19 @@ public class ModelBizServiceImpl implements ModelBizService {
         return modelInfo;
     }
 
+    /**
+     *
+     * @param modelId
+     * @return
+     */
+    private ModelInfo getModelInfoByModelId(String modelId){
+        ModelInfo modelInfo = new ModelInfo();
+        ModelInfoDO modelInfoDO = modelInfoDAO.findByModelId(modelId);
+        this.convertDO2ModelInfo(modelInfoDO, modelInfo);
+        return modelInfo;
+
+    }
+
     @Override
     public List<String> getModelIdsByCustId(BussRequest request, BussResponse response) {
         String custId = request.getUserContext().getUserId();
@@ -269,6 +283,34 @@ public class ModelBizServiceImpl implements ModelBizService {
 
         ModelDetailInfoKVDO modelDetailInfoKVDO =  ModelDetailKVUtil.buildColSingle(modelId,BussInfoKeyEnum.MODELREVIEW.getCode(), reviewIssue);
         this.modelDetailInfoKVDAO.save(modelDetailInfoKVDO);
+    }
+
+    @Override
+    public List<ModelInfo> fetchModelInfosByHashCode(BussRequest request, BussResponse response) {
+        //The value of hashCode has been checked by the prior component
+        String hashCode = request.getBussExtInfo().get(BussInfoKeyEnum.MODELDETAIL_HASHCODE.getCode());
+        List<ModelDetailInfoKVDO> modelDetailInfoKVDOList =  this.modelDetailInfoKVDAO.findByValue(hashCode);
+        List<ModelInfo> modelInfoList = new ArrayList<>();
+        if(modelDetailInfoKVDOList == null){
+            return null;
+        }
+        for(ModelDetailInfoKVDO modelDetailInfoKVDO: modelDetailInfoKVDOList){
+            String mainKey = modelDetailInfoKVDO.getMainKey();
+            String modelId = StringUtil.EMPTY;
+
+            if(StringUtil.endsWithIgnoreCase(mainKey,BussInfoKeyEnum.MODELDETAIL_HASHCODE.getCode())){
+                String[] keySplit = StringUtil.split(mainKey,"#");
+                if(keySplit != null){
+                    modelId = keySplit[0];
+                    if(StringUtil.isNotEmpty(modelId)){
+                        ModelInfo modelInfo = this.getModelInfoByModelId(modelId);
+                        modelInfoList.add(modelInfo);
+                    }
+                }
+            }
+        }
+
+        return modelInfoList;
     }
 
     /**

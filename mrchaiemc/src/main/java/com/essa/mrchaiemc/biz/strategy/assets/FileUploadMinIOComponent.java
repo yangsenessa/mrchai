@@ -59,6 +59,8 @@ public class FileUploadMinIOComponent implements BussComponent {
         } catch (Exception e) {
             response.setResCode(ResultCode.SYSFAIL.name());
         }
+        //FileHashCal
+
         response.setResCode(ResultCode.SUCCESS.name());
         response.setResExtInfo(new HashMap<String, String>());
         response.getResExtInfo().put(BussInfoKeyEnum.FILELINK.getCode(), linkForDowmLoad.toString());

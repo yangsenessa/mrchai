@@ -17,4 +17,6 @@ public interface ModelDetailInfoKVDAO extends JpaRepository<ModelDetailInfoKVDO,
     List<ModelDetailInfoKVDO> findByGroupKey(String groupKey);
 
     ModelDetailInfoKVDO findByMainKey(String key);
+
+    List<ModelDetailInfoKVDO> findByValue(String value);
 }
