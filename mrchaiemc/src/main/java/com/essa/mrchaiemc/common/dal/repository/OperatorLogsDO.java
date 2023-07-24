@@ -1,5 +1,7 @@
 package com.essa.mrchaiemc.common.dal.repository;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,9 +10,10 @@ import java.util.Date;
 public class OperatorLogsDO {
 
     @Id
-    @GeneratedValue
+    @GenericGenerator(name = "snowFlakeIdGenerator", strategy = "com.essa.mrchaiemc.common.util.idgen.SnowFlakeIdGenerator")
+    @GeneratedValue (generator = "snowFlakeIdGenerator")
     @Column(name = "id")
-    private Long Id;
+    private String Id;
 
     @Column(name = "trace_id", nullable = false, length = 128)
     private String traceId;
@@ -48,11 +51,11 @@ public class OperatorLogsDO {
     @Column(name = "biz_order_id", length = 128)
     private String bizOrderId;
 
-    public Long getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         Id = id;
     }
 
