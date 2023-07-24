@@ -44,6 +44,7 @@ public class ModelDetailInfoGenerComponent implements BussComponent {
             ModelDetailInfoV2 modelDetailInfo = modelDetailBizService.getModelDetailInfoV2(request, response);
             ModelInfo modelInfo = modelBizService.getCertailModelInfo(request, response);
             response.setResCode(ResultCode.SUCCESS.name());
+
             String jsonExt = JSONObject.toJSONString(modelInfo);
             String jsonDetailExt = JSONObject.toJSONString(modelDetailInfo);
             Map<String, String> modelDetailMap = JSONObject.parseObject(jsonDetailExt, new TypeReference<Map<String, String>>() {
@@ -55,6 +56,8 @@ public class ModelDetailInfoGenerComponent implements BussComponent {
             response.getResExtInfo().put(BussInfoKeyEnum.MODELDETAIL_MODELFILEHASECODE.getCode(), modelDetailInfo.getModelFileHashCodes());
             response.getResExtInfo().put(BussInfoKeyEnum.MODELDETAIL_MODELFILELINKS.getCode(), modelDetailInfo.getModelFileLinks());
             response.getResExtInfo().put(BussInfoKeyEnum.MODELDETAIL_MODELFILENAMES.getCode(), modelDetailInfo.getModelFileNames());
+            modelDetailInfo.getExtDetailInfo().remove(BussInfoKeyEnum.MODELDETAIL_SAMPLEIMGLINKS.getCode());
+            modelDetailInfo.getExtDetailInfo().remove(BussInfoKeyEnum.MODELDETAIL_MODELFILELINKS.getCode());
             response.getResExtInfo().putAll(modelDetailInfo.getExtDetailInfo());
 
 

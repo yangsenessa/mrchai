@@ -8,6 +8,7 @@ import cn.minsin.core.tools.StringUtil;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.CustIdentiTypeEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.biz.services.usersrv.UserService;
 import com.essa.mrchaiemc.biz.strategy.BussComponent;
@@ -29,11 +30,18 @@ public class SetUserAuthTokenComponent implements BussComponent {
         if (StringUtil.isNotEmpty(response.getResCode()) && !StringUtil.equals(response.getResCode(), ResultCode.SUCCESS.name())) {
             return false;
         }
-        if (StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode()))
-                || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.LOGINTYPE.getCode()))) {
-            response.setResCode(ResultCode.INVAILDPARAMS.name());
-            return false;
+        String loginType = request.getBussExtInfo().get(BussInfoKeyEnum.LOGINTYPE.getCode());
+        if(StringUtil.equals(loginType, CustIdentiTypeEnum.PASSWD.getMsg())){
+            if (StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode()))){
+                return false;
+            }
         }
+        if(StringUtil.equals(loginType, CustIdentiTypeEnum.PRINCIPLAL.getMsg())){
+            if (StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode()))){
+                return false;
+            }
+        }
+
         return true;
     }
 

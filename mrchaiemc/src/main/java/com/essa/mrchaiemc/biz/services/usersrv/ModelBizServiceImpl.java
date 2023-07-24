@@ -14,6 +14,7 @@ import com.essa.mrchaiemc.common.dal.dao.*;
 import com.essa.mrchaiemc.common.dal.dao.v2.ModelDetailInfoKVDAO;
 import com.essa.mrchaiemc.common.dal.repository.*;
 import com.essa.mrchaiemc.common.dal.repository.v2.ModelDetailInfoKVDO;
+import com.essa.mrchaiemc.common.util.CanisterUtil;
 import com.essa.mrchaiemc.common.util.DateUtil;
 import com.essa.mrchaiemc.common.util.ModelDetailKVUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -119,7 +120,8 @@ public class ModelBizServiceImpl implements ModelBizService {
         };
 
             //分页查询
-        Page<ModelInfoDO> pageList = modelInfoDAO.findAll(specification,pageable);
+       // Page<ModelInfoDO> pageList = modelInfoDAO.findAll(specification,pageable);
+        Page<ModelInfoDO> pageList = modelInfoDAO.findAll(pageable);
         if (pageList == null) {
             return null;
         }
@@ -132,7 +134,8 @@ public class ModelBizServiceImpl implements ModelBizService {
                     );
 
             if(modelDetailInfoKVDO!= null){
-                modelInfoItem.setSampleImgFileLinks(modelDetailInfoKVDO.getValue());
+                modelInfoItem.setSampleImgFileLinks(
+                        CanisterUtil.transferUrlPattern(modelDetailInfoKVDO.getValue()));
             }
             if(StringUtil.isEmpty(modelInfoItem.getSampleImgFileLinks())){
                 continue;
@@ -233,6 +236,16 @@ public class ModelBizServiceImpl implements ModelBizService {
 
         ModelInfoDO modelInfoDO = modelInfoDAO.findByModelId(modelId);
         this.convertDO2ModelInfo(modelInfoDO, modelInfo);
+
+        ModelDetailInfoKVDO modelDetailInfoKVDO  =
+                this.modelDetailInfoKVDAO.findByMainKey(
+                        ModelDetailKVUtil.buildKey(modelInfo,BussInfoKeyEnum.MODELDETAIL_SAMPLEIMGLINKS.getCode())
+                );
+
+        if(modelDetailInfoKVDO!= null){
+            modelInfo.setSampleImgFileLinks(
+                    CanisterUtil.transferUrlPattern(modelDetailInfoKVDO.getValue()));
+        }
         return modelInfo;
     }
 

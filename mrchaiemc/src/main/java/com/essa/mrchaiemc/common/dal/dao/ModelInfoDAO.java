@@ -15,7 +15,7 @@ public interface ModelInfoDAO extends JpaRepository<ModelInfoDO, String>, JpaSpe
     Page<ModelInfoDO> findByCateGory1(String cateGory1, Pageable pageable);
 
 
-    @Query(value="select count(mb.model_id) from model_info_base mb where mb.model_stat = 'NORMAL'", nativeQuery = true)
+    @Query(value="select count(mb.model_id) from model_info_base mb", nativeQuery = true)
     int countValidModel();
 
 }

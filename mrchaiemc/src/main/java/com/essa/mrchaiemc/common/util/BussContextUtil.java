@@ -22,7 +22,6 @@ import java.util.ArrayList;
  */
 public class BussContextUtil {
 
-
     /**
      * 用户登录，构建业务buss上下文
      * @param request
@@ -32,10 +31,7 @@ public class BussContextUtil {
         BussRequest bussRequest = new BussRequest();
         bussRequest.setBussContext(new BussContext());
         bussRequest.setUserContext(new UserContext());
-        //custID为null,推介期间降级为公共id
-        if(StringUtil.isEmpty(request.getCustId())){
-            bussRequest.getUserContext().setUserId("PUBLIC");
-        }
+
         bussRequest.getUserContext().setUserId(request.getCustId());
         bussRequest.getUserContext().setLoginId(request.getLoginId());
         bussRequest.getUserContext().setHasLogin(false);

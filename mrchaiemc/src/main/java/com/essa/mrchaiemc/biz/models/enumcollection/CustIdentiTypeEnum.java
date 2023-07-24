@@ -6,7 +6,8 @@ public enum CustIdentiTypeEnum {
 
     PASSWD(1,"PASSWD"),
     TWITTER(2,"TWITTER"),
-    BUSSINFO(3,"BUSSINFO");//嵌入式能力供给
+    BUSSINFO(3,"BUSSINFO"),//嵌入式能力供给
+    PRINCIPLAL(4,"PRINCIPAL");
 
 
     private int code;

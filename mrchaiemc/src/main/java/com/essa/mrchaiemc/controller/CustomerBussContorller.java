@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
-@CrossOrigin
 @RequestMapping(value = "/")
 public class CustomerBussContorller {
     private static Logger logger = Logger.getLogger(CustomerBussContorller.class);

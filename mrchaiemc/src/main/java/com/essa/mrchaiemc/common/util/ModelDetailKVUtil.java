@@ -162,7 +162,7 @@ public class ModelDetailKVUtil {
             }
             if (StringUtil.equals(modelDetailInfoKVDO.getColName(), BussInfoKeyEnum.MODELDETAIL_MODELFILELINKS.getCode()))
             {
-                modelDetailInfoV2.setModelFileLinks(modelDetailInfoKVDO.getValue());
+                modelDetailInfoV2.setModelFileLinks(CanisterUtil.transferUrlPattern(modelDetailInfoKVDO.getValue()));
             }
             if (StringUtil.equals(modelDetailInfoKVDO.getColName(), BussInfoKeyEnum.MODELDETAIL_MODELFILEHASECODE.getCode()))
             {

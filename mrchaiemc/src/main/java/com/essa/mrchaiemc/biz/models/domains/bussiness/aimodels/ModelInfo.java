@@ -149,6 +149,7 @@ public class ModelInfo {
      * @param sampleImgFileLink value to be assigned to property sampleImgFileLink
      */
     public void setSampleImgFileLinks(String sampleImgFileLink) {
+
         this.sampleImgFileLinks = sampleImgFileLink;
     }
 

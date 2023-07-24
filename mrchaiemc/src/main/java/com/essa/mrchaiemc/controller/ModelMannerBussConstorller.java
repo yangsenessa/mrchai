@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@CrossOrigin
 @RequestMapping(value = "/")
 public class ModelMannerBussConstorller {
     @Autowired
@@ -58,6 +57,7 @@ public class ModelMannerBussConstorller {
      * @param req
      * @return
      */
+    @CrossOrigin( origins="*", allowCredentials = "false")
     @RequestMapping(value = "/queryModelInfoForMainView.do", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     @ResponseBody
     public CustomerCommonResponse queryModelInfoForMainView(@RequestBody CustomCommonReq req) {

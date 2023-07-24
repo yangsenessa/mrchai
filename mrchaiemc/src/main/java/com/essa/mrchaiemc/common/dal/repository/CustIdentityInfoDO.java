@@ -15,6 +15,9 @@ import java.io.Serializable;
 @Table(name = "cfg_custindentity_info",indexes = {@Index(name = "custid_identitype_idx",columnList = "custid,identitype", unique = true)})
 public class CustIdentityInfoDO implements Serializable {
     @Id
+    @Column(name = "custid_identy_type", nullable = false, length = 512)
+    private String custIdentyType;
+
     @Column(name = "custid", nullable = false, length = 15)
     private String custId;
 
@@ -181,5 +184,23 @@ public class CustIdentityInfoDO implements Serializable {
      */
     public void setGmtTokenSet(long gmtTokenSet) {
         this.gmtTokenSet = gmtTokenSet;
+    }
+
+    /**
+     * Getter method for property <tt>custIdentyType</tt>.
+     *
+     * @return property value of custIdentyType
+     */
+    public String getCustIdentyType() {
+        return custIdentyType;
+    }
+
+    /**
+     * Setter method for property <tt>custIdentyType</tt>.
+     *
+     * @param custIdentyType value to be assigned to property custIdentyType
+     */
+    public void setCustIdentyType(String custIdentyType) {
+        this.custIdentyType = custIdentyType;
     }
 }

@@ -72,6 +72,11 @@ public class UserServiceImpl implements UserService {
         if(custIdentityInfo != null && StringUtil.equals(custIdentityInfo.getAuthCode(),token)){
             response.setResExtInfo(new HashMap<>());
             response.getResExtInfo().put(BussInfoKeyEnum.CUSTID.getCode(),custInfoDO.getCustId() );
+            response.getResExtInfo().put(BussInfoKeyEnum.APPLREGINFO_MOBILEPHONE.getCode(), custInfoDO.getMobilePhoneNo());
+            response.getResExtInfo().put(BussInfoKeyEnum.APPLREGINFO_LOGINID.getCode(), custInfoDO.getLoginId());
+            response.getResExtInfo().put(BussInfoKeyEnum.APPLREGINFO_EMAIL.getCode(), custInfoDO.getEmail());
+            response.getResExtInfo().put(BussInfoKeyEnum.APPLREGINFO_NICKNAME.getCode(), custInfoDO.getNickName());
+            response.getResExtInfo().put(BussInfoKeyEnum.APPLREGINFO_CUST_PRINCIPLE.getCode(), custInfoDO.getProfile());
             response.setResCode(ResultCode.SUCCESS.name());
         } else if (custIdentityInfo == null) {
             response.setResCode(ResultCode.NEEDREGISTER.name());
@@ -160,7 +165,10 @@ public class UserServiceImpl implements UserService {
     public void setOrChangeAuthToken(BussRequest request, BussResponse response) {
         CustIdentityInfoDO custIdentityInfoDO = new CustIdentityInfoDO();
         custIdentityInfoDO.setCustId(request.getUserContext().getUserId());
-        custIdentityInfoDO.setAuthCode(request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode()));
+        String  authToken = request.getBussExtInfo().get(BussInfoKeyEnum.AUTHTOKEN.getCode());
+        String  loginType = request.getBussExtInfo().get(BussInfoKeyEnum.LOGINTYPE.getCode());
+        custIdentityInfoDO.setCustIdentyType(request.getUserContext().getUserId()+"-"+loginType);
+        custIdentityInfoDO.setAuthCode(authToken);
         custIdentityInfoDO.setIdentiChannel("MAINAPP");
         custIdentityInfoDO.setIdentiType
                 (CustIdentiTypeEnum.getCustIdentiTypeCodeByMsg(
@@ -169,6 +177,13 @@ public class UserServiceImpl implements UserService {
 
         try {
             custIdentityInfoDAO.save(custIdentityInfoDO);
+            if(StringUtil.equals(loginType, CustIdentiTypeEnum.PRINCIPLAL.getMsg())){
+                //principleid can be considered as a information of a customer
+                CustInfoDO custInfoDO = custInfoDAO.findByCustId(request.getUserContext().getUserId());
+                custInfoDO.setProfile(authToken);
+                custInfoDAO.save(custInfoDO);
+            }
+
             response.setResCode(ResultCode.SUCCESS.name());
         } catch (Exception e) {
             response.setResCode(ResultCode.SYSFAIL.name());
@@ -222,7 +237,6 @@ public class UserServiceImpl implements UserService {
         if (operatorLogs == null) {
             return operatorLogsDO;
         }
-
         operatorLogsDO.setTraceId(operatorLogs.getTraceId());
         operatorLogsDO.setCustId(operatorLogs.getUserId());
         String actionCode = operatorLogs.getActionType() == null ? null : operatorLogs.getActionType().getActionCode();
