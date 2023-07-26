@@ -32,6 +32,15 @@ public interface ModelBizService {
      */
     List<ModelInfo> fetchModelInfoBaseListByPages(BussRequest request, BussResponse response);
 
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    List<ModelInfo> fetchModelInfoBaseListByOwnerCustIdAndPages(BussRequest request, BussResponse response);
+
     /**
      * 分类分页获取模型列表信息-Category1分类
      * @param request

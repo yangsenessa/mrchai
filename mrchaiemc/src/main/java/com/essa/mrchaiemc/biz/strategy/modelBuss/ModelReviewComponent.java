@@ -35,7 +35,7 @@ public class ModelReviewComponent implements BussComponent {
     @Override
     public boolean preProcess(BussRequest request, BussResponse response) {
         if (StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode()))
-                || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODELREVIEW.getCode()))) {
+                || StringUtil.isEmpty(request.getBussExtInfo().get(BussInfoKeyEnum.MODELREVIEWRESCODE.getCode()))) {
             response.setResCode(ResultCode.INVAILDPARAMS.name());
             return false;
         }
@@ -45,12 +45,7 @@ public class ModelReviewComponent implements BussComponent {
             response.setResCode(ResultCode.MODELNOTEXSIT.name());
             return false;
         }
-        if (!StringUtil.equals(ModelStatusEnum.HIDDEN.getCode(), modelInfo.getModelStat())
-                && StringUtil.isNotEmpty(modelInfo.getModelStat())) {
-            LoggerUtil.errlog("model stat invalid!");
-            response.setResCode(ResultCode.MODELSTATINV.name());
-            return false;
-        }
+
         request.getBussContext().setModelContext(new ModelContext());
         request.getBussContext().getModelContext().setModelInfo(modelInfo);
         return true;

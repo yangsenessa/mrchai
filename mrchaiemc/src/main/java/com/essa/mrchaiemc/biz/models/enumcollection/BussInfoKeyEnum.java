@@ -38,8 +38,9 @@ public enum BussInfoKeyEnum {
     MODELDETAIL_HASHCODE("modelHashCode","modelHashCode"),
 
     /** ============================================================ */
-    MODELREVIEW("reviewIssue","reviewIssue")
-
+    MODELREVIEWISSUE("reviewIssue","reviewIssue"),
+    MODELREVIEWRESCODE("reviewResCode","reviewResCode"),
+    MODELOWNERCUSTID("ownerCustID","ownerCustId")
     ;
 
 

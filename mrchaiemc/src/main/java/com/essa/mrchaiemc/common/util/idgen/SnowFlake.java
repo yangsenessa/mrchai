@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 /**
- * 雪花算法
+ * SnowFlake
  */
 @Component
 public class SnowFlake implements ApplicationContextAware {

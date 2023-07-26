@@ -14,6 +14,7 @@ import com.essa.mrchaiemc.common.dal.dao.*;
 import com.essa.mrchaiemc.common.dal.dao.v2.ModelDetailInfoKVDAO;
 import com.essa.mrchaiemc.common.dal.repository.*;
 import com.essa.mrchaiemc.common.dal.repository.v2.ModelDetailInfoKVDO;
+import com.essa.mrchaiemc.common.integration.sys.BussConstant;
 import com.essa.mrchaiemc.common.util.CanisterUtil;
 import com.essa.mrchaiemc.common.util.DateUtil;
 import com.essa.mrchaiemc.common.util.ModelDetailKVUtil;
@@ -25,7 +26,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -147,6 +147,37 @@ public class ModelBizServiceImpl implements ModelBizService {
         response.setTotalNum(total);
         return modelInfoList;
 
+    }
+
+    @Override
+    public List<ModelInfo> fetchModelInfoBaseListByOwnerCustIdAndPages(BussRequest request, BussResponse response) {
+        int pageIndex = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGEINDEX.getCode()));
+        int pageSize = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGESIZE.getCode()));
+        String ownerCustId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELOWNERCUSTID.getCode());
+
+        List<ModelInfo> modelInfoList = new ArrayList<ModelInfo>();
+
+        //设置分页参数
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        Page<ModelInfoDO> pageList = modelInfoDAO.findByOwnerCustId(ownerCustId,pageable);
+        if (pageList == null) {
+            return null;
+        }
+        for (ModelInfoDO modelInfoDO : pageList) {
+            ModelInfo modelInfoItem = new ModelInfo();
+            this.convertDO2ModelInfo(modelInfoDO, modelInfoItem);
+            ModelDetailInfoKVDO modelDetailInfoKVDO  =
+                    this.modelDetailInfoKVDAO.findByMainKey(
+                            ModelDetailKVUtil.buildKey(modelInfoItem,BussInfoKeyEnum.MODELDETAIL_SAMPLEIMGLINKS.getCode())
+                    );
+
+            if(modelDetailInfoKVDO!= null){
+                modelInfoItem.setSampleImgFileLinks(
+                        CanisterUtil.transferUrlPattern(modelDetailInfoKVDO.getValue()));
+            }
+            modelInfoList.add(modelInfoItem);
+        }
+        return modelInfoList;
     }
 
     @Override
@@ -287,14 +318,21 @@ public class ModelBizServiceImpl implements ModelBizService {
     @Override
     public void mannerModelPublish(BussRequest request, BussResponse response) {
         String custId =  request.getUserContext().getUserId();
-        String reviewIssue = request.getBussExtInfo().get(BussInfoKeyEnum.MODELREVIEW.getCode());
+        String reviewIssue = request.getBussExtInfo().get(BussInfoKeyEnum.MODELREVIEWISSUE.getCode());
+        String reviewResCode =  request.getBussExtInfo().get(BussInfoKeyEnum.MODELREVIEWRESCODE.getCode());
         String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());
 
         ModelInfoDO modelInfoDO =this.modelInfoDAO.findByModelId(modelId);
-        modelInfoDO.setModelStat(ModelStatusEnum.NORMAL.getCode());
+        if(StringUtil.equals(BussConstant.ACCEPT_MODEL, reviewResCode)){
+            modelInfoDO.setModelStat(ModelStatusEnum.NORMAL.getCode());
+        }
+
+        if(StringUtil.equals(BussConstant.REFUSE_MODEL, reviewResCode)) {
+            modelInfoDO.setModelStat(ModelStatusEnum.HIDDEN.getCode());
+        }
         this.modelInfoDAO.save(modelInfoDO);
 
-        ModelDetailInfoKVDO modelDetailInfoKVDO =  ModelDetailKVUtil.buildColSingle(modelId,BussInfoKeyEnum.MODELREVIEW.getCode(), reviewIssue);
+        ModelDetailInfoKVDO modelDetailInfoKVDO =  ModelDetailKVUtil.buildColSingle(modelId,BussInfoKeyEnum.MODELREVIEWISSUE.getCode(), reviewIssue);
         this.modelDetailInfoKVDAO.save(modelDetailInfoKVDO);
     }
 

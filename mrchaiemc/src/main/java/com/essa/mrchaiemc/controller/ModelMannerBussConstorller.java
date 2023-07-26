@@ -161,4 +161,14 @@ public class ModelMannerBussConstorller {
 
     }
 
+    @RequestMapping(value = "/queryModelInfoByCustId.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
+    @ResponseBody
+    public CustomerCommonResponse queryModelInfoByCustId(@RequestBody CustomCommonReq req){
+        BussResponse bussResponse = new BussResponse();
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"QUERYMODELBYCUSTIDH");
+        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+
+    }
+
 }
