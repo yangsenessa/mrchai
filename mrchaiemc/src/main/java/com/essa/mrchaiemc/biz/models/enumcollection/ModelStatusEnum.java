@@ -1,9 +1,9 @@
 package com.essa.mrchaiemc.biz.models.enumcollection;
 
 public enum ModelStatusEnum {
-    NORMAL("NORMAL", "NORMAL"),
-    HIDDEN("HIDDEN","HIDDEN"),
-    DROP("DROP","DROP")
+    PUBLIISH("PUBLIISH", "PUBLIISH"),
+    INIT("INIT","INIT"),
+    SUBMIT("SUBMIT","SUBMIT")
     ;
 
 

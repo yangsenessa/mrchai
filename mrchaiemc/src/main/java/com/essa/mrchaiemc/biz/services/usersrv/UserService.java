@@ -2,6 +2,7 @@ package com.essa.mrchaiemc.biz.services.usersrv;
 
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
+import com.essa.mrchaiemc.common.dal.repository.CustInfoDO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -54,4 +55,13 @@ public interface UserService {
      */
     void saveOperatorLog(BussRequest request, BussResponse response);
 
-}
+
+    /**
+     *
+     * @param request
+     * @param custInfoDO
+     */
+    void addAuthorSuperToUser(BussRequest request,  BussResponse response);
+
+
+    }

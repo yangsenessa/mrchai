@@ -69,7 +69,7 @@ public class ModelBizServiceImpl implements ModelBizService {
         if (modelInfoDO == null) {
             modelInfoDO = new ModelInfoDO();
             // inti upload
-            modelInfo.setModelStat(ModelStatusEnum.HIDDEN.getCode());
+            modelInfo.setModelStat(ModelStatusEnum.INIT.getCode());
         }
         this.covertModelInfo2DO(modelInfo, modelInfoDO);
         Cust2ModelMappingDO cust2ModelMappingDO = new Cust2ModelMappingDO();
@@ -77,7 +77,7 @@ public class ModelBizServiceImpl implements ModelBizService {
         cust2ModelMappingDO.setGmtCreate(DateUtil.getGmtDateTime());
         cust2ModelMappingDO.setModelId(modelInfo.getModelId());
         cust2ModelMappingDO.setMapperId(cust2ModelMappingDO.getCustId() + "-" + modelInfo.getModelId());
-        cust2ModelMappingDO.setStatus(ModelStatusEnum.NORMAL.getCode());
+        cust2ModelMappingDO.setStatus(ModelStatusEnum.PUBLIISH.getCode());
         modelInfoDAO.save(modelInfoDO);
         cust2ModelMappingDAO.save(cust2ModelMappingDO);
     }
@@ -115,7 +115,7 @@ public class ModelBizServiceImpl implements ModelBizService {
 
             @Override
             public Predicate toPredicate(Root<ModelInfoDO> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                return query.where(criteriaBuilder.equal(root.get("modelStat"),"NORMAL")).getRestriction();
+                return query.where(criteriaBuilder.equal(root.get("modelStat"),"PUBLISH")).getRestriction();
             }
         };
 
@@ -323,12 +323,13 @@ public class ModelBizServiceImpl implements ModelBizService {
         String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());
 
         ModelInfoDO modelInfoDO =this.modelInfoDAO.findByModelId(modelId);
+        modelInfoDO.setMannerUserId(custId);
         if(StringUtil.equals(BussConstant.ACCEPT_MODEL, reviewResCode)){
-            modelInfoDO.setModelStat(ModelStatusEnum.NORMAL.getCode());
+            modelInfoDO.setModelStat(ModelStatusEnum.PUBLIISH.getCode());
         }
 
         if(StringUtil.equals(BussConstant.REFUSE_MODEL, reviewResCode)) {
-            modelInfoDO.setModelStat(ModelStatusEnum.HIDDEN.getCode());
+            modelInfoDO.setModelStat(ModelStatusEnum.INIT.getCode());
         }
         this.modelInfoDAO.save(modelInfoDO);
 

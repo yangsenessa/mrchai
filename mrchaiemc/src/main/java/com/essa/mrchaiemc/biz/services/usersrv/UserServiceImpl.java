@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.OperatorLogs;
-import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
-import com.essa.mrchaiemc.biz.models.enumcollection.CustIdentiTypeEnum;
-import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
-import com.essa.mrchaiemc.biz.models.enumcollection.UserStatusEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.*;
 import com.essa.mrchaiemc.biz.models.exceptions.DbOprException;
 import com.essa.mrchaiemc.common.dal.dao.CustAcctBaseDAO;
 import com.essa.mrchaiemc.common.dal.dao.CustIdentityInfoDAO;
@@ -21,6 +18,7 @@ import com.essa.mrchaiemc.common.dal.repository.OperatorLogsDO;
 import com.essa.mrchaiemc.common.util.DateUtil;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
 import org.apache.log4j.Logger;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,7 +86,7 @@ public class UserServiceImpl implements UserService {
     private void dealAsPublicCust(BussRequest request, BussResponse response){
         request.getUserContext().setHasLogin(true);
         request.getUserContext().setNickName("SUPER");
-        request.getUserContext().setGrandLevel(8);
+        //request.getUserContext().setGrandLevel(8);
         request.getUserContext().setUserStatus(UserStatusEnum.NORMAL);
         response.setResCode(ResultCode.SUCCESS.name());
     }
@@ -202,13 +200,22 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void addAuthorSuperToUser(BussRequest request,  BussResponse response) {
+        CustInfoDO custInfoDO = new CustInfoDO();
+        this.constractCustInfoDO(request,custInfoDO);
+        custInfoDO.setGrandLevel(UserLevelEnum.SUPER.getCode());
+        this.custInfoDAO.save(custInfoDO);
+
+    }
+
     private void buildUserContext(BussRequest request, CustInfoDO custInfoDO) {
         request.getUserContext().setUserId(custInfoDO.getCustId());
         request.getUserContext().setEmail(custInfoDO.getEmail());
         request.getUserContext().setNickName(custInfoDO.getNickName());
      //   request.getUserContext().setProfile(JSONObject.parseObject(custInfoDO.getProfile(),new TypeReference<UserProfile>(){}) );
         request.getUserContext().setLoginId(custInfoDO.getLoginId());
-        request.getUserContext().setGrandLevel(custInfoDO.getGrandLevel());
+        request.getUserContext().setGrandLevel(UserLevelEnum.getByCode(custInfoDO.getGrandLevel()));
         request.getUserContext().setMobilePhoneNo(custInfoDO.getMobilePhoneNo());
 
     }

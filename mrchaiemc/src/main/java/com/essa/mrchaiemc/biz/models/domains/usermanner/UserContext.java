@@ -1,5 +1,6 @@
 package com.essa.mrchaiemc.biz.models.domains.usermanner;
 
+import com.essa.mrchaiemc.biz.models.enumcollection.UserLevelEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.UserStatusEnum;
 
 public class UserContext {
@@ -20,7 +21,7 @@ public class UserContext {
     private UserProfile profile;
 
     /** grandLevel 用户VIP层级*/
-    private int grandLevel;
+    private UserLevelEnum grandLevel;
 
     /** email */
     private String email;
@@ -94,7 +95,7 @@ public class UserContext {
      *
      * @return property value of grandLevel
      */
-    public int getGrandLevel() {
+    public UserLevelEnum getGrandLevel() {
         return grandLevel;
     }
 
@@ -103,7 +104,7 @@ public class UserContext {
      *
      * @param grandLevel value to be assigned to property grandLevel
      */
-    public void setGrandLevel(int grandLevel) {
+    public void setGrandLevel(UserLevelEnum grandLevel) {
         this.grandLevel = grandLevel;
     }
 
