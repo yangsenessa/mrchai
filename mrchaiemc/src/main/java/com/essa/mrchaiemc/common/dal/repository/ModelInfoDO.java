@@ -46,6 +46,16 @@ public class ModelInfoDO implements Serializable {
     @Column(name = "model_stat", nullable = true,length = 10)
     private String modelStat;
 
+    @Column(name = "gmt_create", nullable = true,length = 10)
+    private Long gmtCreate;
+
+    @Column(name = "gmt_modify", nullable = true,length = 10)
+    private Long gmtModify;
+
+    @Column(name = "gmt_review", nullable = true,length = 10)
+    private Long gmtReview;
+
+
 
     public String getModelId() {
         return modelId;
@@ -155,5 +165,60 @@ public class ModelInfoDO implements Serializable {
      */
     public void setModelStat(String modelStat) {
         this.modelStat = modelStat;
+    }
+
+
+    /**
+     * Getter method for property <tt>gmtCreate</tt>.
+     *
+     * @return property value of gmtCreate
+     */
+    public Long getGmtCreate() {
+        return gmtCreate;
+    }
+
+    /**
+     * Setter method for property <tt>gmtCreate</tt>.
+     *
+     * @param gmtCreate value to be assigned to property gmtCreate
+     */
+    public void setGmtCreate(Long gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    /**
+     * Getter method for property <tt>gmtModify</tt>.
+     *
+     * @return property value of gmtModify
+     */
+    public Long getGmtModify() {
+        return gmtModify;
+    }
+
+    /**
+     * Setter method for property <tt>gmtModify</tt>.
+     *
+     * @param gmtModify value to be assigned to property gmtModify
+     */
+    public void setGmtModify(Long gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+    /**
+     * Getter method for property <tt>gmtReview</tt>.
+     *
+     * @return property value of gmtReview
+     */
+    public Long getGmtReview() {
+        return gmtReview;
+    }
+
+    /**
+     * Setter method for property <tt>gmtReview</tt>.
+     *
+     * @param gmtReview value to be assigned to property gmtReview
+     */
+    public void setGmtReview(Long gmtReview) {
+        this.gmtReview = gmtReview;
     }
 }

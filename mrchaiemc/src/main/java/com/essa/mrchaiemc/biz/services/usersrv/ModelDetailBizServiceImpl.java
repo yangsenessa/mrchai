@@ -9,12 +9,16 @@ import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfoV2;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
+import com.essa.mrchaiemc.common.dal.dao.ModelInfoDAO;
 import com.essa.mrchaiemc.common.dal.dao.v2.ModelDetailInfoKVDAO;
+import com.essa.mrchaiemc.common.dal.repository.ModelInfoDO;
 import com.essa.mrchaiemc.common.dal.repository.v2.ModelDetailInfoKVDO;
+import com.essa.mrchaiemc.common.util.DateUtil;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
 import com.essa.mrchaiemc.common.util.ModelDetailKVUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +32,18 @@ public class ModelDetailBizServiceImpl extends ModelBizServiceImpl {
     @Autowired
     private ModelDetailInfoKVDAO modelDetailInfoKVDAO;
 
+    @Autowired
+    private ModelInfoDAO modelInfoDAO;
+
     @Override
+    @Transactional
     public void modModelDetailInfo(BussRequest request, BussResponse response) {
         ModelDetailInfoV2 modelDetailInfo = request.getBussContext().getModelContext().getModelDetailInfo();
         List<ModelDetailInfoKVDO> modelDetailInfoKVDOList = ModelDetailKVUtil.buildModelDetailInfoKVFamily(modelDetailInfo);
         try {
+            ModelInfoDO modelInfoDO = this.modelInfoDAO.findByModelId(modelDetailInfo.getModelId());
+            modelInfoDO.setGmtModify(DateUtil.getGmtDateTime());
+            this.modelInfoDAO.save(modelInfoDO);
             modelDetailInfoKVDAO.saveAllAndFlush(modelDetailInfoKVDOList);
             response.setResCode(ResultCode.SUCCESS.name());
             response.setResExtInfo(new HashMap<>());

@@ -12,6 +12,7 @@ import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ModelStatusEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
+import com.essa.mrchaiemc.biz.models.enumcollection.UserLevelEnum;
 import com.essa.mrchaiemc.biz.services.usersrv.ModelBizService;
 import com.essa.mrchaiemc.biz.strategy.BussComponent;
 import com.essa.mrchaiemc.common.util.LoggerUtil;
@@ -43,6 +44,10 @@ public class ModelReviewComponent implements BussComponent {
         if (modelInfo == null) {
             LoggerUtil.errlog("model is not exsit!");
             response.setResCode(ResultCode.MODELNOTEXSIT.name());
+            return false;
+        }
+        if(request.getUserContext() == null ||
+                UserLevelEnum.SUPER != request.getUserContext().getGrandLevel()){
             return false;
         }
 

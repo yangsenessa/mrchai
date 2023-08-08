@@ -129,5 +129,21 @@ public interface ModelBizService {
      List<ModelInfo> fetchModelInfosByHashCode(BussRequest request, BussResponse response);
 
 
+    /**
+     * fetchModelInfosForReview
+     * @param request
+     * @param response
+     * @return
+     */
+     List<ModelInfo> fetchModelInfosForReview(BussRequest request, BussResponse response);
+
+    /**
+     * submitModel
+     * @param request
+     * @param response
+     */
+     void submitModel(BussRequest request, BussResponse response);
+
+
 
 }

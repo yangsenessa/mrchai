@@ -68,8 +68,11 @@ public class ModelBizServiceImpl implements ModelBizService {
         }
         if (modelInfoDO == null) {
             modelInfoDO = new ModelInfoDO();
+            modelInfoDO.setGmtCreate(DateUtil.getGmtDateTime());
             // inti upload
             modelInfo.setModelStat(ModelStatusEnum.INIT.getCode());
+        } else {
+            modelInfoDO.setGmtModify(DateUtil.getGmtDateTime());
         }
         this.covertModelInfo2DO(modelInfo, modelInfoDO);
         Cust2ModelMappingDO cust2ModelMappingDO = new Cust2ModelMappingDO();
@@ -121,7 +124,7 @@ public class ModelBizServiceImpl implements ModelBizService {
 
             //分页查询
        // Page<ModelInfoDO> pageList = modelInfoDAO.findAll(specification,pageable);
-        Page<ModelInfoDO> pageList = modelInfoDAO.findAll(pageable);
+        Page<ModelInfoDO> pageList = modelInfoDAO.findAll(specification,pageable);
         if (pageList == null) {
             return null;
         }
@@ -137,9 +140,7 @@ public class ModelBizServiceImpl implements ModelBizService {
                 modelInfoItem.setSampleImgFileLinks(
                         CanisterUtil.transferUrlPattern(modelDetailInfoKVDO.getValue()));
             }
-            if(StringUtil.isEmpty(modelInfoItem.getSampleImgFileLinks())){
-                continue;
-            }
+
             modelInfoList.add(modelInfoItem);
         }
         //paged need send totalNum
@@ -326,11 +327,14 @@ public class ModelBizServiceImpl implements ModelBizService {
         modelInfoDO.setMannerUserId(custId);
         if(StringUtil.equals(BussConstant.ACCEPT_MODEL, reviewResCode)){
             modelInfoDO.setModelStat(ModelStatusEnum.PUBLIISH.getCode());
+            modelInfoDO.setGmtReview(DateUtil.getGmtDateTime());
         }
 
         if(StringUtil.equals(BussConstant.REFUSE_MODEL, reviewResCode)) {
             modelInfoDO.setModelStat(ModelStatusEnum.INIT.getCode());
         }
+        modelInfoDO.setMannerUserId(request.getUserContext().getUserId());
+        modelInfoDO.setGmtModify(DateUtil.getGmtDateTime());
         this.modelInfoDAO.save(modelInfoDO);
 
         ModelDetailInfoKVDO modelDetailInfoKVDO =  ModelDetailKVUtil.buildColSingle(modelId,BussInfoKeyEnum.MODELREVIEWISSUE.getCode(), reviewIssue);
@@ -363,6 +367,77 @@ public class ModelBizServiceImpl implements ModelBizService {
         }
 
         return modelInfoList;
+    }
+
+    @Override
+    public List<ModelInfo> fetchModelInfosForReview(BussRequest request, BussResponse response) {
+
+        int pageIndex = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGEINDEX.getCode()));
+        int pageSize = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGESIZE.getCode()));
+
+        List<ModelInfo> modelInfoList = new ArrayList<ModelInfo>();
+
+        //设置分页参数
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        //封装条件查询对象Specification
+        Specification<ModelInfoDO> specification = new Specification<ModelInfoDO>(){
+
+            @Override
+            public Specification<ModelInfoDO> and(Specification<ModelInfoDO> other) {
+                return Specification.super.and(other);
+            }
+
+            @Override
+            public Specification<ModelInfoDO> or(Specification<ModelInfoDO> other) {
+                return Specification.super.or(other);
+            }
+
+            @Override
+            public Predicate toPredicate(Root<ModelInfoDO> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                return query.where(criteriaBuilder.equal(root.get("modelStat"),"SUBMIT")).getRestriction();
+            }
+        };
+
+        //分页查询
+        // Page<ModelInfoDO> pageList = modelInfoDAO.findAll(specification,pageable);
+        Page<ModelInfoDO> pageList = modelInfoDAO.findAll(specification,pageable);
+        if (pageList == null) {
+            return null;
+        }
+        for (ModelInfoDO modelInfoDO : pageList) {
+            ModelInfo modelInfoItem = new ModelInfo();
+            this.convertDO2ModelInfo(modelInfoDO, modelInfoItem);
+            ModelDetailInfoKVDO modelDetailInfoKVDO  =
+                    this.modelDetailInfoKVDAO.findByMainKey(
+                            ModelDetailKVUtil.buildKey(modelInfoItem,BussInfoKeyEnum.MODELDETAIL_SAMPLEIMGLINKS.getCode())
+                    );
+
+            if(modelDetailInfoKVDO!= null){
+                modelInfoItem.setSampleImgFileLinks(
+                        CanisterUtil.transferUrlPattern(modelDetailInfoKVDO.getValue()));
+            }
+
+            modelInfoList.add(modelInfoItem);
+        }
+        //paged need send totalNum
+        long total = modelInfoDAO.countValidModel();
+        response.setTotalNum(total);
+        return modelInfoList;
+    }
+
+    @Override
+    public void submitModel(BussRequest request, BussResponse response) {
+        String modelId = request.getBussExtInfo().get(BussInfoKeyEnum.MODELID.getCode());
+        String custId = request.getUserContext().getUserId();
+        ModelInfoDO modelInfoDO = this.modelInfoDAO.findByModelIdAndOwnerCustId(modelId, custId);
+        if(modelInfoDO == null){
+            response.setResCode(ResultCode.MODELNOTEXSIT.getMsg());
+            return;
+        }
+        modelInfoDO.setModelStat(ModelStatusEnum.SUBMIT.getCode());
+        modelInfoDO.setGmtModify(DateUtil.getGmtDateTime());
+        this.modelInfoDAO.save(modelInfoDO);
+        response.setResCode(ResultCode.SUCCESS.getMsg());
     }
 
     /**

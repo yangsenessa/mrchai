@@ -37,7 +37,6 @@ public class AddUserAuthorComponent implements BussComponent {
 
     @Override
     public void doProcess(BussRequest request, BussResponse response) {
-        CustInfoDO custInfoDO = new CustInfoDO();
         try {
             this.userService.addAuthorSuperToUser(request, response);
         } catch (Exception e) {

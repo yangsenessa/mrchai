@@ -67,6 +67,16 @@ public class ModelMannerBussConstorller {
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
 
+    @CrossOrigin( origins="*", allowCredentials = "false")
+    @RequestMapping(value = "/queryModelInfoListForReview.do", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
+    @ResponseBody
+    public CustomerCommonResponse queryModelInfoListForReview(@RequestBody CustomCommonReq req) {
+        BussResponse bussResponse = new BussResponse();
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req, "QUERYMODELFORREVIEW");
+        bussPipeline.execWithPipeLine(bussRequest, bussResponse);
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+    }
+
     /**
      * 首页模型分类展示数据
      *
@@ -168,16 +178,14 @@ public class ModelMannerBussConstorller {
         BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"QUERYMODELBYCUSTIDH");
         bussPipeline.execWithPipeLine(bussRequest,bussResponse);
         return ResUtil.customerCommonResponseBuild(bussResponse);
-
     }
 
-    @RequestMapping(value = "/authoriseUserToSuper.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
+    @RequestMapping(value = "/submitModel.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
     @ResponseBody
-    public CustomerCommonResponse authoriseUserToSuper(@RequestBody CustomCommonReq req){
+    public CustomerCommonResponse submitModel(@RequestBody CustomCommonReq req){
         BussResponse bussResponse = new BussResponse();
-        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"ADDAUTHORTOUSER");
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"SUBMITMODEL");
         bussPipeline.execWithPipeLine(bussRequest,bussResponse);
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
-
 }

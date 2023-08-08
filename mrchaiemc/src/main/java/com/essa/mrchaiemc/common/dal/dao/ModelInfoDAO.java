@@ -13,6 +13,8 @@ public interface ModelInfoDAO extends JpaRepository<ModelInfoDO, String>, JpaSpe
 
     ModelInfoDO findByModelId(String modelID);
 
+    ModelInfoDO findByModelIdAndOwnerCustId(String modelId, String custId);
+
     Page<ModelInfoDO> findByCateGory1(String cateGory1, Pageable pageable);
 
     Page<ModelInfoDO> findByOwnerCustId(String custId, Pageable pageable);

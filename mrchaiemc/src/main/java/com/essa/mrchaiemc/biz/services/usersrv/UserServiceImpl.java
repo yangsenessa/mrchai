@@ -202,8 +202,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addAuthorSuperToUser(BussRequest request,  BussResponse response) {
-        CustInfoDO custInfoDO = new CustInfoDO();
-        this.constractCustInfoDO(request,custInfoDO);
+        CustInfoDO custInfoDO = this.custInfoDAO.findByCustId(request.getUserContext().getUserId());
         custInfoDO.setGrandLevel(UserLevelEnum.SUPER.getCode());
         this.custInfoDAO.save(custInfoDO);
 

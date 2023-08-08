@@ -80,7 +80,14 @@ public class CustomerBussContorller {
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
 
-
+    @RequestMapping(value = "/authoriseUserToSuper.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
+    @ResponseBody
+    public CustomerCommonResponse authoriseUserToSuper(@RequestBody CustomCommonReq req){
+        BussResponse bussResponse = new BussResponse();
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByCustCommonReq(req,"ADDAUTHORTOUSER");
+        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+    }
 
 
 }
