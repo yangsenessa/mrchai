@@ -32,6 +32,9 @@ public class CanisterUtil {
                 return resUrl;
             }
 
+        } else {
+            resUrl = oriUrl;
+            return resUrl;
         }
         if(StringUtil.isNotEmpty(processUrl)){
             StringBuffer strb = new StringBuffer();
@@ -54,4 +57,9 @@ public class CanisterUtil {
         }
         return resUrl;
     }
+
+    public static void main(String[] args){
+       String s =  CanisterUtil.transferUrlPattern("https://s3.emchub.ai/emc-hub-a63123cf/1690177734860/20230809/WechatIMG2294.png");
+    }
+
 }
