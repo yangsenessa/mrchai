@@ -1,7 +1,7 @@
 package com.essa.mrchaiemc.biz.models.enumcollection;
 
 public enum ModelStatusEnum {
-    PUBLIISH("PUBLIISH", "PUBLIISH"),
+    PUBLISH("PUBLISH", "PUBLISH"),
     INIT("INIT","INIT"),
     SUBMIT("SUBMIT","SUBMIT")
     ;

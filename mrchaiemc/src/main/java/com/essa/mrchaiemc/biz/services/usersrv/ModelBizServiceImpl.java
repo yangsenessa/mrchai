@@ -80,7 +80,7 @@ public class ModelBizServiceImpl implements ModelBizService {
         cust2ModelMappingDO.setGmtCreate(DateUtil.getGmtDateTime());
         cust2ModelMappingDO.setModelId(modelInfo.getModelId());
         cust2ModelMappingDO.setMapperId(cust2ModelMappingDO.getCustId() + "-" + modelInfo.getModelId());
-        cust2ModelMappingDO.setStatus(ModelStatusEnum.PUBLIISH.getCode());
+        cust2ModelMappingDO.setStatus(ModelStatusEnum.PUBLISH.getCode());
         modelInfoDAO.save(modelInfoDO);
         cust2ModelMappingDAO.save(cust2ModelMappingDO);
     }
@@ -326,7 +326,7 @@ public class ModelBizServiceImpl implements ModelBizService {
         ModelInfoDO modelInfoDO =this.modelInfoDAO.findByModelId(modelId);
         modelInfoDO.setMannerUserId(custId);
         if(StringUtil.equals(BussConstant.ACCEPT_MODEL, reviewResCode)){
-            modelInfoDO.setModelStat(ModelStatusEnum.PUBLIISH.getCode());
+            modelInfoDO.setModelStat(ModelStatusEnum.PUBLISH.getCode());
             modelInfoDO.setGmtReview(DateUtil.getGmtDateTime());
         }
 
