@@ -144,6 +144,14 @@ public interface ModelBizService {
      */
      void submitModel(BussRequest request, BussResponse response);
 
+    /**
+     * searchModelInfoList
+     * @param request
+     * @param response
+     * @return
+     */
+     List<ModelInfo> searchModelInfoList(BussRequest request, BussResponse response);
+
 
 
 }

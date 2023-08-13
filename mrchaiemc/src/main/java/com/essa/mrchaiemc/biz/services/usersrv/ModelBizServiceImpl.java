@@ -4,10 +4,12 @@ import cn.minsin.core.tools.StringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
 import com.essa.mrchaiemc.biz.models.domains.BussResponse;
+import com.essa.mrchaiemc.biz.models.domains.FuzzyRequest;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfo;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfoV2;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelInfo;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.FuzzyRequestStrategyEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ModelStatusEnum;
 import com.essa.mrchaiemc.biz.models.enumcollection.ResultCode;
 import com.essa.mrchaiemc.common.dal.dao.*;
@@ -438,6 +440,49 @@ public class ModelBizServiceImpl implements ModelBizService {
         modelInfoDO.setGmtModify(DateUtil.getGmtDateTime());
         this.modelInfoDAO.save(modelInfoDO);
         response.setResCode(ResultCode.SUCCESS.getMsg());
+    }
+
+    @Override
+    public List<ModelInfo> searchModelInfoList(BussRequest request, BussResponse response) {
+        FuzzyRequestStrategyEnum fuzzyRequestStrategyAction =
+                request.getFuzzyRequest().getFuzzyRequestStrategyAction();
+        FuzzyRequest fuzzyRequest = request.getFuzzyRequest();
+        List<ModelInfoDO> resListDO = null;
+        Page<ModelInfoDO> pageList =  null;
+
+        int pageIndex = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGEINDEX.getCode()));
+        int pageSize = Integer.parseInt(request.getBussExtInfo().get(BussInfoKeyEnum.PAGESIZE.getCode()));
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+
+        if(FuzzyRequestStrategyEnum.SEARCH_BY_TITILE == fuzzyRequestStrategyAction){
+            pageList = modelInfoDAO.findModelByTitleLike(fuzzyRequest.getDesText(),pageable);
+        }
+        if(FuzzyRequestStrategyEnum.SEARCH_BY_TAG == fuzzyRequestStrategyAction){
+            pageList = modelInfoDAO.findModelByTagLike(fuzzyRequest.getTagText(),pageable);
+        }
+        if(FuzzyRequestStrategyEnum.SEARCH_BY_CATEGORY == fuzzyRequestStrategyAction ){
+            pageList = modelInfoDAO.findModelByCateGoryLike(fuzzyRequest.getTagText(),pageable);
+        }
+        if(FuzzyRequestStrategyEnum.SEARCH_BY_MODELSTAT ==  fuzzyRequestStrategyAction){
+            pageList = modelInfoDAO.findByModelStat(fuzzyRequest.getModelStat(), pageable);
+        }
+        if(FuzzyRequestStrategyEnum.SEARCH_BY_FUZZYMIXTRUE == fuzzyRequestStrategyAction ){
+            pageList = modelInfoDAO.findModelByTextFuzzy(fuzzyRequest.getDesText(),fuzzyRequest.getTagText(),fuzzyRequest.getCateText(), pageable);
+        }
+        if (pageList == null) {
+            return null;
+        }
+
+        List<ModelInfo> resList = new ArrayList<>();
+        for(ModelInfoDO modelInfoDO: pageList){
+            ModelInfo modelInfoItem = new ModelInfo();
+            this.convertDO2ModelInfo(modelInfoDO, modelInfoItem);
+            resList.add(modelInfoItem);
+        }
+
+        response.setTotalNum(pageList.getTotalElements());
+
+        return resList;
     }
 
     /**

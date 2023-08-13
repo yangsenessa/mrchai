@@ -127,7 +127,7 @@ public class ModelInfo {
     /**
      * Setter method for property <tt>manerUserId</tt>.
      *
-     * @param manerUserId value to be assigned to property manerUserId
+     * @param mannerUserId value to be assigned to property manerUserId
      */
     public void setMannerUserId(String mannerUserId) {
         this.mannerUserId = mannerUserId;

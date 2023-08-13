@@ -7,6 +7,7 @@ import com.essa.mrchaiemc.biz.models.domains.BussResponse;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.ModelContext;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.aimodels.ModelDetailInfo;
 import com.essa.mrchaiemc.biz.models.req.CustomCommonReq;
+import com.essa.mrchaiemc.biz.models.req.FuzzyReq;
 import com.essa.mrchaiemc.biz.models.rsp.CustomerCommonResponse;
 import com.essa.mrchaiemc.biz.pipeline.BussPipeline;
 import com.essa.mrchaiemc.common.util.BussContextUtil;
@@ -188,4 +189,14 @@ public class ModelMannerBussConstorller {
         bussPipeline.execWithPipeLine(bussRequest,bussResponse);
         return ResUtil.customerCommonResponseBuild(bussResponse);
     }
+
+    @RequestMapping(value = "/fuzzyRequest.do", produces = { MediaType.APPLICATION_JSON_VALUE },method = RequestMethod.POST)
+    @ResponseBody
+    public CustomerCommonResponse fuzzyRequest(@RequestBody FuzzyReq req){
+        BussResponse bussResponse = new BussResponse();
+        BussRequest bussRequest = BussContextUtil.buildBussRequestByFuzzyReq(req,"FUZZYREQUEST");
+        bussPipeline.execWithPipeLine(bussRequest,bussResponse);
+        return ResUtil.customerCommonResponseBuild(bussResponse);
+    }
+
 }

@@ -28,6 +28,8 @@ public class BussRequest {
 
     private Map<String, String> bussExtInfo = new HashMap<>();
 
+    private FuzzyRequest fuzzyRequest;
+
     public BussContext getBussContext() {
         return bussContext;
     }
@@ -94,5 +96,23 @@ public class BussRequest {
      */
     public void setHttpServletRequest(HttpServletRequest httpServletRequest) {
         this.httpServletRequest = httpServletRequest;
+    }
+
+    /**
+     * Getter method for property <tt>fuzzyRequest</tt>.
+     *
+     * @return property value of fuzzyRequest
+     */
+    public FuzzyRequest getFuzzyRequest() {
+        return fuzzyRequest;
+    }
+
+    /**
+     * Setter method for property <tt>fuzzyRequest</tt>.
+     *
+     * @param fuzzyRequest value to be assigned to property fuzzyRequest
+     */
+    public void setFuzzyRequest(FuzzyRequest fuzzyRequest) {
+        this.fuzzyRequest = fuzzyRequest;
     }
 }

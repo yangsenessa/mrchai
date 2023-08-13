@@ -6,15 +6,19 @@ package com.essa.mrchaiemc.common.util;
 
 import cn.minsin.core.tools.StringUtil;
 import com.essa.mrchaiemc.biz.models.domains.BussRequest;
+import com.essa.mrchaiemc.biz.models.domains.FuzzyRequest;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.BussContext;
 import com.essa.mrchaiemc.biz.models.domains.bussiness.OperatorLogs;
 import com.essa.mrchaiemc.biz.models.domains.usermanner.UserContext;
 import com.essa.mrchaiemc.biz.models.enumcollection.BussInfoKeyEnum;
+import com.essa.mrchaiemc.biz.models.enumcollection.FuzzyRequestStrategyEnum;
 import com.essa.mrchaiemc.biz.models.req.CustomCommonReq;
+import com.essa.mrchaiemc.biz.models.req.FuzzyReq;
 import com.essa.mrchaiemc.common.integration.sys.SysConfigInit;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author senyang
@@ -56,6 +60,76 @@ public class BussContextUtil {
             bussRequest.getStrategyCommonCodeList().add(actionItem);
         }
         return bussRequest;
+    }
+
+
+    public static BussRequest buildBussRequestByFuzzyReq(FuzzyReq request, String actionCode){
+        BussRequest bussRequest = new BussRequest();
+        bussRequest.setBussContext(new BussContext());
+        bussRequest.setUserContext(new UserContext());
+
+        bussRequest.getUserContext().setUserId(request.getCustId());
+        bussRequest.getUserContext().setLoginId(request.getLoginId());
+        bussRequest.getUserContext().setHasLogin(true);
+
+
+        String traceId = generBizTraceId();
+        bussRequest.setBussExtInfo(request.getBussData());
+        bussRequest.getBussContext().setActionCode(actionCode);
+        bussRequest.getBussContext().setTraceId(traceId);
+        bussRequest.getBussContext().setOperatorLogs(new OperatorLogs());
+
+        OperatorLogs operatorLogs = bussRequest.getBussContext().getOperatorLogs();
+        operatorLogs.setUserId(request.getCustId());
+        operatorLogs.setTraceId(traceId);
+        operatorLogs.setGmtCreate(DateUtil.getGmtDate());
+        operatorLogs.setActionType(ActionEnumMappingUtil.getActionTypeEnumFromActionCode(actionCode));
+
+
+        FuzzyRequest fuzzyRequest = new FuzzyRequest();
+        bussRequest.setFuzzyRequest(fuzzyRequest);
+        fuzzyRequest.setDesText(request.getTitlePattern());
+        fuzzyRequest.setCateText(request.getCategroyPattern());
+        fuzzyRequest.setTagText(request.getTagPattern());
+        fuzzyRequest.setModelStat(request.getModelStat());
+        fuzzyRequest.setFuzzyRequestStrategyAction(decideQuertStrategy(fuzzyRequest));
+
+
+        //buss components constract
+        String actionArray = SysConfigInit.bussFlowMap.get(actionCode);
+        bussRequest.setStrategyCommonCodeList(new ArrayList<>());
+        for(String actionItem : actionArray.split(",")){
+            bussRequest.getStrategyCommonCodeList().add(actionItem);
+        }
+        return bussRequest;
+    }
+
+    /**
+     * The decider of request strategy
+     * @param fuzzyRequest
+     * @return
+     */
+    private static FuzzyRequestStrategyEnum decideQuertStrategy(FuzzyRequest fuzzyRequest) {
+        //Whole mixture
+        if(StringUtil.isNotEmpty(fuzzyRequest.getDesText()) &&
+                (StringUtil.isNotEmpty(fuzzyRequest.getCateText()) ||
+               StringUtil.isNotEmpty(fuzzyRequest.getTagText()))){
+            return FuzzyRequestStrategyEnum.SEARCH_BY_FUZZYMIXTRUE;
+        }
+        if(StringUtil.isNotEmpty(fuzzyRequest.getDesText())){
+            return FuzzyRequestStrategyEnum.SEARCH_BY_TITILE;
+        }
+        if(StringUtil.isNotEmpty(fuzzyRequest.getCateText())){
+            return FuzzyRequestStrategyEnum.SEARCH_BY_CATEGORY;
+        }
+        if(StringUtil.isNotEmpty(fuzzyRequest.getTagText())) {
+            return FuzzyRequestStrategyEnum.SEARCH_BY_TAG;
+        }
+        if(StringUtil.isNotEmpty(fuzzyRequest.getModelStat())){
+            return FuzzyRequestStrategyEnum.SEARCH_BY_MODELSTAT;
+        }
+        return null;
+
     }
 
     /**
